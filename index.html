@@ -42,33 +42,70 @@
 
   <!-- 工作流指示器 -->
   <section class="workflow" aria-label="核心工作流">
-    <div class="wf-step"><b>⓪ 体态案例</b><span>真实情境切入</span></div>
+    <div class="wf-step"><b>① 学情诊断</b><span>六维能力定位</span></div>
     <i>→</i>
-    <div class="wf-step"><b>① 五维解码</b><span>结构·机制·风险·管理</span></div>
+    <div class="wf-step"><b>② 单元学练</b><span>情境化形成性测评</span></div>
     <i>→</i>
-    <div class="wf-step"><b>② 形成性测评</b><span>单选/多选/填空/识图</span></div>
+    <div class="wf-step"><b>③ 体态实训</b><span>五维解码·脚手架递减</span></div>
     <i>→</i>
-    <div class="wf-step"><b>③ 智能诊断</b><span>AI 解析错题 + 学情</span></div>
+    <div class="wf-step"><b>④ 能力档案</b><span>L1—L6 统一画像</span></div>
     <i>→</i>
-    <div class="wf-step"><b>④ 个性化路径</b><span>知识图谱推荐</span></div>
+    <div class="wf-step"><b>⑤ 智能伴学</b><span>AI 解析 + 路径推荐</span></div>
     <i>→</i>
-    <div class="wf-step"><b>⑤ 复盘自测</b><span>80% 通过校验</span></div>
+    <div class="wf-step"><b>⑥ 复盘自测</b><span>80% 通过校验</span></div>
   </section>
 
-  <!-- Tab 导航 -->
+  <!-- Tab 导航（递进式：诊断 → 学练 → 实训 → 档案） -->
   <nav class="tabs" role="tablist" aria-label="主导航">
-    <button class="tab active" data-v="posture" role="tab">🧍 体态解码</button>
-    <button class="tab" data-v="student" role="tab">📝 解剖测评</button>
-    <button class="tab" data-v="dashboard" role="tab">📊 个人数据看板</button>
+    <button class="tab active" data-v="diagnosis" role="tab">🎯 学情诊断</button>
+    <button class="tab" data-v="student" role="tab">📚 单元学练</button>
+    <button class="tab" data-v="posture" role="tab">🧍 体态实训</button>
+    <button class="tab" data-v="dashboard" role="tab">📈 能力档案</button>
     <button class="tab" data-v="graph" role="tab">🕸️ 知识图谱</button>
-    <button class="tab" data-v="assistant" role="tab">🤖 AI 智能伴学</button>
+    <button class="tab" data-v="assistant" role="tab">🤖 AI 伴学</button>
     <button class="tab" data-v="teacher" role="tab">🏫 教师端</button>
     <span class="tab-spacer"></span>
     <span class="tab-meta" id="lastUpdate">最近刷新：刚刚</span>
   </nav>
 
-  <!-- ============================== 体态解码（融合入口） ============================== -->
-  <section class="view" data-view="posture" role="tabpanel">
+  <!-- ============================== 学情诊断（融合闭环起点） ============================== -->
+  <section class="view" data-view="diagnosis" role="tabpanel">
+    <div class="grid-2">
+      <div class="panel">
+        <div class="panel-head">
+          <h2>六维能力画像</h2>
+          <span class="tag-note">L1—L3 学科基础 · L4—L6 专业特色</span>
+        </div>
+        <div id="diagRadar" class="chart"></div>
+        <div id="compBars" class="comp-bars"></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head">
+          <h2>下一步学什么</h2>
+          <span class="muted small">由能力数据实时计算</span>
+        </div>
+        <div id="diagRecommend"></div>
+        <div class="panel-head" style="margin-top:16px">
+          <h2>能力成长曲线</h2>
+          <span class="muted small">基础线与专业线同步抬升</span>
+        </div>
+        <div id="diagTrend" class="chart"></div>
+      </div>
+    </div>
+    <div class="panel" style="margin-top:18px">
+      <div class="panel-head">
+        <h2>学习进度</h2>
+        <span class="tag-note" id="diagProgress">0 掌握 / 0 已接触</span>
+      </div>
+      <div id="diagProgressBody" class="metrics" style="margin-top:10px"></div>
+      <p class="muted small" style="margin-top:10px">
+        本页所有数据来自「单元学练」与「体态实训」两侧的实时写入，两份老档案已在首次打开时自动合并为这一份统一档案。
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================== 体态实训 ============================== -->
+  <section class="view hidden" data-view="posture" role="tabpanel">
     <div class="panel">
       <div class="panel-head">
         <div>

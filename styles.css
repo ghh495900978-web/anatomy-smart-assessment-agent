@@ -538,3 +538,36 @@ button.block{ width:100%; margin-top:8px }
 .ethics-banner > span{ font-size:20px; line-height:1 }
 .ethics-banner strong{ font-size:13.5px; color:#8a6d3b }
 .ethics-banner p{ margin:4px 0 0; font-size:12.5px; line-height:1.7; color:#7a6a4f }
+
+/* ================= 学情诊断 · 六维能力模型 ================= */
+.comp-bars{ display:flex; flex-direction:column; gap:10px; margin-top:6px }
+.comp-row{ border:1px solid var(--c-border); border-radius:10px; padding:9px 12px; background:#fff }
+.comp-row-head{ display:flex; justify-content:space-between; align-items:baseline; gap:8px }
+.comp-row-head b{ font-size:13px; color:var(--c-text) }
+.comp-row-head span{ font-size:12px; color:var(--c-text-muted) }
+.comp-bar{ height:7px; border-radius:999px; background:#eef2f6; margin:7px 0 5px; overflow:hidden }
+.comp-bar i{ display:block; height:100%; border-radius:999px; background:#1769d1; transition:width .4s ease }
+.comp-row.good .comp-bar i{ background:#3b9a5f }
+.comp-row.ok .comp-bar i{ background:#1769d1 }
+.comp-row.warn .comp-bar i{ background:#e0a030 }
+.comp-row.bad .comp-bar i{ background:#d05545 }
+.comp-desc{ font-size:12px; color:var(--c-text-muted); line-height:1.6 }
+.comp-flag{ display:inline-block; background:#f0ecfd; color:#5b4bb5; border-radius:999px; padding:1px 8px; font-size:11px; font-weight:600 }
+
+.rec-block{ border-left:3px solid #1769d1; background:#f6f9fd; border-radius:0 10px 10px 0; padding:10px 14px; margin:10px 0 }
+.rec-block h4{ margin:0 0 6px; font-size:13.5px; color:var(--c-text) }
+.rec-item{ display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;
+  background:#fff; border:1px solid var(--c-border); border-radius:10px; padding:9px 12px; margin:7px 0 }
+.rec-item > div{ flex:1; min-width:180px }
+.rec-item b{ font-size:13px }
+.rec-item .muted.small{ display:block; margin-top:2px; line-height:1.6 }
+button.primary.small, button.ghost.small{ padding:5px 12px; font-size:12.5px; border-radius:8px; white-space:nowrap }
+
+/* 题目情境与能力维度标签 */
+.qscene{ display:flex; gap:8px; align-items:flex-start; background:#f6f9fd; border:1px dashed #c8dcf2;
+  border-radius:8px; padding:7px 10px; margin:7px 0 4px; font-size:12.5px; color:#33465c; line-height:1.65 }
+.qscene-tag{ flex:none; background:#1769d1; color:#fff; border-radius:999px; padding:1px 8px; font-size:11px; font-weight:600 }
+.qmeta{ font-size:12px; color:var(--c-text-muted); display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin:2px 0 6px }
+.comp-tag{ display:inline-block; border-radius:999px; padding:1px 8px; font-size:11px; font-weight:600 }
+.comp-tag.tier-base{ background:#e8f0fe; color:#1769d1 }
+.comp-tag.tier-pro{ background:#f0ecfd; color:#5b4bb5 }
