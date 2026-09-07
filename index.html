@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="面向健康服务与管理专业的人体解剖学智评学径智能体——AI驱动 + 知识图谱 + 个性化学习路径" />
-  <title>人体解剖学智评学径智能体｜v2 · AI 增强版</title>
+  <meta name="description" content="体态解码师·智评学径——面向健康服务与管理专业的人体解剖学智能训练与测评系统：体态案例解码 + 知识图谱测评 + 个性化学习路径 + 大模型智能伴学" />
+  <title>体态解码师 · 智评学径｜人体解剖学智能训练与测评系统</title>
   <link rel="stylesheet" href="styles.css" />
   <!-- ECharts：可视化（雷达图/柱状图/饼图/知识图谱） -->
   <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js" defer></script>
@@ -24,8 +24,8 @@
     </span>
     <div>
       <p class="eyebrow">健康服务与管理专业 · 人体解剖学课程</p>
-      <h1>智评学径 · AI 智能体</h1>
-      <p class="sub">基于知识图谱的形成性测评 · 个性化学习路径 · 大模型智能伴学</p>
+      <h1>体态解码师 · 智评学径</h1>
+      <p class="sub">体态案例解码 · 形成性测评 · 个性化学习路径 · 大模型智能伴学</p>
     </div>
   </div>
   <div class="topbar-meta">
@@ -42,7 +42,9 @@
 
   <!-- 工作流指示器 -->
   <section class="workflow" aria-label="核心工作流">
-    <div class="wf-step"><b>① 选择系统</b><span>10 大解剖系统</span></div>
+    <div class="wf-step"><b>⓪ 体态案例</b><span>真实情境切入</span></div>
+    <i>→</i>
+    <div class="wf-step"><b>① 五维解码</b><span>结构·机制·风险·管理</span></div>
     <i>→</i>
     <div class="wf-step"><b>② 形成性测评</b><span>单选/多选/填空/识图</span></div>
     <i>→</i>
@@ -55,17 +57,122 @@
 
   <!-- Tab 导航 -->
   <nav class="tabs" role="tablist" aria-label="主导航">
-    <button class="tab active" data-v="student" role="tab">学生测评</button>
-    <button class="tab" data-v="dashboard" role="tab">个人数据看板</button>
-    <button class="tab" data-v="graph" role="tab">知识图谱</button>
-    <button class="tab" data-v="assistant" role="tab">AI 智能伴学</button>
-    <button class="tab" data-v="teacher" role="tab">教师端</button>
+    <button class="tab active" data-v="posture" role="tab">🧍 体态解码</button>
+    <button class="tab" data-v="student" role="tab">📝 解剖测评</button>
+    <button class="tab" data-v="dashboard" role="tab">📊 个人数据看板</button>
+    <button class="tab" data-v="graph" role="tab">🕸️ 知识图谱</button>
+    <button class="tab" data-v="assistant" role="tab">🤖 AI 智能伴学</button>
+    <button class="tab" data-v="teacher" role="tab">🏫 教师端</button>
     <span class="tab-spacer"></span>
     <span class="tab-meta" id="lastUpdate">最近刷新：刚刚</span>
   </nav>
 
+  <!-- ============================== 体态解码（融合入口） ============================== -->
+  <section class="view" data-view="posture" role="tabpanel">
+    <div class="panel">
+      <div class="panel-head">
+        <div>
+          <h1>🧍 体态解码工作台</h1>
+          <p class="muted">从体态线索建立职业思维链：观察 → 结构定位 → 机制推演 → 风险沟通 → 健康管理。请以学习案例代替真实个人信息。</p>
+        </div>
+        <span id="scaffold-note" class="tag-note">首次案例：完整示范模式</span>
+      </div>
+      <div class="pm-tabs" id="pmTabs" role="tablist" aria-label="体态分析区"></div>
+      <div class="pm-info">
+        <div class="pm-copy">
+          <p id="pmStructures" class="muted"></p>
+          <p id="pmPostures" class="muted"></p>
+        </div>
+        <figure class="pm-atlas">
+          <img id="pmAtlasImg" src="assets/atlas/spine.png" alt="脊柱区解剖图谱" />
+          <figcaption id="pmAtlasCap">课程图谱：脊柱</figcaption>
+        </figure>
+      </div>
+      <label class="field">
+        <span>体态案例描述</span>
+        <textarea id="posture-input" rows="4" placeholder="例：一位办公室白领，长期伏案工作，出现肩膀内扣、脖子前倾，偶尔头晕。"></textarea>
+      </label>
+      <div class="tag-row-head"><span>常见体态问题（点击填入）</span><span id="quick-tag-context" class="muted small"></span></div>
+      <div id="quick-tags" class="quick-tags" aria-label="常见体态问题快捷标签"></div>
+      <div class="actions">
+        <button class="primary" id="postureAnalyze">开始解码 →</button>
+        <button class="ghost" id="postureClear" type="button">清空案例</button>
+      </div>
+    </div>
+
+    <div id="analysis-output" class="panel hidden" aria-live="polite">
+      <div class="analysis-summary">
+        <div>
+          <p class="eyebrow">解码结果</p>
+          <strong id="analysis-title">五维体态解码报告</strong>
+        </div>
+        <span id="risk-chip" class="risk-chip">健康管理视角</span>
+      </div>
+      <div class="dim-card" id="dim-structure"><h4>📍 结构定位</h4><div class="content"></div></div>
+      <div class="dim-card" id="dim-mechanism"><h4>🔍 机制推演</h4><div class="content"></div></div>
+      <div class="dim-card" id="dim-risk"><h4>⚠️ 健康风险</h4><div class="content"></div></div>
+      <div class="dim-card" id="dim-intervention"><h4>💡 管理干预</h4><div class="content"></div></div>
+      <div class="dim-card" id="dim-thinking"><h4>🎓 延伸思考</h4><div class="content"></div></div>
+
+      <!-- 融合点：体态案例 → 针对性解剖测评引流 -->
+      <div class="quiz-referral" id="quizReferral">
+        <div>
+          <strong>🧪 学以致用 · 针对性测评</strong>
+          <p class="muted small">完成本区域相关的解剖系统单元测评，验证结构知识掌握程度（阶段 3 校验环节）。</p>
+        </div>
+        <button class="primary" id="referralQuizBtn">去完成「运动系统」测评 →</button>
+      </div>
+
+      <div class="evidence-check" aria-label="学习证据自评">
+        <div>
+          <strong>留下你的学习证据</strong>
+          <span>由你自主确认，不由系统替你判分。</span>
+        </div>
+        <div id="competency-checks" class="competency-checks">
+          <button type="button" data-skill="structure">我能说明结构</button>
+          <button type="button" data-skill="mechanism">我能推演机制</button>
+          <button type="button" data-skill="risk">我能完成风险沟通</button>
+          <button type="button" data-skill="intervention">我能提出管理建议</button>
+          <button type="button" data-skill="ethics">我能守住职业边界</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="panel">
+        <div class="panel-head">
+          <h2>📊 我的训练档案</h2>
+          <button id="reset-records" class="ghost small" type="button" title="清除本机训练记录">↺ 清除</button>
+        </div>
+        <div class="pm-stats">
+          <div><strong id="analysis-total">0</strong><span>完成案例</span></div>
+          <div><strong id="risk-total">0</strong><span>转介识别</span></div>
+        </div>
+        <canvas id="radar-chart" width="300" height="250" aria-label="五项能力训练雷达图"></canvas>
+        <p class="muted small">雷达图记录你的案例完成与自评学习证据，不对学习能力作自动判定。仅本机保存。</p>
+        <div class="history-heading"><strong>最近训练</strong><span class="muted small">最多保留 8 条</span></div>
+        <div id="session-history" class="session-history"><p class="muted small">尚无记录。完成一次解码后会显示在这里。</p></div>
+      </div>
+      <div class="panel">
+        <h2>📚 课程依据与职业边界</h2>
+        <ul class="res-list">
+          <li>《人体解剖学》课程运动系统资料</li>
+          <li>《运动解剖学（第3版）》相关内容</li>
+          <li>课程解剖图谱：骨、关节、肌、周围神经</li>
+        </ul>
+        <div class="ethics-banner" role="note">
+          <span aria-hidden="true">⚠️</span>
+          <div>
+            <strong>职业边界提示</strong>
+            <p>本系统仅提供健康服务与管理专业的<strong>非医疗性</strong>教学训练。所有输出均为教学模拟，不构成医疗诊断、治疗建议或药物推荐。涉及结构性病变风险、持续疼痛或红旗表现，应建议客户转介至医疗机构。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ============================== 学生测评 ============================== -->
-  <section class="view" data-view="student" role="tabpanel">
+  <section class="view hidden" data-view="student" role="tabpanel">
     <div class="grid">
       <aside class="panel">
         <h1>① 选择本次测评系统</h1>

@@ -459,3 +459,82 @@ button.block{ width:100%; margin-top:8px }
   .assistant{ grid-template-columns: 1fr }
   .fab-pop{ right: 12px; left: 12px; width: auto }
 }
+/* ============== 识图题 SVG 示意图 ============== */
+.figure{ margin: 10px 0; text-align: center; }
+.figure svg{ max-width: 100%; height: auto; border: 1px solid var(--c-border); border-radius: 10px; background: #fff; padding: 8px; }
+.figure .cap{ font-size: 12px; color: var(--c-text-muted); margin-top: 4px; }
+
+/* ============== 逐题复盘卡片 ============== */
+.review-q{ border: 1px solid var(--c-border); border-radius: 10px; padding: 12px 14px; margin: 10px 0; background: #fbfcfd; }
+.review-q b{ display: inline; }
+.review-q .good, .review-q .bad, .review-q .warn{ margin-right: 6px; }
+.review-q p.small{ margin: 6px 0 0; font-size: 13px; color: var(--c-text); line-height: 1.6; }
+
+/* ============== 体态解码工作台（融合模块） ============== */
+.panel-head{ display:flex; justify-content:space-between; align-items:flex-start; gap:12px; flex-wrap:wrap; margin-bottom:6px }
+.panel-head h1, .panel-head h2{ margin:0 }
+.tag-note{ display:inline-block; background:#e8f0fe; color:#1769d1; font-size:12px; font-weight:600; padding:4px 10px; border-radius:999px; white-space:nowrap }
+
+.pm-tabs{ display:flex; gap:8px; flex-wrap:wrap; margin:12px 0 }
+.pm-tab{ padding:8px 16px; border:1px solid var(--c-border); border-radius:999px; background:#fff; color:var(--c-text); font-size:14px; font-weight:600; cursor:pointer; transition:all .15s }
+.pm-tab:hover{ border-color:#1769d1; color:#1769d1 }
+.pm-tab.active{ background:linear-gradient(135deg,#1769d1,#00b3a4); color:#fff; border-color:transparent; box-shadow:0 2px 8px rgba(23,105,209,.25) }
+
+.pm-info{ display:flex; gap:16px; align-items:stretch; background:#f6f9fd; border:1px solid var(--c-border); border-radius:12px; padding:14px; margin:10px 0; flex-wrap:wrap }
+.pm-copy{ flex:1; min-width:220px; display:flex; flex-direction:column; gap:8px; justify-content:center }
+.pm-copy p{ margin:0; line-height:1.7; font-size:13px }
+.pm-atlas{ flex:0 0 200px; margin:0; text-align:center }
+.pm-atlas img{ width:100%; max-height:230px; object-fit:contain; border:1px solid var(--c-border); border-radius:10px; background:#fff; padding:6px }
+.pm-atlas figcaption{ font-size:12px; color:var(--c-text-muted); margin-top:6px }
+
+.tag-row-head{ display:flex; justify-content:space-between; align-items:center; margin:12px 0 6px; font-size:13px; font-weight:600 }
+.quick-tags{ display:flex; gap:8px; flex-wrap:wrap }
+.quick-tag{ padding:6px 12px; border:1px dashed #9db8dc; border-radius:999px; background:#f4f8ff; color:#2c5fa8; font-size:12.5px; cursor:pointer; transition:all .15s }
+.quick-tag:hover{ background:#1769d1; color:#fff; border-style:solid }
+
+.analysis-summary{ display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:12px; padding-bottom:12px; border-bottom:1px solid var(--c-border) }
+.analysis-summary strong{ font-size:17px }
+.risk-chip{ padding:5px 14px; border-radius:999px; font-size:13px; font-weight:600; background:#eef1f5; color:var(--c-text-muted); white-space:nowrap }
+.risk-chip.level-1{ background:#e6f7ef; color:#0a7d54 }
+.risk-chip.level-2{ background:#fff4e0; color:#b26a00 }
+.risk-chip.level-3{ background:#fdeaea; color:#c0392b }
+
+.dim-card{ border:1px solid var(--c-border); border-radius:12px; padding:12px 16px; margin:10px 0; background:#fbfcfd }
+.dim-card h4{ margin:0 0 6px; font-size:14.5px; color:var(--c-text) }
+.dim-card .content p{ margin:4px 0; font-size:13px; line-height:1.75; color:var(--c-text) }
+.dim-card .content p.bullet{ padding-left:14px; position:relative }
+.dim-card .content p.bullet::before{ content:"•"; position:absolute; left:2px; color:#1769d1 }
+
+.quiz-referral{ display:flex; justify-content:space-between; align-items:center; gap:14px; flex-wrap:wrap; border:1.5px solid #00b3a4; background:#f0fbfa; border-radius:12px; padding:14px 16px; margin:14px 0 }
+.quiz-referral strong{ font-size:14.5px }
+.quiz-referral p{ margin:4px 0 0 }
+
+.evidence-check{ display:flex; justify-content:space-between; align-items:center; gap:14px; flex-wrap:wrap; background:#f6f9fd; border-radius:12px; padding:14px 16px; margin-top:14px }
+.evidence-check strong{ font-size:14px }
+.evidence-check span{ display:block; font-size:12px; color:var(--c-text-muted); margin-top:2px }
+.competency-checks{ display:flex; gap:8px; flex-wrap:wrap }
+.competency-checks button{ padding:7px 14px; border:1px solid #9db8dc; border-radius:999px; background:#fff; color:#2c5fa8; font-size:12.5px; cursor:pointer; transition:all .15s }
+.competency-checks button:hover{ border-color:#1769d1 }
+.competency-checks button.recorded{ background:linear-gradient(135deg,#1769d1,#00b3a4); color:#fff; border-color:transparent }
+.competency-checks button.recorded::after{ content:" ✓" }
+
+.pm-stats{ display:flex; gap:26px; margin:10px 0 }
+.pm-stats > div{ display:flex; flex-direction:column; align-items:center }
+.pm-stats strong{ font-size:26px; color:#1769d1 }
+.pm-stats span{ font-size:12px; color:var(--c-text-muted) }
+
+.history-heading{ display:flex; justify-content:space-between; align-items:center; margin:14px 0 8px; border-top:1px solid var(--c-border); padding-top:12px }
+.session-history{ display:flex; flex-direction:column; gap:8px; max-height:260px; overflow-y:auto }
+.history-item{ display:flex; flex-direction:column; border-left:3px solid #b8c4d4; background:#f8fafc; border-radius:0 8px 8px 0; padding:8px 12px }
+.history-item.level-2{ border-left-color:#e0a030 }
+.history-item.level-3{ border-left-color:#d05545 }
+.history-item strong{ font-size:13px }
+.history-item span{ font-size:11.5px; color:var(--c-text-muted); margin-top:2px }
+
+.res-list{ margin:8px 0; padding-left:18px }
+.res-list li{ font-size:13px; line-height:1.9; color:var(--c-text) }
+
+.ethics-banner{ display:flex; gap:12px; background:#fdf6ec; border:1px solid #ecd9b5; border-radius:12px; padding:12px 14px; margin-top:12px }
+.ethics-banner > span{ font-size:20px; line-height:1 }
+.ethics-banner strong{ font-size:13.5px; color:#8a6d3b }
+.ethics-banner p{ margin:4px 0 0; font-size:12.5px; line-height:1.7; color:#7a6a4f }

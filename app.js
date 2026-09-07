@@ -83,93 +83,144 @@ const KG = {
 };
 
 /* 题库（保留原有 10 大系统） */
-const SYSTEM_BANKS = {
-  "运动系统": {title:"运动系统·单元测评", questions:[
-    {id:1,type:"single",module:"运动系统",knowledgePoint:"肱肌",prompt:"肱肌的主要作用是？",options:["屈肘关节","伸肘关节","外展肩关节","旋前前臂"],correct:"A",score:10,errorType:"D",brief:"肱肌的起止与作用"},
-    {id:2,type:"single",module:"运动系统",knowledgePoint:"肱骨骨性结构",prompt:"肱骨近端的骨性标志是？",options:["大结节","冠突","尺骨鹰嘴","桡骨头"],correct:"A",score:10,errorType:"C",brief:"肱骨标志辨认"},
-    {id:3,type:"multiple",module:"运动系统",knowledgePoint:"肩关节",prompt:"肩关节的组成结构包括？",options:["肱骨头","肩胛骨关节盂","尺骨滑车","关节囊"],correct:["A","B","D"],score:10,errorType:"B",brief:"肩关节组成"},
-    {id:4,type:"fill",module:"运动系统",knowledgePoint:"骨连接",prompt:"骨与骨之间借纤维结缔组织、软骨或骨相连，统称为___。",options:[],correct:["骨连接"],score:10,errorType:"A",brief:"骨连接的定义"},
-    {id:5,type:"single",module:"运动系统",knowledgePoint:"肌的起止和作用",prompt:"肌肉中固定的一端通常称为？",options:["起点","止点","肌腹","腱膜"],correct:"A",score:10,errorType:"A",brief:"肌的起止概念"},
-    {id:6,type:"image",module:"运动系统",knowledgePoint:"肩关节",prompt:"识图判断：肩关节属于哪种关节？",options:["球窝关节","平面关节","车轴关节","椭圆关节"],correct:"A",score:10,errorType:"C",brief:"关节类型"},
-    {id:7,type:"multiple",module:"运动系统",knowledgePoint:"膝关节",prompt:"膝关节的主要韧带包括？",options:["前交叉韧带","后交叉韧带","髌韧带","桡骨环状韧带"],correct:["A","B","C"],score:10,errorType:"B",brief:"膝关节韧带"},
-    {id:8,type:"single",module:"运动系统",knowledgePoint:"前臂骨",prompt:"前臂位于外侧的骨是？",options:["桡骨","尺骨","肱骨","肩胛骨"],correct:"A",score:10,errorType:"C",brief:"前臂骨位置"}
-  ]},
-  "消化系统": {title:"消化系统·单元测评", questions:[
-    {id:1,type:"single",module:"消化系统",knowledgePoint:"胃的位置和形态",prompt:"胃大部分位于？",options:["左季肋区和腹上区","右季肋区","脐区","盆腔"],correct:"A",score:10,errorType:"B",brief:"胃的位置"},
-    {id:2,type:"multiple",module:"消化系统",knowledgePoint:"肝的毗邻",prompt:"肝脏的主要毗邻结构包括？",options:["胃","右肾","胆囊","脾"],correct:["A","B","C"],score:10,errorType:"B",brief:"肝的毗邻关系"},
-    {id:3,type:"fill",module:"消化系统",knowledgePoint:"肝的形态与分叶",prompt:"肝脏膈面以镰状韧带分为肝___和肝右叶。",options:[],correct:["左叶","肝左叶"],score:10,errorType:"A",brief:"肝的分叶术语"},
-    {id:4,type:"single",module:"消化系统",knowledgePoint:"食管",prompt:"食管的第二个生理性狭窄位于？",options:["主动脉弓跨越处","咽与食管交界处","膈食管裂孔处","胃食管连接处"],correct:"A",score:10,errorType:"B",brief:"食管狭窄位置"},
-    {id:5,type:"image",module:"消化系统",knowledgePoint:"胰的位置和形态",prompt:"识图判断：胰通常位于？",options:["腹膜后，胃后方","胸腔内","盆腔","腹腔右侧"],correct:"A",score:10,errorType:"C",brief:"胰的图谱辨认"},
-    {id:6,type:"multiple",module:"消化系统",knowledgePoint:"胆囊",prompt:"胆囊可分为哪些部分？",options:["底","体","颈","峡"],correct:["A","B","C"],score:10,errorType:"A",brief:"胆囊分部"},
-    {id:7,type:"single",module:"消化系统",knowledgePoint:"小肠",prompt:"小肠包括十二指肠、空肠和？",options:["回肠","盲肠","结肠","直肠"],correct:"A",score:10,errorType:"A",brief:"小肠分部"},
-    {id:8,type:"fill",module:"消化系统",knowledgePoint:"大肠",prompt:"大肠的起始部是___。",options:[],correct:["盲肠"],score:10,errorType:"A",brief:"大肠起始部"}
-  ]},
-  "呼吸系统": {title:"呼吸系统·单元测评", questions:[
-    {id:1,type:"single",module:"呼吸系统",knowledgePoint:"肺的位置和形态",prompt:"肺尖可高出锁骨内侧端上方约？",options:["1—2 cm","5 cm","10 cm","不超过锁骨"],correct:"A",score:10,errorType:"B",brief:"肺尖位置"},
-    {id:2,type:"single",module:"呼吸系统",knowledgePoint:"气管",prompt:"气管在何处分为左、右主支气管？",options:["胸骨角平面","剑突平面","颈静脉切迹","膈肌平面"],correct:"A",score:10,errorType:"A",brief:"气管分叉平面"},
-    {id:3,type:"multiple",module:"呼吸系统",knowledgePoint:"肺段",prompt:"右肺通常分为几个肺叶？",options:["上叶","中叶","下叶","前叶"],correct:["A","B","C"],score:10,errorType:"A",brief:"肺叶划分"},
-    {id:4,type:"single",module:"呼吸系统",knowledgePoint:"鼻腔",prompt:"鼻腔向后经哪个结构通向咽？",options:["鼻后孔","喉口","咽鼓管","梨状孔"],correct:"A",score:10,errorType:"B",brief:"鼻腔后部通道"},
-    {id:5,type:"image",module:"呼吸系统",knowledgePoint:"肺的形态",prompt:"识图判断：肺的下缘与哪一结构相邻？",options:["膈","肝","胃","心包"],correct:"A",score:10,errorType:"C",brief:"肺与膈的毗邻识图"},
-    {id:6,type:"multiple",module:"呼吸系统",knowledgePoint:"胸膜",prompt:"胸膜包括哪些部分？",options:["脏胸膜","壁胸膜","胸膜腔","心包膜"],correct:["A","B","C"],score:10,errorType:"B",brief:"胸膜组成"},
-    {id:7,type:"fill",module:"呼吸系统",knowledgePoint:"支气管树",prompt:"气管在胸骨角平面分为左、右___。",options:[],correct:["主支气管"],score:10,errorType:"A",brief:"支气管分支"},
-    {id:8,type:"single",module:"呼吸系统",knowledgePoint:"呼吸肌",prompt:"平静吸气时最主要的呼吸肌是？",options:["膈","腹直肌","胸大肌","肋间内肌"],correct:"A",score:10,errorType:"D",brief:"呼吸肌功能"}
-  ]},
-  "绪论": {title:"绪论·单元测评", questions:[
-    {id:1,type:"single",module:"绪论",knowledgePoint:"解剖学姿势",prompt:"标准解剖学姿势中，人体应？",options:["身体直立、两眼平视、上肢下垂、掌心向前","身体俯卧、掌心向后","身体坐位、掌心向内","身体屈曲、掌心向下"],correct:"A",score:10,errorType:"A",brief:"标准解剖学姿势"},
-    {id:2,type:"multiple",module:"绪论",knowledgePoint:"解剖学方位术语",prompt:"描述人体结构相互位置关系的术语包括？",options:["上和下","前和后","内侧和外侧","快和慢"],correct:["A","B","C"],score:10,errorType:"A",brief:"方位术语"},
-    {id:3,type:"fill",module:"绪论",knowledgePoint:"解剖学切面",prompt:"沿人体长轴与左右径所作的切面称为___面。",options:[],correct:["冠状面","额状面"],score:10,errorType:"A",brief:"人体切面"},
-    {id:4,type:"single",module:"绪论",knowledgePoint:"人体器官系统",prompt:"人体结构和功能的基本单位是？",options:["细胞","组织","器官","系统"],correct:"A",score:10,errorType:"A",brief:"人体结构层次"},
-    {id:5,type:"image",module:"绪论",knowledgePoint:"解剖学切面",prompt:"识图判断：将人体分为左右对称两部分的切面是？",options:["矢状面","冠状面","水平面","斜切面"],correct:"A",score:10,errorType:"C",brief:"切面识图"},
-    {id:6,type:"single",module:"绪论",knowledgePoint:"结构与功能",prompt:"人体结构与功能之间的关系通常是？",options:["结构决定并适应功能","结构与功能无关","功能先于结构形成","二者完全相同"],correct:"A",score:10,errorType:"D",brief:"结构功能关系"}
-  ]},
-  "泌尿系统": {title:"泌尿系统·单元测评", questions:[
-    {id:1,type:"single",module:"泌尿系统",knowledgePoint:"肾的位置和形态",prompt:"肾位于腹膜后，通常？",options:["左肾高于右肾","右肾高于左肾","两肾等高","位于盆腔"],correct:"A",score:10,errorType:"B",brief:"肾的位置"},
-    {id:2,type:"multiple",module:"泌尿系统",knowledgePoint:"肾的结构",prompt:"肾的主要结构包括？",options:["肾皮质","肾髓质","肾窦","肾小球囊"],correct:["A","B","C"],score:10,errorType:"C",brief:"肾的结构"},
-    {id:3,type:"fill",module:"泌尿系统",knowledgePoint:"泌尿小管",prompt:"肾单位的功能单位是___。",options:[],correct:["肾单位"],score:10,errorType:"A",brief:"肾单位"},
-    {id:4,type:"single",module:"泌尿系统",knowledgePoint:"输尿管",prompt:"输尿管的第二处狭窄位于？",options:["跨越髂血管处","肾盂输尿管连接处","膀胱壁内段","尿道外口"],correct:"A",score:10,errorType:"B",brief:"输尿管狭窄"},
-    {id:5,type:"image",module:"泌尿系统",knowledgePoint:"肾门",prompt:"识图判断：肾门通常位于肾的哪一侧？",options:["内侧缘","外侧缘","上极","下极"],correct:"A",score:10,errorType:"C",brief:"肾门识图"},
-    {id:6,type:"single",module:"泌尿系统",knowledgePoint:"膀胱",prompt:"膀胱三角位于？",options:["膀胱底内面","膀胱尖外面","膀胱颈外面","膀胱顶部"],correct:"A",score:10,errorType:"B",brief:"膀胱三角"}
-  ]},
-  "生殖系统": {title:"生殖系统·单元测评", questions:[
-    {id:1,type:"single",module:"生殖系统",knowledgePoint:"睾丸",prompt:"睾丸的主要功能是？",options:["产生精子和分泌雄激素","储存尿液","产生胆汁","分泌胰液"],correct:"A",score:10,errorType:"D",brief:"睾丸功能"},
-    {id:2,type:"multiple",module:"生殖系统",knowledgePoint:"男性生殖管道",prompt:"男性生殖管道包括？",options:["附睾","输精管","射精管","输尿管"],correct:["A","B","C"],score:10,errorType:"A",brief:"男性生殖管道"},
-    {id:3,type:"fill",module:"生殖系统",knowledgePoint:"子宫",prompt:"子宫位于骨盆腔中央，在膀胱与___之间。",options:[],correct:["直肠"],score:10,errorType:"B",brief:"子宫毗邻"},
-    {id:4,type:"single",module:"生殖系统",knowledgePoint:"女性生殖器",prompt:"输卵管通常分为漏斗、壶腹、峡和？",options:["子宫部","阴道部","宫颈部","卵巢部"],correct:"A",score:10,errorType:"A",brief:"输卵管分部"},
-    {id:5,type:"image",module:"生殖系统",knowledgePoint:"女性生殖器",prompt:"识图判断：呈梨形、位于膀胱与直肠之间的器官是？",options:["子宫","卵巢","阴道","输卵管"],correct:"A",score:10,errorType:"C",brief:"子宫识图"},
-    {id:6,type:"single",module:"生殖系统",knowledgePoint:"会阴",prompt:"会阴通常指？",options:["盆膈以下封闭骨盆下口的软组织","腹腔顶部","胸腔底部","颅底软组织"],correct:"A",score:10,errorType:"B",brief:"会阴范围"}
-  ]},
-  "内分泌系统": {title:"内分泌系统·单元测评", questions:[
-    {id:1,type:"single",module:"内分泌系统",knowledgePoint:"垂体",prompt:"垂体位于？",options:["蝶骨垂体窝内","颞骨乳突内","筛骨筛窦内","下颌窝内"],correct:"A",score:10,errorType:"B",brief:"垂体位置"},
-    {id:2,type:"multiple",module:"内分泌系统",knowledgePoint:"甲状腺",prompt:"甲状腺通常包括？",options:["左叶","右叶","峡","锥状叶"],correct:["A","B","C"],score:10,errorType:"A",brief:"甲状腺形态"},
-    {id:3,type:"fill",module:"内分泌系统",knowledgePoint:"肾上腺",prompt:"肾上腺位于肾的___方。",options:[],correct:["上"],score:10,errorType:"A",brief:"肾上腺位置"},
-    {id:4,type:"single",module:"内分泌系统",knowledgePoint:"胰岛",prompt:"胰岛主要分泌调节血糖的？",options:["胰岛素和胰高血糖素","胆汁和胃液","甲状腺素和降钙素","肾上腺素和去甲肾上腺素"],correct:"A",score:10,errorType:"D",brief:"胰岛功能"},
-    {id:5,type:"image",module:"内分泌系统",knowledgePoint:"甲状腺",prompt:"识图判断：位于喉和气管前外侧的内分泌腺是？",options:["甲状腺","垂体","胸腺","肾上腺"],correct:"A",score:10,errorType:"C",brief:"甲状腺识图"},
-    {id:6,type:"single",module:"内分泌系统",knowledgePoint:"甲状旁腺",prompt:"甲状旁腺主要参与调节？",options:["血钙水平","血氧水平","胆汁分泌","尿液浓缩"],correct:"A",score:10,errorType:"D",brief:"甲状旁腺功能"}
-  ]},
-  "循环系统": {title:"循环系统·单元测评", questions:[
-    {id:1,type:"single",module:"循环系统",knowledgePoint:"心脏的位置和形态",prompt:"心脏位于？",options:["中纵隔内","后纵隔内","腹膜后间隙","颅腔内"],correct:"A",score:10,errorType:"B",brief:"心脏位置"},
-    {id:2,type:"multiple",module:"循环系统",knowledgePoint:"心脏的结构",prompt:"心脏的四个腔包括？",options:["右心房","右心室","左心房","左心室"],correct:["A","B","C","D"],score:10,errorType:"C",brief:"心脏四腔"},
-    {id:3,type:"fill",module:"循环系统",knowledgePoint:"心脏瓣膜",prompt:"左心房与左心室之间的瓣膜是___瓣。",options:[],correct:["二尖瓣","僧帽瓣"],score:10,errorType:"A",brief:"房室瓣"},
-    {id:4,type:"single",module:"循环系统",knowledgePoint:"冠状动脉",prompt:"冠状动脉起自？",options:["升主动脉","肺动脉干","上腔静脉","主动脉弓"],correct:"A",score:10,errorType:"B",brief:"冠状动脉起点"},
-    {id:5,type:"image",module:"循环系统",knowledgePoint:"心脏传导系",prompt:"识图判断：心脏传导系的起搏点通常是？",options:["窦房结","房室结","房室束","浦肯野纤维"],correct:"A",score:10,errorType:"C",brief:"传导系识图"},
-    {id:6,type:"single",module:"循环系统",knowledgePoint:"体循环和肺循环",prompt:"肺循环的起点是？",options:["右心室","左心室","右心房","左心房"],correct:"A",score:10,errorType:"D",brief:"肺循环路径"}
-  ]},
-  "感觉器": {title:"感觉器·单元测评", questions:[
-    {id:1,type:"single",module:"感觉器",knowledgePoint:"眼球壁",prompt:"眼球壁由外向内依次为？",options:["纤维膜、血管膜、视网膜","视网膜、血管膜、纤维膜","血管膜、纤维膜、视网膜","纤维膜、视网膜、血管膜"],correct:"A",score:10,errorType:"A",brief:"眼球壁层次"},
-    {id:2,type:"multiple",module:"感觉器",knowledgePoint:"眼球内容物",prompt:"眼球内容物包括？",options:["房水","晶状体","玻璃体","角膜"],correct:["A","B","C"],score:10,errorType:"C",brief:"眼球内容物"},
-    {id:3,type:"fill",module:"感觉器",knowledgePoint:"耳",prompt:"位于中耳鼓室内、连接鼓膜与内耳的听小骨有锤骨、砧骨和___。",options:[],correct:["镫骨"],score:10,errorType:"A",brief:"听小骨"},
-    {id:4,type:"single",module:"感觉器",knowledgePoint:"视网膜",prompt:"感光细胞主要位于？",options:["视网膜","巩膜","脉络膜","虹膜"],correct:"A",score:10,errorType:"C",brief:"视网膜功能"},
-    {id:5,type:"image",module:"感觉器",knowledgePoint:"眼球结构",prompt:"识图判断：调节晶状体曲度的结构是？",options:["睫状体","虹膜","巩膜","视神经"],correct:"A",score:10,errorType:"C",brief:"眼球结构识图"},
-    {id:6,type:"single",module:"感觉器",knowledgePoint:"前庭蜗器",prompt:"维持身体平衡的感受器主要位于？",options:["前庭器","耳蜗","鼓膜","外耳道"],correct:"A",score:10,errorType:"B",brief:"平衡觉"}
-  ]},
-  "神经系统": {title:"神经系统·单元测评", questions:[
-    {id:1,type:"single",module:"神经系统",knowledgePoint:"中枢神经系统",prompt:"中枢神经系统包括？",options:["脑和脊髓","脑神经和脊神经","交感神经和副交感神经","神经节和神经丛"],correct:"A",score:10,errorType:"A",brief:"中枢神经系统"},
-    {id:2,type:"multiple",module:"神经系统",knowledgePoint:"脑膜",prompt:"脑和脊髓的被膜包括？",options:["硬膜","蛛网膜","软膜","胸膜"],correct:["A","B","C"],score:10,errorType:"A",brief:"脑脊髓被膜"},
-    {id:3,type:"fill",module:"神经系统",knowledgePoint:"脊髓",prompt:"脊髓下端在成人平第___腰椎下缘。",options:[],correct:["1","一","L1"],score:10,errorType:"A",brief:"脊髓位置"},
-    {id:4,type:"single",module:"神经系统",knowledgePoint:"反射弧",prompt:"完成反射活动的结构基础是？",options:["反射弧","突触小体","神经核","灰质"],correct:"A",score:10,errorType:"D",brief:"反射弧"},
-    {id:5,type:"image",module:"神经系统",knowledgePoint:"脑的结构",prompt:"识图判断：大脑半球外侧沟下方的脑叶是？",options:["颞叶","额叶","顶叶","枕叶"],correct:"A",score:10,errorType:"C",brief:"脑叶识图"},
-    {id:6,type:"single",module:"神经系统",knowledgePoint:"自主神经",prompt:"支配心肌、平滑肌和腺体的神经属于？",options:["自主神经","躯体运动神经","感觉神经","视神经"],correct:"A",score:10,errorType:"D",brief:"自主神经功能"}
-  ]}
+
+/* ============ 掌握度模型（指数平滑知识追踪，持久化） ============ */
+const Mastery = {
+  all(){ try { return JSON.parse(localStorage.getItem("anatomy_mastery") || "{}"); } catch(e){ return {}; } },
+  save(a){ try { localStorage.setItem("anatomy_mastery", JSON.stringify(a)); } catch(e){} },
+  get(kp){ const a = this.all(); return a[kp] || {m:.5, n:0}; },
+  update(kp, obs){
+    const a = this.all();
+    const o = a[kp] || {m:.5, n:0};
+    const m = o.m + 0.4 * (obs - o.m);
+    a[kp] = {m: Math.max(0, Math.min(1, m)), n: o.n + 1};
+    this.save(a);
+    return a[kp];
+  },
+  label(m){ return m >= .8 ? "掌握良好" : m >= .5 ? "部分掌握" : "完全未掌握"; }
+};
+
+/* ============ 原创解剖示意图（SVG，用于识图题） ============ */
+
+const FIGURES={
+  planes:`<svg viewBox="0 0 340 210" width="340"><ellipse cx="170" cy="34" rx="18" ry="22" fill="#ffe3d0" stroke="#b9836a"/><rect x="150" y="58" width="40" height="86" rx="16" fill="#ffe3d0" stroke="#b9836a"/><rect x="132" y="146" width="16" height="52" rx="7" fill="#ffe3d0" stroke="#b9836a"/><rect x="192" y="146" width="16" height="52" rx="7" fill="#ffe3d0" stroke="#b9836a"/><line x1="170" y1="12" x2="170" y2="200" stroke="#c23a3a" stroke-width="2.5"/><ellipse cx="170" cy="120" rx="66" ry="16" fill="none" stroke="#1769d1" stroke-width="2" stroke-dasharray="7 4"/><ellipse cx="170" cy="100" rx="14" ry="52" fill="none" stroke="#16794b" stroke-width="2" stroke-dasharray="3 3"/><text x="176" y="26" font-size="12" fill="#c23a3a">矢状面？</text><text x="60" y="112" font-size="12" fill="#16794b">冠状面</text><text x="230" y="138" font-size="12" fill="#1769d1">水平面</text><text x="170" y="205" font-size="11" fill="#687783" text-anchor="middle">人体前面观（原创示意图）</text></svg>`,
+  shoulder:`<svg viewBox="0 0 340 210" width="340"><path d="M40 60 L150 95 L128 150 L36 118 Z" fill="#f5e7d8" stroke="#a08060" stroke-width="2"/><circle cx="150" cy="86" r="20" fill="#ffe3d0" stroke="#b9836a" stroke-width="2"/><rect x="168" y="82" width="120" height="22" rx="11" fill="#ffe3d0" stroke="#b9836a" stroke-width="2"/><text x="150" y="60" font-size="13" fill="#c23a3a" text-anchor="middle">？</text><line x1="150" y1="64" x2="150" y2="74" stroke="#c23a3a" stroke-width="2"/><text x="60" y="160" font-size="12" fill="#687783">肩胛骨</text><text x="230" y="120" font-size="12" fill="#687783">肱骨</text><text x="170" y="200" font-size="11" fill="#687783" text-anchor="middle">肩部前面观（原创示意图）</text></svg>`,
+  pancreas:`<svg viewBox="0 0 340 210" width="340"><path d="M60 40 C110 20 150 30 165 60 C180 90 150 120 120 110 C95 102 70 80 60 40 Z" fill="#f9e0d9" stroke="#c07a6a" stroke-width="2"/><path d="M95 118 C140 108 200 112 235 130 C255 140 262 158 250 170 C240 178 225 172 215 164 C190 146 130 140 95 150 Z" fill="#f3e9d2" stroke="#9a8540" stroke-width="2"/><path d="M215 118 C245 112 268 130 268 150 C268 172 248 184 228 182" fill="none" stroke="#8aa86a" stroke-width="12" stroke-linecap="round" opacity=".7"/><text x="160" y="100" font-size="13" fill="#c23a3a" text-anchor="middle">？</text><line x1="160" y1="104" x2="160" y2="120" stroke="#c23a3a" stroke-width="2"/><text x="90" y="35" font-size="12" fill="#687783">胃</text><text x="290" y="150" font-size="12" fill="#687783">十二指肠</text><text x="170" y="205" font-size="11" fill="#687783" text-anchor="middle">腹腔前面观，？处结构位于胃后方（原创示意图）</text></svg>`,
+  diaphragm:`<svg viewBox="0 0 340 210" width="340"><path d="M70 40 C70 20 130 14 132 40 C134 66 92 70 70 40 Z" fill="#f2d9ec" stroke="#a06a9a" stroke-width="2"/><path d="M205 40 C205 20 265 14 267 40 C269 66 227 70 205 40 Z" fill="#f2d9ec" stroke="#a06a9a" stroke-width="2"/><path d="M40 130 C80 96 130 96 168 122 C206 96 256 96 300 130" fill="none" stroke="#1769d1" stroke-width="4" stroke-linecap="round"/><path d="M212 132 C240 118 276 120 292 140 L292 168 L212 168 Z" fill="#e8b7a0" stroke="#b97a5c" stroke-width="2"/><text x="168" y="112" font-size="13" fill="#c23a3a" text-anchor="middle">？</text><text x="70" y="30" font-size="12" fill="#687783">左肺</text><text x="250" y="30" font-size="12" fill="#687783">右肺</text><text x="252" y="158" font-size="12" fill="#687783">肝</text><text x="170" y="200" font-size="11" fill="#687783" text-anchor="middle">胸腹部前面观（原创示意图）</text></svg>`,
+  kidney:`<svg viewBox="0 0 340 210" width="340"><rect x="158" y="20" width="24" height="170" rx="8" fill="#e8e4d8" stroke="#a09a80" stroke-width="2"/><path d="M70 55 C40 65 34 130 70 160 C104 186 128 150 128 108 C128 66 100 45 70 55 Z" fill="#e5a8a8" stroke="#a85c5c" stroke-width="2"/><path d="M270 55 C300 65 306 130 270 160 C236 186 212 150 212 108 C212 66 240 45 270 55 Z" fill="#e5a8a8" stroke="#a85c5c" stroke-width="2"/><text x="132" y="108" font-size="13" fill="#c23a3a">？</text><line x1="134" y1="108" x2="206" y2="108" stroke="#c23a3a" stroke-width="2" stroke-dasharray="4 3"/><text x="70" y="185" font-size="12" fill="#687783">左肾</text><text x="255" y="185" font-size="12" fill="#687783">右肾</text><text x="170" y="15" font-size="12" fill="#687783" text-anchor="middle">脊柱</text><text x="170" y="205" font-size="11" fill="#687783" text-anchor="middle">？所指为肾门通常所在部位（原创示意图）</text></svg>`,
+  uterus:`<svg viewBox="0 0 340 210" width="340"><path d="M60 60 C60 40 96 40 96 60 L96 110 C96 130 60 130 60 110 Z" fill="#d9e8f5" stroke="#6a8ab0" stroke-width="2"/><path d="M150 70 C150 50 196 42 196 62 C196 84 176 96 168 118 L160 140 C158 152 148 152 146 140 L140 112 C136 94 150 88 150 70 Z" fill="#e8b7c8" stroke="#a8607e" stroke-width="2"/><rect x="220" y="55" width="42" height="95" rx="16" fill="#e8d9c5" stroke="#a08a60" stroke-width="2"/><text x="176" y="46" font-size="13" fill="#c23a3a" text-anchor="middle">？</text><line x1="176" y1="50" x2="174" y2="60" stroke="#c23a3a" stroke-width="2"/><text x="62" y="150" font-size="12" fill="#687783">膀胱</text><text x="222" y="170" font-size="12" fill="#687783">直肠</text><text x="170" y="200" font-size="11" fill="#687783" text-anchor="middle">女性盆腔正中矢状面（原创示意图）</text></svg>`,
+  thyroid:`<svg viewBox="0 0 340 210" width="340"><rect x="146" y="40" width="48" height="140" rx="14" fill="#eee6d8" stroke="#a09a80" stroke-width="2"/><line x1="146" y1="70" x2="194" y2="70" stroke="#a09a80"/><line x1="146" y1="100" x2="194" y2="100" stroke="#a09a80"/><line x1="146" y1="130" x2="194" y2="130" stroke="#a09a80"/><path d="M148 84 C120 74 106 108 128 122 C140 130 146 122 148 112 Z" fill="#e5a8a8" stroke="#a85c5c" stroke-width="2"/><path d="M192 84 C220 74 234 108 212 122 C200 130 194 122 192 112 Z" fill="#e5a8a8" stroke="#a85c5c" stroke-width="2"/><path d="M148 96 C162 92 178 92 192 96" fill="none" stroke="#a85c5c" stroke-width="7"/><text x="112" y="66" font-size="13" fill="#c23a3a">？</text><text x="200" y="170" font-size="12" fill="#687783">气管软骨</text><text x="170" y="200" font-size="11" fill="#687783" text-anchor="middle">颈前部前面观（原创示意图）</text></svg>`,
+  conduction:`<svg viewBox="0 0 340 210" width="340"><path d="M70 40 L270 40 L288 120 L240 176 L100 176 L52 120 Z" fill="#f2d9ec" stroke="#a06a9a" stroke-width="2"/><line x1="170" y1="40" x2="170" y2="176" stroke="#a06a9a" stroke-width="1.5" stroke-dasharray="5 4"/><path d="M60 108 C60 86 150 86 150 108 L150 130 C150 152 60 152 60 130 Z" fill="#f7e3ee" stroke="#c58fae"/><path d="M190 108 C190 86 280 86 280 108 L280 130 C280 152 190 152 190 130 Z" fill="#f7e3ee" stroke="#c58fae"/><text x="105" y="124" font-size="12" fill="#687783" text-anchor="middle">右心房</text><text x="235" y="124" font-size="12" fill="#687783" text-anchor="middle">左心房</text><text x="105" y="166" font-size="12" fill="#687783" text-anchor="middle">右心室</text><text x="235" y="166" font-size="12" fill="#687783" text-anchor="middle">左心室</text><circle cx="105" cy="94" r="7" fill="#c23a3a"/><text x="120" y="90" font-size="13" fill="#c23a3a">？</text><circle cx="130" cy="130" r="5" fill="#925900"/><line x1="130" y1="134" x2="130" y2="160" stroke="#925900" stroke-width="3"/><text x="170" y="200" font-size="11" fill="#687783" text-anchor="middle">心脏前面观，？为心脏传导系结构（原创示意图）</text></svg>`,
+  brain:`<svg viewBox="0 0 340 210" width="340"><path d="M60 110 C52 70 90 40 140 42 C200 40 260 55 272 95 C284 130 262 168 220 172 C196 174 190 158 186 146 C180 130 196 118 208 108" fill="#f3e0e0" stroke="#b06a6a" stroke-width="2"/><path d="M208 108 C226 98 236 84 232 66" fill="none" stroke="#b06a6a" stroke-width="2"/><path d="M100 70 C120 100 130 130 132 158" fill="none" stroke="#687783" stroke-width="1.6" stroke-dasharray="4 3"/><path d="M92 86 C160 96 226 96 252 74" fill="none" stroke="#925900" stroke-width="2.2"/><text x="120" y="55" font-size="12" fill="#687783">额叶</text><text x="188" y="55" font-size="12" fill="#687783">顶叶</text><text x="256" y="140" font-size="12" fill="#687783">枕叶</text><text x="120" y="130" font-size="13" fill="#c23a3a">？</text><text x="258" y="70" font-size="11" fill="#925900">中央沟</text><text x="176" y="112" font-size="11" fill="#925900">外侧沟</text><text x="170" y="200" font-size="11" fill="#687783" text-anchor="middle">大脑半球外侧面（原创示意图）</text></svg>`
+};
+
+const SYSTEM_BANKS={
+"运动系统":{title:"运动系统·单元测评",questions:[
+{id:1,type:"single",knowledgePoint:"肱肌",prompt:"肱肌的主要作用是？",options:["屈肘关节","伸肘关节","外展肩关节","旋前前臂"],correct:"A",score:10,errorType:"D",brief:"肱肌的起止与作用",explain:"肱肌起自肱骨体前面下半，止于尺骨粗隆，主要作用为屈肘关节。"},
+{id:2,type:"single",knowledgePoint:"肱骨骨性结构",prompt:"肱骨近端的骨性标志是？",options:["大结节","冠突","尺骨鹰嘴","桡骨头"],correct:"A",score:10,errorType:"C",brief:"肱骨标志辨认",explain:"大结节位于肱骨上端外侧，是肩部重要骨性标志；冠突、鹰嘴属尺骨，桡骨头属桡骨。"},
+{id:3,type:"multiple",knowledgePoint:"肩关节",prompt:"肩关节的组成结构包括？",options:["肱骨头","肩胛骨关节盂","尺骨滑车","关节囊"],correct:["A","B","D"],score:10,errorType:"B",brief:"肩关节组成",explain:"肩关节由肱骨头与肩胛骨关节盂构成，外被关节囊；尺骨滑车参与肘关节。"},
+{id:4,type:"fill",knowledgePoint:"骨连接",prompt:"骨与骨之间借纤维结缔组织、软骨或骨相连，统称为___。",options:[],correct:["骨连接","骨连结"],score:10,errorType:"A",brief:"骨连接的定义",explain:"骨与骨之间的连结结构统称骨连接（骨连结），包括直接连结与间接连结（关节）。"},
+{id:5,type:"single",knowledgePoint:"肌的起止和作用",prompt:"肌肉中通常被固定的一端称为？",options:["起点","止点","肌腹","腱膜"],correct:"A",score:10,errorType:"A",brief:"肌的起止概念",explain:"肌肉附着中通常固定不动的一端为起点，移动的一端为止点；起点止点是相对的。"},
+{id:6,type:"image",knowledgePoint:"肩关节",prompt:"识图判断：图中标“？”的关节属于？",options:["肩关节","肘关节","髋关节","膝关节"],correct:"A",score:10,errorType:"C",brief:"关节图谱辨认",figure:"shoulder",explain:"图示为肩胛骨关节盂与肱骨头构成的肩关节，是典型的球窝关节。"},
+{id:7,type:"multiple",knowledgePoint:"膝关节",prompt:"膝关节的主要韧带包括？",options:["前交叉韧带","后交叉韧带","髌韧带","桡骨环状韧带"],correct:["A","B","C"],score:10,errorType:"B",brief:"膝关节韧带",explain:"膝交叉韧带（前、后）与髌韧带均为膝关节重要韧带；桡骨环状韧带属肘关节。"},
+{id:8,type:"single",knowledgePoint:"前臂骨",prompt:"前臂位于外侧（桡侧）的骨是？",options:["桡骨","尺骨","肱骨","肩胛骨"],correct:"A",score:10,errorType:"C",brief:"前臂骨位置",explain:"解剖姿势下前臂外侧为桡骨（桡侧），内侧为尺骨（尺侧）。"},
+{id:9,type:"single",knowledgePoint:"肱骨骨性结构",prompt:"肱骨体后面自内上斜向外下的浅沟是？",options:["桡神经沟","尺神经沟","结节间沟","肱骨滋养孔"],correct:"A",score:10,errorType:"B",brief:"桡神经沟",explain:"桡神经沟内有桡神经与肱深动脉走行，肱骨中段骨折易损伤桡神经。"},
+{id:10,type:"single",knowledgePoint:"膝关节",prompt:"膝关节内具有缓冲震荡作用的结构是？",options:["半月板","前交叉韧带","髌韧带","腓侧副韧带"],correct:"A",score:10,errorType:"D",brief:"半月板功能",explain:"半月板为纤维软骨板，加深关节窝并缓冲震荡；交叉韧带主要限制胫骨前后移位。"}
+]},
+"消化系统":{title:"消化系统·单元测评",questions:[
+{id:1,type:"single",knowledgePoint:"胃的位置和形态",prompt:"胃大部分位于？",options:["左季肋区和腹上区","右季肋区","脐区","盆腔"],correct:"A",score:10,errorType:"B",brief:"胃的位置",explain:"胃大部分位于左季肋区，小部分位于腹上区。"},
+{id:2,type:"multiple",knowledgePoint:"肝的毗邻",prompt:"肝脏的主要毗邻结构包括？",options:["胃","右肾","胆囊","脾（与肝直接接触）"],correct:["A","B","C"],score:10,errorType:"B",brief:"肝的毗邻关系",explain:"肝右叶下面邻右肾、结肠右曲，下面左份邻胃，胆囊位于胆囊窝内；脾与肝不直接毗邻。"},
+{id:3,type:"fill",knowledgePoint:"肝的形态与分叶",prompt:"肝脏膈面以镰状韧带分为肝___和肝右叶。",options:[],correct:["左叶","肝左叶"],score:10,errorType:"A",brief:"肝的分叶术语",explain:"肝膈面借镰状韧带分为肝左叶与肝右叶；肝下面借“H”形沟分四叶。"},
+{id:4,type:"single",knowledgePoint:"食管",prompt:"食管的第二个生理性狭窄位于？",options:["主动脉弓跨越处（与其相遇处）","咽与食管交界处","膈食管裂孔处","胃食管连接处"],correct:"A",score:10,errorType:"B",brief:"食管狭窄位置",explain:"食管第二狭窄在主动脉弓与左主支气管跨越处，距中切牙约25cm。"},
+{id:5,type:"image",knowledgePoint:"胰的位置和形态",prompt:"识图判断：图中位于胃后方、横行于腹后壁的“？”器官是？",options:["胰","脾","肝","胆囊"],correct:"A",score:10,errorType:"C",brief:"胰的图谱辨认",figure:"pancreas",explain:"胰横位于腹后壁第1—2腰椎前方，胃后方，分为头、体、尾。"},
+{id:6,type:"multiple",knowledgePoint:"胆囊",prompt:"胆囊可分为哪些部分？",options:["底","体","颈","峡"],correct:["A","B","C"],score:10,errorType:"A",brief:"胆囊分部",explain:"胆囊自前向后分为底、体、颈三部分，颈向下延续为胆囊管。"},
+{id:7,type:"single",knowledgePoint:"小肠",prompt:"小肠包括十二指肠、空肠和？",options:["回肠","盲肠","结肠","直肠"],correct:"A",score:10,errorType:"A",brief:"小肠分部",explain:"小肠分为十二指肠、空肠和回肠；盲肠、结肠、直肠属大肠。"},
+{id:8,type:"fill",knowledgePoint:"大肠",prompt:"大肠的起始部是___。",options:[],correct:["盲肠"],score:10,errorType:"A",brief:"大肠起始部",explain:"大肠起自盲肠，止于肛门，分为盲肠、阑尾、结肠、直肠和肛管。"},
+{id:9,type:"single",knowledgePoint:"阑尾",prompt:"阑尾根部的体表投影（McBurney点）位于？",options:["脐与右髂前上棘连线的中、外1/3交界处","脐与左髂前上棘连线中点","右腹直肌外缘与肋弓交点","脐水平线与右锁骨中线交点"],correct:"A",score:10,errorType:"B",brief:"阑尾体表投影",explain:"McBurney点位于脐与右髂前上棘连线的中、外1/3交界处，阑尾炎症时此处压痛明显。"},
+{id:10,type:"single",knowledgePoint:"胃的位置和形态",prompt:"幽门约位于？",options:["第1腰椎体右侧","第3腰椎体左侧","第12胸椎左侧","脐平面"],correct:"A",score:10,errorType:"B",brief:"幽门位置",explain:"幽门约平第1腰椎体右侧，是胃与十二指肠的分界。"}
+]},
+"呼吸系统":{title:"呼吸系统·单元测评",questions:[
+{id:1,type:"single",knowledgePoint:"肺的位置和形态",prompt:"肺尖可高出锁骨内侧端上方约？",options:["1—2 cm","5 cm","10 cm","不超过锁骨平面"],correct:"A",score:10,errorType:"B",brief:"肺尖位置",explain:"肺尖高出锁骨内侧1/3段上方2—3cm（约1—2指宽）。"},
+{id:2,type:"single",knowledgePoint:"气管",prompt:"气管在何处分为左、右主支气管？",options:["胸骨角平面（约平第4胸椎下缘）","剑突平面","颈静脉切迹平面","膈肌平面"],correct:"A",score:10,errorType:"A",brief:"气管分叉平面",explain:"气管叉约平胸骨角平面（第4胸椎体下缘），是支气管镜检查的重要标志。"},
+{id:3,type:"multiple",knowledgePoint:"肺段",prompt:"右肺通常包括的肺叶有？",options:["上叶","中叶","下叶","前叶"],correct:["A","B","C"],score:10,errorType:"A",brief:"肺叶划分",explain:"右肺借斜裂和水平裂分为上、中、下三叶；左肺借斜裂分为上、下两叶。"},
+{id:4,type:"single",knowledgePoint:"鼻腔",prompt:"鼻腔向后经哪个结构通向咽？",options:["鼻后孔（ choanae ）","喉口","咽鼓管咽口","梨状孔"],correct:"A",score:10,errorType:"B",brief:"鼻腔后部通道",explain:"鼻腔经鼻后孔通鼻咽；梨状孔是骨性鼻腔前口。"},
+{id:5,type:"image",knowledgePoint:"肺的位置和形态",prompt:"识图判断：图中肺下缘紧邻的“？”结构是？",options:["膈","肝","胃","心包"],correct:"A",score:10,errorType:"C",brief:"肺与膈的毗邻识图",figure:"diaphragm",explain:"肺底膈面与膈相邻，右肺底还借膈与肝相邻。"},
+{id:6,type:"multiple",knowledgePoint:"胸膜",prompt:"胸膜包括哪些部分？",options:["脏胸膜","壁胸膜","胸膜腔","心包膜"],correct:["A","B","C"],score:10,errorType:"B",brief:"胸膜组成",explain:"胸膜分脏胸膜与壁胸膜，两者围成胸膜腔；心包膜属心包结构。"},
+{id:7,type:"fill",knowledgePoint:"支气管树",prompt:"气管在胸骨角平面分为左、右___。",options:[],correct:["主支气管"],score:10,errorType:"A",brief:"支气管分支",explain:"气管分为左、右主支气管，右主支气管粗短走行较直，异物易坠入。"},
+{id:8,type:"single",knowledgePoint:"呼吸肌",prompt:"平静吸气时最主要的呼吸肌是？",options:["膈","腹直肌","胸大肌","肋间内肌"],correct:"A",score:10,errorType:"D",brief:"呼吸肌功能",explain:"膈是最重要的吸气肌，收缩时膈穹下降、胸腔容积增大。"},
+{id:9,type:"single",knowledgePoint:"喉",prompt:"喉腔中最狭窄的部位是？",options:["声门裂","喉前庭","前庭裂","喉室"],correct:"A",score:10,errorType:"B",brief:"喉腔狭窄部位",explain:"声门裂是喉腔最狭窄处，成人异物与急性喉炎水肿的好发部位。"},
+{id:10,type:"fill",knowledgePoint:"胸膜",prompt:"胸膜腔的最低部位称为___，深吸气时肺下缘也不能到达。",options:[],correct:["肋膈隐窝","肋膈窦"],score:10,errorType:"B",brief:"肋膈隐窝",explain:"肋胸膜与膈胸膜转折处形成肋膈隐窝（肋膈窦），是胸膜腔最低点，胸腔积液常积聚于此。"}
+]},
+"绪论":{title:"绪论·单元测评",questions:[
+{id:1,type:"single",knowledgePoint:"解剖学姿势",prompt:"标准解剖学姿势中，人体应？",options:["身体直立、两眼平视、上肢下垂、掌心向前","身体俯卧、掌心向后","身体坐位、掌心向内","身体屈曲、掌心向下"],correct:"A",score:10,errorType:"A",brief:"标准解剖学姿势",explain:"解剖学姿势强调掌心向前（前臂旋后），一切方位描述均以此为准。"},
+{id:2,type:"multiple",knowledgePoint:"解剖学方位术语",prompt:"描述人体结构相互位置关系的术语包括？",options:["上和下（颅侧与尾侧）","前和后（腹侧与背侧）","内侧和外侧","深和浅以外新增的“快和慢”"],correct:["A","B","C"],score:10,errorType:"A",brief:"方位术语",explain:"方位术语描述空间位置关系（上下、前后、内侧外侧、深浅）；“快慢”是速度概念。"},
+{id:3,type:"fill",knowledgePoint:"解剖学切面",prompt:"沿人体前后径与垂直轴所作、将人体分为左右两部分的切面是___面。",options:[],correct:["矢状面","正中矢状面"],score:10,errorType:"A",brief:"人体切面",explain:"矢状面将人体分为左右两部分；通过正中线的为正中矢状面。"},
+{id:4,type:"single",knowledgePoint:"人体器官系统",prompt:"人体结构和功能的基本单位是？",options:["细胞","组织","器官","系统"],correct:"A",score:10,errorType:"A",brief:"人体结构层次",explain:"细胞是结构与功能的基本单位；组织由细胞和细胞间质构成。"},
+{id:5,type:"image",knowledgePoint:"解剖学切面",prompt:"识图判断：图中红色虚线所示、将人体分为左右两部分的切面是？",options:["矢状面","冠状面","水平面","斜切面"],correct:"A",score:10,errorType:"C",brief:"切面识图",figure:"planes",explain:"矢状面沿前后方向垂直纵切，将人体分为左右两部分。"},
+{id:6,type:"single",knowledgePoint:"结构与功能",prompt:"人体结构与功能之间的关系通常是？",options:["结构决定并适应功能","结构与功能无关","功能先于结构形成","二者完全相同"],correct:"A",score:10,errorType:"D",brief:"结构功能关系",explain:"结构是功能的物质基础，功能活动又影响结构形态，二者相互依存。"},
+{id:7,type:"single",knowledgePoint:"正常与变异",prompt:"器官的形态、位置、结构超出常见范围但对功能无明显影响者，通常称为？",options:["变异","畸形","异常","畸变"],correct:"A",score:10,errorType:"A",brief:"变异概念",explain:"变异属正常范围内的个体差异；超出并影响功能者称异常或畸形。"},
+{id:8,type:"single",knowledgePoint:"解剖学切面",prompt:"将人体分为上、下两部分的切面是？",options:["水平面（横切面）","矢状面","冠状面","正中矢状面"],correct:"A",score:10,errorType:"A",brief:"水平面",explain:"水平面垂直于人体长轴，将人体分为上、下两部分。"}
+]},
+"泌尿系统":{title:"泌尿系统·单元测评",questions:[
+{id:1,type:"single",knowledgePoint:"肾的位置和形态",prompt:"肾位于腹膜后间隙，通常？",options:["左肾高于右肾","右肾高于左肾","两肾等高","两肾均位于盆腔"],correct:"A",score:10,errorType:"B",brief:"肾的位置",explain:"因肝右叶存在，右肾位置低于左肾约半个椎体（1—2cm）。"},
+{id:2,type:"multiple",knowledgePoint:"肾的结构",prompt:"肾的主要结构包括？",options:["肾皮质","肾髓质","肾窦","肝门"],correct:["A","B","C"],score:10,errorType:"C",brief:"肾的结构",explain:"肾实质分皮质与髓质，肾门凹陷入内形成肾窦；肝门属肝结构。"},
+{id:3,type:"fill",knowledgePoint:"泌尿小管",prompt:"肾的结构与功能单位是___。",options:[],correct:["肾单位"],score:10,errorType:"A",brief:"肾单位",explain:"肾单位由肾小体与肾小管组成，每侧肾约有100万个以上。"},
+{id:4,type:"single",knowledgePoint:"输尿管",prompt:"输尿管的第二处狭窄位于？",options:["跨越髂血管处","肾盂与输尿管移行处","膀胱壁内段","尿道内口"],correct:"A",score:10,errorType:"B",brief:"输尿管狭窄",explain:"输尿管三处狭窄：起始处、跨髂血管处（第二狭窄）、壁内段（最狭窄）。"},
+{id:5,type:"image",knowledgePoint:"肾门",prompt:"识图判断：图中“？”所指肾门通常位于肾的？",options:["内侧缘","外侧缘","上极","下极"],correct:"A",score:10,errorType:"C",brief:"肾门识图",figure:"kidney",explain:"肾门位于肾内侧缘中部凹陷处，是肾血管、肾盂、神经淋巴管出入部位。"},
+{id:6,type:"single",knowledgePoint:"膀胱",prompt:"膀胱三角位于？",options:["膀胱底内面（两输尿管口与尿道内口之间）","膀胱尖外面","膀胱颈外面","膀胱顶部"],correct:"A",score:10,errorType:"B",brief:"膀胱三角",explain:"膀胱三角缺乏黏膜下层，无论充盈与否均平滑无皱襞，是肿瘤与结核好发部位。"},
+{id:7,type:"single",knowledgePoint:"肾的被膜",prompt:"肾的被膜由外向内依次为？",options:["肾筋膜、脂肪囊、纤维囊","纤维囊、脂肪囊、肾筋膜","脂肪囊、肾筋膜、纤维囊","纤维囊、肾筋膜、脂肪囊"],correct:"A",score:10,errorType:"B",brief:"肾被膜层次",explain:"由外向内为肾筋膜、肾脂肪囊、肾纤维囊；肾周封闭即将药液注入脂肪囊。"},
+{id:8,type:"fill",knowledgePoint:"输尿管",prompt:"输尿管三处狭窄中最狭窄的是___。",options:[],correct:["壁内段","膀胱壁内段"],score:10,errorType:"B",brief:"输尿管最狭窄处",explain:"壁内段是输尿管最狭窄处，结石易嵌顿于此。"}
+]},
+"生殖系统":{title:"生殖系统·单元测评",questions:[
+{id:1,type:"single",knowledgePoint:"睾丸",prompt:"睾丸的主要功能是？",options:["产生精子和分泌雄激素","储存尿液","产生胆汁","分泌胰液"],correct:"A",score:10,errorType:"D",brief:"睾丸功能",explain:"睾丸生精小管产生精子，间质细胞分泌雄激素，兼具外分泌与内分泌功能。"},
+{id:2,type:"multiple",knowledgePoint:"男性生殖管道",prompt:"男性生殖管道包括？",options:["附睾","输精管","射精管","输尿管"],correct:["A","B","C"],score:10,errorType:"A",brief:"男性生殖管道",explain:"附睾、输精管、射精管属男性生殖管道；输尿管属泌尿系统。"},
+{id:3,type:"fill",knowledgePoint:"子宫",prompt:"子宫位于骨盆腔中央，在膀胱与___之间。",options:[],correct:["直肠"],score:10,errorType:"B",brief:"子宫毗邻",explain:"子宫前邻膀胱、后邻直肠，膀胱充盈程度可改变子宫体位。"},
+{id:4,type:"single",knowledgePoint:"女性生殖器",prompt:"输卵管由内侧向外侧通常分为子宫部、峡、壶腹和？",options:["漏斗部","阴道部","宫颈部","卵巢部"],correct:"A",score:10,errorType:"A",brief:"输卵管分部",explain:"输卵管由内向外为子宫部、峡、壶腹、漏斗（末端有输卵管伞）。"},
+{id:5,type:"image",knowledgePoint:"子宫",prompt:"识图判断：图中呈梨形、位于膀胱与直肠之间的“？”器官是？",options:["子宫","卵巢","阴道","膀胱"],correct:"A",score:10,errorType:"C",brief:"子宫识图",figure:"uterus",explain:"子宫呈前后略扁的倒置梨形，位于小骨盆中央、膀胱与直肠之间。"},
+{id:6,type:"single",knowledgePoint:"会阴",prompt:"会阴通常指？",options:["盆膈以下封闭骨盆下口的全部软组织","腹腔顶部","胸腔底部","颅底软组织"],correct:"A",score:10,errorType:"B",brief:"会阴范围",explain:"广义会阴为盆膈以下封闭骨盆下口的软组织，以两侧坐骨结节连线分为前、后两个三角。"},
+{id:7,type:"single",knowledgePoint:"子宫固定装置",prompt:"维持子宫前倾的主要韧带是？",options:["子宫圆韧带","子宫阔韧带","骶子宫韧带","子宫主韧带"],correct:"A",score:10,errorType:"D",brief:"子宫韧带功能",explain:"子宫圆韧带维持子宫前倾；骶子宫韧带维持前屈；主韧带防止子宫下垂。"},
+{id:8,type:"single",knowledgePoint:"男性尿道",prompt:"男性尿道最狭窄的部位是？",options:["尿道外口","尿道内口","膜部","前列腺部"],correct:"A",score:10,errorType:"B",brief:"尿道狭窄",explain:"尿道外口最狭窄；尿道膜部最短最固定，耻骨骨折易损伤。"}
+]},
+"内分泌系统":{title:"内分泌系统·单元测评",questions:[
+{id:1,type:"single",knowledgePoint:"垂体",prompt:"垂体位于？",options:["蝶骨垂体窝内","颞骨乳突内","筛骨筛窦内","下颌窝内"],correct:"A",score:10,errorType:"B",brief:"垂体位置",explain:"垂体借漏斗连于下丘脑，位于蝶骨体上面的垂体窝内。"},
+{id:2,type:"multiple",knowledgePoint:"甲状腺",prompt:"甲状腺的形态通常包括？",options:["左叶","右叶","甲状腺峡","锥状叶（可缺如）"],correct:["A","B","C"],score:10,errorType:"A",brief:"甲状腺形态",explain:"甲状腺呈“H”形，分左右两叶与峡部，约半数人有锥状叶。"},
+{id:3,type:"fill",knowledgePoint:"肾上腺",prompt:"肾上腺位于肾的___方，与肾共同包在肾筋膜内。",options:[],correct:["上","上方"],score:10,errorType:"B",brief:"肾上腺位置",explain:"肾上腺左呈半月形、右呈三角形，分别覆于两肾上极内上方。"},
+{id:4,type:"single",knowledgePoint:"胰岛",prompt:"胰岛主要分泌的调节血糖的激素是？",options:["胰岛素和胰高血糖素","胆汁和胃液","甲状腺素和降钙素","肾上腺素和去甲肾上腺素"],correct:"A",score:10,errorType:"D",brief:"胰岛功能",explain:"胰岛B细胞分泌胰岛素降血糖，A细胞分泌胰高血糖素升血糖。"},
+{id:5,type:"image",knowledgePoint:"甲状腺",prompt:"识图判断：图中位于喉与气管前外侧的“？”内分泌腺是？",options:["甲状腺","垂体","胸腺","肾上腺"],correct:"A",score:10,errorType:"C",brief:"甲状腺识图",figure:"thyroid",explain:"甲状腺峡部位于第2—4气管软骨环前方，叶贴于喉与气管两侧。"},
+{id:6,type:"single",knowledgePoint:"甲状旁腺",prompt:"甲状旁腺主要参与调节？",options:["血钙水平","血氧水平","胆汁分泌","尿液浓缩"],correct:"A",score:10,errorType:"D",brief:"甲状旁腺功能",explain:"甲状旁腺分泌甲状旁腺激素升血钙；甲状腺滤泡旁细胞分泌降钙素。"},
+{id:7,type:"single",knowledgePoint:"甲状腺",prompt:"人体最大的内分泌腺是？",options:["甲状腺","垂体","肾上腺","松果体"],correct:"A",score:10,errorType:"A",brief:"最大的内分泌腺",explain:"甲状腺重约20—30g，是人体最大的内分泌腺。"},
+{id:8,type:"fill",knowledgePoint:"松果体",prompt:"分泌褪黑素、参与调节睡眠节律的内分泌器官是___。",options:[],correct:["松果体","松果腺"],score:10,errorType:"D",brief:"松果体功能",explain:"松果体位于上丘脑缰连合后上方，分泌褪黑素，儿童期发达。"}
+]},
+"循环系统":{title:"循环系统·单元测评",questions:[
+{id:1,type:"single",knowledgePoint:"心脏的位置和形态",prompt:"心脏位于？",options:["中纵隔内","后纵隔内","腹膜后间隙","上纵隔内"],correct:"A",score:10,errorType:"B",brief:"心脏位置",explain:"心约2/3位于正中矢状面左侧，位于中纵隔内。"},
+{id:2,type:"multiple",knowledgePoint:"心脏的结构",prompt:"心脏的四个腔包括？",options:["右心房","右心室","左心房","左心室"],correct:["A","B","C","D"],score:10,errorType:"C",brief:"心脏四腔",explain:"心被冠状沟与室间隔分为左右心房和左右心室四个腔。"},
+{id:3,type:"fill",knowledgePoint:"心脏瓣膜",prompt:"左心房与左心室之间的瓣膜是___瓣。",options:[],correct:["二尖瓣","僧帽瓣"],score:10,errorType:"A",brief:"房室瓣",explain:"左房室口周缘附二尖瓣，右房室口为三尖瓣。"},
+{id:4,type:"single",knowledgePoint:"冠状动脉",prompt:"冠状动脉起自？",options:["升主动脉根部（主动脉窦）","肺动脉干","上腔静脉","主动脉弓"],correct:"A",score:10,errorType:"B",brief:"冠状动脉起点",explain:"左、右冠状动脉分别起自主动脉左窦与右窦，走行于冠状沟内。"},
+{id:5,type:"image",knowledgePoint:"心脏传导系",prompt:"识图判断：图中“？”所示心脏传导系正常起搏点是？",options:["窦房结","房室结","房室束","浦肯野纤维"],correct:"A",score:10,errorType:"C",brief:"传导系识图",figure:"conduction",explain:"窦房结位于上腔静脉与右心房交界处界沟上端心外膜深面，是心脏正常起搏点。"},
+{id:6,type:"single",knowledgePoint:"体循环和肺循环",prompt:"肺循环的起点是？",options:["右心室","左心室","右心房","左心房"],correct:"A",score:10,errorType:"D",brief:"肺循环路径",explain:"肺循环：右心室→肺动脉→肺泡毛细血管→肺静脉→左心房。"},
+{id:7,type:"single",knowledgePoint:"体循环和肺循环",prompt:"体循环的终点（血液回流处）是？",options:["右心房","左心房","右心室","左心室"],correct:"A",score:10,errorType:"D",brief:"体循环路径",explain:"体循环：左心室→主动脉→全身毛细血管→上、下腔静脉→右心房。"},
+{id:8,type:"single",knowledgePoint:"头臂静脉",prompt:"头臂静脉由哪两条静脉汇合而成？",options:["颈内静脉和锁骨下静脉","颈外静脉和颈内静脉","锁骨下静脉和腋静脉","颈内静脉和椎静脉"],correct:"A",score:10,errorType:"B",brief:"头臂静脉组成",explain:"头臂静脉在胸锁关节后方由颈内静脉与锁骨下静脉汇合而成。"}
+]},
+"感觉器":{title:"感觉器·单元测评",questions:[
+{id:1,type:"single",knowledgePoint:"眼球壁",prompt:"眼球壁由外向内依次为？",options:["纤维膜、血管膜、视网膜","视网膜、血管膜、纤维膜","血管膜、纤维膜、视网膜","纤维膜、视网膜、血管膜"],correct:"A",score:10,errorType:"A",brief:"眼球壁层次",explain:"眼球壁三层：外层纤维膜（角膜+巩膜），中层血管膜（虹膜+睫状体+脉络膜），内层视网膜。"},
+{id:2,type:"multiple",knowledgePoint:"眼球内容物",prompt:"眼球内容物包括？",options:["房水","晶状体","玻璃体","角膜"],correct:["A","B","C"],score:10,errorType:"C",brief:"眼球内容物",explain:"房水、晶状体、玻璃体均无血管、透明，与角膜共同构成屈光系统；角膜属眼球壁纤维膜。"},
+{id:3,type:"fill",knowledgePoint:"耳",prompt:"中耳鼓室内连接鼓膜与内耳的听小骨由外向内为锤骨、砧骨和___。",options:[],correct:["镫骨"],score:10,errorType:"A",brief:"听小骨",explain:"三块听小骨构成听骨链，将声波振动由鼓膜传至前庭窗。"},
+{id:4,type:"single",knowledgePoint:"视网膜",prompt:"感光细胞主要位于？",options:["视网膜","巩膜","脉络膜","虹膜"],correct:"A",score:10,errorType:"C",brief:"感光细胞位置",explain:"视锥与视杆细胞位于视网膜外层，黄斑中央凹处视锥细胞最密集。"},
+{id:5,type:"image",knowledgePoint:"眼球结构",prompt:"识图判断：能调节晶状体曲度、参与聚焦的结构是？",options:["睫状体","虹膜","巩膜","视神经"],correct:"A",score:10,errorType:"C",brief:"眼球结构识图",figure:"conduction",explain:"睫状体内睫状肌收缩使睫状小带松弛，晶状体变凸、屈光力增强（视近物）。"},
+{id:6,type:"single",knowledgePoint:"前庭蜗器",prompt:"维持身体平衡的感受器主要位于？",options:["前庭器（壶腹嵴、椭圆囊斑、球囊斑）","耳蜗","鼓膜","外耳道"],correct:"A",score:10,errorType:"D",brief:"平衡觉",explain:"前庭器感受直线加速度与旋转加速度；耳蜗的螺旋器（Corti器）感受声波。"},
+{id:7,type:"single",knowledgePoint:"眼球内容物",prompt:"房水产生于？",options:["睫状体","晶状体","玻璃体","虹膜"],correct:"A",score:10,errorType:"D",brief:"房水循环",explain:"房水由睫状体产生，经眼后房→瞳孔→前房→虹膜角膜角→巩膜静脉窦回流；循环受阻致青光眼。"},
+{id:8,type:"single",knowledgePoint:"耳",prompt:"沟通鼓室与鼻咽部的结构是？",options:["咽鼓管","咽鼓管咽口","蜗水管","鼓室上隐窝"],correct:"A",score:10,errorType:"B",brief:"咽鼓管",explain:"咽鼓管维持鼓室内外气压平衡，小儿咽鼓管短而平直，故中耳炎多见。"}
+]},
+"神经系统":{title:"神经系统·单元测评",questions:[
+{id:1,type:"single",knowledgePoint:"中枢神经系统",prompt:"中枢神经系统包括？",options:["脑和脊髓","脑神经和脊神经","交感神经和副交感神经","神经节和神经丛"],correct:"A",score:10,errorType:"A",brief:"中枢神经系统",explain:"脑与脊髓组成中枢神经系统；脑神经、脊神经等属周围神经系统。"},
+{id:2,type:"multiple",knowledgePoint:"脑膜",prompt:"脑和脊髓的被膜包括？",options:["硬膜","蛛网膜","软膜","胸膜"],correct:["A","B","C"],score:10,errorType:"A",brief:"脑脊髓被膜",explain:"由外向内为硬膜、蛛网膜、软膜三层；蛛网膜下隙含脑脊液。"},
+{id:3,type:"fill",knowledgePoint:"脊髓",prompt:"脊髓下端在成人约平第___腰椎体下缘。",options:[],correct:["1","一","L1","腰1"],score:10,errorType:"A",brief:"脊髓位置",explain:"成人脊髓下端平第1腰椎体下缘，故腰椎穿刺常在第3—4腰椎棘突间进行。"},
+{id:4,type:"single",knowledgePoint:"反射弧",prompt:"完成反射活动的结构基础是？",options:["反射弧","突触小体","神经核","灰质"],correct:"A",score:10,errorType:"D",brief:"反射弧",explain:"反射弧由感受器、传入神经、中枢、传出神经、效应器五部分组成。"},
+{id:5,type:"image",knowledgePoint:"脑的结构",prompt:"识图判断：大脑半球外侧沟下方的“？”脑叶是？",options:["颞叶","额叶","顶叶","枕叶"],correct:"A",score:10,errorType:"C",brief:"脑叶识图",figure:"brain",explain:"外侧沟（Sylvius沟）下方为颞叶；中央沟前方为额叶、后方为顶叶。"},
+{id:6,type:"single",knowledgePoint:"自主神经",prompt:"支配心肌、平滑肌和腺体的神经属于？",options:["自主神经（内脏运动神经）","躯体运动神经","躯体感觉神经","特殊内脏感觉神经"],correct:"A",score:10,errorType:"D",brief:"自主神经功能",explain:"内脏运动神经（自主神经）分交感与副交感两部，不受意志直接支配。"},
+{id:7,type:"single",knowledgePoint:"大脑皮层功能定位",prompt:"大脑皮质的躯体运动中枢位于？",options:["中央前回及中央旁小叶前部","中央后回","颞横回","距状沟周围皮质"],correct:"A",score:10,errorType:"D",brief:"皮层功能定位",explain:"中央前回为躯体运动区（倒置、左右交叉投影）；中央后回为躯体感觉区。"},
+{id:8,type:"fill",knowledgePoint:"脑的结构",prompt:"分布于舌前2/3味蕾、传导味觉的神经是___神经。",options:[],correct:["面","面神经","Ⅶ","7"],score:10,errorType:"B",brief:"味觉神经",explain:"舌前2/3一般内脏感觉由三叉神经（舌神经）传导，味觉由面神经（鼓索）传导；后1/3由舌咽神经。"}
+]}
 };
 
 /* 试点应用成效（占位，请替换为真实试点数据） */
@@ -262,12 +313,23 @@ function markQuestion(q){
 }
 
 /* 诊断：聚合一次测评结果 */
+function modOf(x, sys){
+  if(x.module) return x.module;
+  if(KG[x.knowledgePoint] && KG[x.knowledgePoint].m) return KG[x.knowledgePoint].m;
+  return sys || "未分类";
+}
+
 function diagnose(d){
   const q=(d.questions||[]).map(markQuestion);
   var w=q.filter(function(x){return x.r!=="正确"});
   var total=q.reduce(function(s,x){return s+(+x.score||0);},0);
   var got=q.reduce(function(s,x){return s+x.g;},0);
-  const mods={}; q.forEach(function(x){(mods[x.module]=mods[x.module]||[]).push(x);});
+  const mods={}; q.forEach(function(x){var mk=modOf(x, d.system);(mods[mk]=mods[mk]||[]).push(x);});
+  // 掌握度模型更新（指数平滑知识追踪）
+  q.forEach(function(x){
+    var obs = x.r==="正确" ? 1 : (x.g / Math.max(+x.score||1, 1));
+    try{ Mastery.update(x.knowledgePoint, obs); }catch(e){}
+  });
   // 知识点错误统计
   const ex={}; w.forEach(function(x){if(!ex[x.knowledgePoint]){ex[x.knowledgePoint]={n:0,t:[]};} ex[x.knowledgePoint].n++; ex[x.knowledgePoint].t.push(x.errorType||"待判定");});
   var E=Object.entries(ex).map(function(pair){var k=pair[0]; var v=pair[1]; return {k:k, n:v.n, t:v.t, state: v.n>1?"完全未掌握":"部分掌握"};});
@@ -296,13 +358,14 @@ function bumpStats(d){
   s.stats.correctCount += d.q.filter(function(x){return x.r==="正确"}).length;
   s.stats.sessions = (s.stats.sessions||0)+1;
   d.q.forEach(x=>{
+    var mk = modOf(x, d.system);
     if(x.r!=="正确"){
       s.stats.errorTypes[x.errorType||"待判定"] = (s.stats.errorTypes[x.errorType||"待判定"]||0)+1;
-      s.stats.modules[x.module] = s.stats.modules[x.module]||{total:0, correct:0};
+      s.stats.modules[mk] = s.stats.modules[mk]||{total:0, correct:0};
     }
-    s.stats.modules[x.module] = s.stats.modules[x.module]||{total:0, correct:0};
-    s.stats.modules[x.module].total++;
-    if(x.r==="正确") s.stats.modules[x.module].correct++;
+    s.stats.modules[mk] = s.stats.modules[mk]||{total:0, correct:0};
+    s.stats.modules[mk].total++;
+    if(x.r==="正确") s.stats.modules[mk].correct++;
   });
   // 历史记录
   s.history.unshift({
@@ -354,11 +417,15 @@ function renderSystemQuiz(){
   const name = document.getElementById("studentSystem").value;
   const bank = SYSTEM_BANKS[name]||{title:name+"·单元测评", questions:[]};
   const allowed = getAllowedTypes();
-  var q = (bank.questions||[]).filter(function(x){return allowed.includes(x.type);});
-  if(!q.length) q = bank.questions||[];
-  const requested = Math.max(1, +document.getElementById("assignCount").value||q.length);
-  const count = Math.min(requested, q.length);
-  q = q.slice(0,count);
+  var pool = (bank.questions||[]).filter(function(x){return allowed.includes(x.type);});
+  if(!pool.length) pool = bank.questions||[];
+  const requested = Math.max(1, +document.getElementById("assignCount").value||pool.length);
+  const count = Math.min(requested, pool.length);
+  // 自适应选题：优先推送掌握度低（薄弱）的知识点
+  var scored = pool.map(function(x){
+    return {q:x, m: (Mastery.get(x.knowledgePoint)||{m:.5}).m};
+  }).sort(function(a,b){return a.m-b.m;});
+  var q = scored.slice(0,count).map(function(x){return x.q;});
   q = q.map(shuffleOptions);
 
   const typeName={single:"单选题", multiple:"多选题", fill:"填空题", image:"识图选择题"};
@@ -383,10 +450,15 @@ function renderSystemQuiz(){
       }
       body = optHtml.join("");
     }
+    var fig = "";
+    if(x.figure && FIGURES[x.figure]){
+      fig = '<div class="figure">'+FIGURES[x.figure]+'<div class="muted small" style="text-align:center">原创示意图（依据人卫版教材绘制）</div></div>';
+    }
     qHtml += '<div class="quiz-q">'+
       '<div class="qtitle"><span class="qno">'+(i+1)+'</span>'+esc(x.prompt)+
       '<span class="qtype-tag">'+(typeName[x.type]||x.type)+'</span></div>'+
-      '<div class="muted small">'+esc(x.module)+' · '+esc(x.knowledgePoint)+'</div>'+
+      '<div class="muted small">'+esc(modOf(x, name))+' · '+esc(x.knowledgePoint)+'</div>'+
+      fig+
       body+
       '</div>';
   }
@@ -395,7 +467,7 @@ function renderSystemQuiz(){
     : "";
   panel.innerHTML =
     '<h1>'+esc(bank.title)+'</h1>'+
-    '<p class="muted">本次测试系统：<b>'+esc(name)+'</b> · 教师配置题量：'+count+'题</p>'+
+    '<p class="muted">本次测试系统：<b>'+esc(name)+'</b> · 共 '+count+' 题 · 已按掌握度优先推送薄弱知识点，选项顺序随机打乱</p>'+
     warnNote+
     qHtml+
     '<div class="actions">'+
@@ -418,7 +490,7 @@ function renderSystemQuiz(){
         for (var __csi = 0; __csi < __sel.length; __csi++) checked.push(__sel[__csi]);
         a = x.type==="multiple" ? checked.map(function(y){return y.value;}) : ((checked[0] && checked[0].value) || "");
       }
-      qs.push({type: x.type, module: x.module, knowledgePoint: x.knowledgePoint, prompt: x.prompt, options: x.options, correct: x.correct, score: x.score, answer: a});
+      qs.push({type: x.type, module: modOf(x, name), knowledgePoint: x.knowledgePoint, prompt: x.prompt, options: x.options, correct: x.correct, score: x.score, brief: x.brief, explain: x.explain, figure: x.figure, errorType: x.errorType, answer: a});
     }
     var d = diagnose({title:bank.title, system:name, questions:qs});
     renderStudentReport(d);
@@ -500,6 +572,36 @@ function renderStudentReport(d){
 
   var correctPct = d.total ? ((d.got / d.total) * 100).toFixed(1) : "0";
 
+  // 逐题复盘：显示你的答案 vs 正确答案 + 解析 + 识图 + 掌握度
+  var reviewParts = [];
+  for (var rv = 0; rv < d.q.length; rv++) {
+    var xr = d.q[rv];
+    var yourAns = Array.isArray(xr.answer) ? xr.answer.join("、") : (xr.answer || "（未作答）");
+    var corrTexts;
+    if (xr.type === "fill") {
+      corrTexts = Array.isArray(xr.correct) ? xr.correct : [xr.correct];
+    } else {
+      var ctArr = Array.isArray(xr.correct) ? xr.correct : [xr.correct];
+      corrTexts = [];
+      for (var cti = 0; cti < ctArr.length; cti++) {
+        var cLetter = String(ctArr[cti]);
+        var cIdx = cLetter.charCodeAt(0) - 65;
+        corrTexts.push((xr.options && xr.options[cIdx] !== undefined) ? xr.options[cIdx] : cLetter);
+      }
+    }
+    var rTag = xr.r === "正确" ? '<span class="good">✓ 正确</span>' : (xr.r === "部分正确" ? '<span class="warn">◐ 部分正确</span>' : '<span class="bad">✗ 错误</span>');
+    var rFig = (xr.figure && FIGURES[xr.figure]) ? '<div class="figure">' + FIGURES[xr.figure] + '</div>' : "";
+    var mObj = {m:.5, n:0};
+    try { mObj = Mastery.get(xr.knowledgePoint) || mObj; } catch(e){}
+    reviewParts.push('<div class="review-q">' + rTag + ' <b>' + (rv+1) + '．' + esc(xr.prompt) + '</b>' +
+      '<div class="muted small">' + esc(xr.knowledgePoint) + ' · 掌握度估计 ' + (mObj.m*100).toFixed(0) + '%（' + Mastery.label(mObj.m) + '，已测 ' + mObj.n + ' 次）</div>' +
+      rFig +
+      '<div>你的答案：<b>' + esc(yourAns) + '</b>　正确答案：<b style="color:#16794b">' + esc(corrTexts.join(" / ")) + '</b></div>' +
+      (xr.explain ? '<p class="small">📖 ' + esc(xr.explain) + '</p>' : '') +
+      '</div>');
+  }
+  var reviewHtml = reviewParts.join("");
+
   wrap.innerHTML =
     '<div class="callout ok"><b>已提交 ' + esc(d.system) + ' 测评。</b>以下为本次系统的学习诊断。</div>' +
     '<h2>模块掌握概况</h2>' +
@@ -524,11 +626,13 @@ function renderStudentReport(d){
     '<div class="stage"><strong>阶段 3 · 复盘校验测评</strong> <span class="muted small">建议 9 分钟</span>' +
       '<p>完成下方 ' + esc(d.system) + ' 自测，正确率达 80% 后再次复测。</p>' +
     '</div>' +
+    '<h2>🧾 逐题复盘（含正确答案与解析）</h2>' +
+    reviewHtml +
     '<h2>📌 错题摘要</h2>' +
     '<table class="table"><tr><th>知识点</th><th>错误类型</th><th>摘要</th></tr>' + wRowsHtml + '</table>' +
     '<h2>🤖 AI 智能解析</h2>' +
     '<div id="aiExplain">AI 解析生成中…</div>' +
-    '<h2>🧪 阶段 3 · ' + esc(d.system) + ' 自测校验</h2>' +
+    '<h2>🧪 阶段 3 · ' + esc(d.system) + ' 自测校验（仅本次错题）</h2>' +
     '<div id="selfQuestions"></div>' +
     '<div class="actions"><button class="primary" id="submitSelf">提交自测</button><span class="muted small">正确率达 80% 才算通过</span></div>' +
     '<div id="selfResult"></div>';
@@ -537,24 +641,57 @@ function renderStudentReport(d){
   aiExplainErrors(d);
 }
 
-/* 阶段 3 自测 */
+/* 阶段 3 自测：仅本次错题，完整题目界面 */
 function bindSelfTest(d){
   const sys = d.system || "本次测评";
-  const qs = d.q.filter(q => !d.system || q.module===d.system);
+  // 仅错题（无错题则隐藏自测区）
+  const qs = d.w.map(function(x){ return clone(x); });
   const target = document.getElementById("selfQuestions");
+  if(!qs.length){
+    target.innerHTML = '<p class="muted">本次无错题，无需自测，可直接切换到下一系统学习。</p>';
+    var btnHide = document.getElementById("submitSelf");
+    if(btnHide) btnHide.style.display = "none";
+    return;
+  }
   const typeName={single:"单选", multiple:"多选", fill:"填空", image:"识图"};
   target.innerHTML = qs.map((q,i)=>{
+    var fig = "";
+    if(q.figure && FIGURES[q.figure]){
+      fig = '<div class="figure">' + FIGURES[q.figure] + '</div>';
+    }
+    var body;
+    if(q.type==="fill"){
+      body = '<input class="self-answer" data-i="'+i+'" placeholder="请输入答案">';
+    } else {
+      var optHtml = [];
+      var opts = q.options || [];
+      for(var oi = 0; oi < opts.length; oi++){
+        var l = String.fromCharCode(65+oi);
+        var t = q.type==="multiple" ? "checkbox" : "radio";
+        optHtml.push('<label class="option"><input type="'+t+'" name="self'+i+'" value="'+l+'">'+l+'. '+esc(opts[oi])+'</label>');
+      }
+      body = optHtml.join("");
+    }
     return `<div class="quiz-q">
-      <div class="qtitle"><span class="qno">${i+1}</span>${esc(q.brief||q.knowledgePoint)}<span class="qtype-tag">${typeName[q.type]||q.type}</span></div>
+      <div class="qtitle"><span class="qno">${i+1}</span>${esc(q.prompt)}<span class="qtype-tag">${typeName[q.type]||q.type}</span></div>
       <div class="muted small">${esc(sys)} · ${esc(q.knowledgePoint)}</div>
-      <input class="self-answer" data-i="${i}" placeholder="${q.type==="multiple"?"多选请填写 A,B,C":"请输入答案"}">
+      ${fig}
+      ${body}
     </div>`;
   }).join("");
   document.getElementById("submitSelf").onclick = ()=>{
     let pass = 0;
     qs.forEach((q,i)=>{
-      const v = document.querySelector(`.self-answer[data-i="${i}"]`).value.trim();
-      const a = q.type==="multiple" ? v.split(/[,，、\s]+/).filter(Boolean) : v;
+      var a;
+      if(q.type==="fill"){
+        var v = document.querySelector(`.self-answer[data-i="${i}"]`).value.trim();
+        a = v;
+      } else {
+        var sel = document.querySelectorAll('input[name="self'+i+'"]:checked');
+        var vals = [];
+        for(var si = 0; si < sel.length; si++) vals.push(sel[si].value);
+        a = q.type==="multiple" ? vals : (vals[0]||"");
+      }
       if(markQuestion({...q, answer:a}).r==="正确") pass++;
     });
     const rate = pass/Math.max(qs.length,1);
@@ -585,12 +722,20 @@ function renderDashMetrics(){
   const rate = total ? (correct/total*100).toFixed(1) : 0;
   const sessions = st.sessions||0;
   const modules = Object.keys(st.modules||{}).length;
+  let pmCases = 0, pmReferrals = 0;
+  try{
+    const pmStore = JSON.parse(localStorage.getItem("posture-decoder-training-v1") || "{}");
+    pmCases = Number(pmStore.completed) || 0;
+    pmReferrals = (pmStore.records || []).filter(function(r){ return r.level === 3; }).length;
+  }catch(e){}
   document.getElementById("dashMetrics").innerHTML = `
     <div class="metric"><b>${sessions}</b><span>测评次数</span></div>
     <div class="metric"><b>${total}</b><span>累计答题</span></div>
     <div class="metric"><b>${correct}</b><span>累计正确</span></div>
     <div class="metric"><b>${rate}%</b><span>总体正确率</span></div>
     <div class="metric"><b>${modules}</b><span>已覆盖系统</span></div>
+    <div class="metric"><b>${pmCases}</b><span>体态案例解码</span></div>
+    <div class="metric"><b>${pmReferrals}</b><span>红旗转介识别</span></div>
   `;
 }
 
@@ -1328,6 +1473,7 @@ function applyRoleMode(){
 
 window.addEventListener("DOMContentLoaded", ()=>{
   setupTabs();
+  setupPosture();
   setupStudent();
   setupAssistant();
   renderChatLocal();
@@ -1348,3 +1494,450 @@ window.addEventListener("DOMContentLoaded", ()=>{
     document.getElementById("aiStatus").querySelector(".dot").classList.remove("off");
   }
 });
+/* ==========================================================
+   10. 体态解码工作台（融合自「体态解码师」）
+   真实体态案例 → 五维解码报告 → 针对性解剖测评引流
+   教学法：脚手架递减 · 学习证据自评 · 红旗转介识别
+   ========================================================== */
+
+const POSTURE_MODULES = {
+  "spine": {
+    title: "脊柱区",
+    structures: "颈椎、胸椎、腰椎、椎间关节、竖脊肌、多裂肌、腹横肌",
+    postures: "圆肩含胸、头前伸、脊柱侧弯外观、久坐后腰部不适",
+    tags: ["圆肩含胸", "头前伸", "脊柱侧弯外观", "久坐后腰部不适"],
+    image: "assets/atlas/spine.png",
+    caption: "课程图谱：脊柱",
+    systems: ["运动系统"]
+  },
+  "shoulder": {
+    title: "肩带区",
+    structures: "锁骨、肩胛骨、肩锁关节、盂肱关节、胸大肌、前锯肌、斜方肌",
+    postures: "肩胛内侧缘突出、举臂时肩部不适、肩关节活动范围减少",
+    tags: ["肩胛内侧缘突出", "举臂时肩部不适", "肩关节活动范围减少"],
+    image: "assets/atlas/shoulder.png",
+    caption: "课程图谱：肩关节",
+    systems: ["运动系统"]
+  },
+  "pelvis": {
+    title: "骨盆区",
+    structures: "髋骨、骶骨、骶髂关节、髋关节、髂腰肌、臀大肌、腹壁肌",
+    postures: "骨盆前倾、骨盆后倾、骨盆区不适或左右不对称",
+    tags: ["骨盆前倾", "骨盆后倾", "骨盆区不适或左右不对称"],
+    image: "assets/atlas/pelvis.png",
+    caption: "课程图谱：髋骨",
+    systems: ["运动系统", "泌尿系统", "生殖系统"]
+  },
+  "lower-limb": {
+    title: "下肢区",
+    structures: "股骨、膝关节、胫腓骨、踝关节、足弓、臀中肌、股四头肌",
+    postures: "膝超伸、膝关节内翻/外翻外观、足弓降低",
+    tags: ["膝超伸", "膝关节内翻/外翻外观", "足弓降低"],
+    image: "assets/atlas/lower-limb.png",
+    caption: "课程图谱：膝关节",
+    systems: ["运动系统", "循环系统"]
+  },
+  "upper-limb": {
+    title: "上肢区",
+    structures: "肱骨、尺桡骨、腕骨、上肢肌群、臂丛及主要周围神经",
+    postures: "长时间用鼠标后前臂不适、腕部或手指麻木、上肢重复操作不适",
+    tags: ["长时间用鼠标后前臂不适", "腕部或手指麻木", "上肢重复操作不适"],
+    image: "assets/atlas/upper-limb.png",
+    caption: "课程图谱：上肢肌浅层",
+    systems: ["运动系统", "神经系统"]
+  }
+};
+
+const POSTURE_KEY = "posture-decoder-training-v1";
+const POSTURE_SKILLS = [
+  ["structure", "结构定位"], ["mechanism", "机制推演"], ["risk", "风险沟通"],
+  ["intervention", "管理干预"], ["ethics", "职业边界"]
+];
+let postureActiveModule = "spine";
+
+function pmReadStore(){
+  try{
+    const saved = JSON.parse(localStorage.getItem(POSTURE_KEY) || "{}");
+    return {
+      records: Array.isArray(saved.records) ? saved.records.slice(0, 8) : [],
+      skills: saved.skills && typeof saved.skills === "object" ? saved.skills : {},
+      completed: Number(saved.completed) || 0
+    };
+  }catch(e){ return { records: [], skills: {}, completed: 0 }; }
+}
+function pmWriteStore(store){
+  try{ localStorage.setItem(POSTURE_KEY, JSON.stringify(store)); }catch(e){}
+}
+
+function pmEscapeLine(text){
+  return String(text || "").replace(/^#{1,6}\s*/, "").trim();
+}
+function pmRenderText(container, text){
+  if(!container) return;
+  container.innerHTML = "";
+  const lines = String(text || "未生成该板块。").split("\n").map(pmEscapeLine).filter(Boolean);
+  for(const line of lines){
+    const item = document.createElement("p");
+    item.textContent = line;
+    if(/^[-•]/.test(line)) item.className = "bullet";
+    container.appendChild(item);
+  }
+}
+function pmExtractSection(text, startEmoji, endEmoji){
+  const start = text.indexOf(startEmoji);
+  if(start === -1) return "未生成该板块。";
+  const end = endEmoji ? text.indexOf(endEmoji, start + 1) : text.length;
+  const section = text.slice(start, end === -1 ? text.length : end).trim();
+  return section.split("\n").slice(1).join("\n").trim() || "未生成该板块。";
+}
+
+function pmFallbackReport(query){
+  const input = query || "当前案例";
+  const isRed = /进行性麻木|进行性无力|大小便|步态明显改变|近期外伤|剧烈疼痛|夜间痛|发热|晕厥|胸痛|明显畸形/.test(input);
+  const risk = isRed ? "三级" : /疼|酸|麻|疲劳|受限|不稳|无力/.test(input) ? "二级" : "一级";
+  const module = POSTURE_MODULES[postureActiveModule];
+  const transfer = risk === "三级" ? "\n🚨 建议转介：该表现可能涉及结构性病变，请建议客户至骨科/康复科就诊，健康管理师可协助记录症状变化。" : "";
+  return "📍 结构定位\n【骨骼/关节】：" + module.structures +
+    "\n【肌肉】：结合观察紧张肌群与控制能力不足肌群；不依据单一体态作确定性判断。" +
+    "\n【神经】：如有麻木、无力或放射性不适，记录其分布并优先排查红旗。" +
+    "\n【体表标志】：选择耳屏、肩峰、髂前上棘、髌骨或第二脚趾等与当前区域相关的体表点。\n\n" +
+    "🔍 机制推演\n【类比教学】：身体的节段像一组相连的铰链，一个区域长期偏离中立位，邻近区域常会用代偿维持任务。" +
+    "\n【因果链】：姿势排列或肌肉控制改变 → 关节受力与运动轨迹改变 → 活动耐受下降或代偿表现。\n\n" +
+    "⚠️ 健康风险\n风险等级：" + risk +
+    "\n风险描述：用于健康教育与活动风险观察，不构成疾病判断。" +
+    "\n职业场景：办公室健康促进、体检后生活方式教育、康养机构活动筛查。" + transfer + "\n\n" +
+    "💡 管理干预\n【运动处方】\n• 松解动作：在无疼痛加重前提下进行相关区域温和活动与拉伸，每次 20-30 秒，2-3 组。" +
+    "\n• 强化动作：从低负荷的姿势控制和稳定训练开始，每周 2-3 次，以动作质量为先。" +
+    "\n• 禁忌：出现剧烈疼痛、进行性麻木、无力、头晕或外伤后不适时停止并转介。" +
+    "\n【行为管理】：每 30-50 分钟中断久坐；让工作台面、屏幕和座椅高度与任务相适应。" +
+    "\n【随访指标】：记录连续久坐时间、动作舒适度 0-10 分、体表标志变化和红旗是否出现。\n\n" +
+    "🎓 延伸思考\n如果只关注不适部位，而不观察相邻关节和整体力线，可能遗漏哪一段结构-功能联系？";
+}
+
+function pmPracticeCount(){
+  return pmReadStore().records.filter(function(item){ return item.module === postureActiveModule; }).length;
+}
+function pmUpdateScaffold(){
+  const count = pmPracticeCount();
+  const note = document.getElementById("scaffold-note");
+  if(!note) return;
+  if(count === 0) note.textContent = "首次案例：完整示范模式";
+  else if(count === 1) note.textContent = "第 2 次：先尝试补全肌肉与风险";
+  else note.textContent = "第 3 次起：先独立定位，再核对报告";
+}
+
+function pmRenderQuickTags(){
+  const module = POSTURE_MODULES[postureActiveModule];
+  const container = document.getElementById("quick-tags");
+  if(!container) return;
+  container.innerHTML = "";
+  module.tags.forEach(function(tag){
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "quick-tag";
+    button.textContent = tag;
+    button.onclick = function(){
+      const input = document.getElementById("posture-input");
+      input.value = tag;
+      input.focus();
+    };
+    container.appendChild(button);
+  });
+  const ctx = document.getElementById("quick-tag-context");
+  if(ctx) ctx.textContent = module.title + "快捷标签";
+}
+
+function pmSelectModule(id){
+  postureActiveModule = id;
+  const module = POSTURE_MODULES[id];
+  document.querySelectorAll("#pmTabs .pm-tab").forEach(function(tab){
+    const isSelected = tab.dataset.module === id;
+    tab.classList.toggle("active", isSelected);
+    tab.setAttribute("aria-selected", String(isSelected));
+  });
+  const s = document.getElementById("pmStructures");
+  const p = document.getElementById("pmPostures");
+  if(s) s.textContent = "当前模块：" + module.title + " · 包含：" + module.structures;
+  if(p) p.textContent = "关联体态：" + module.postures;
+  const img = document.getElementById("pmAtlasImg");
+  if(img){ img.src = module.image; img.alt = module.title + "解剖图谱"; }
+  const cap = document.getElementById("pmAtlasCap");
+  if(cap) cap.textContent = module.caption;
+  pmRenderQuickTags();
+  pmUpdateScaffold();
+}
+
+function pmRenderDimensions(reply, query){
+  const sections = {
+    structure: pmExtractSection(reply, "📍", "🔍"),
+    mechanism: pmExtractSection(reply, "🔍", "⚠️"),
+    risk: pmExtractSection(reply, "⚠️", "💡"),
+    intervention: pmExtractSection(reply, "💡", "🎓"),
+    thinking: pmExtractSection(reply, "🎓", null)
+  };
+  const targets = {
+    structure: "dim-structure", mechanism: "dim-mechanism", risk: "dim-risk",
+    intervention: "dim-intervention", thinking: "dim-thinking"
+  };
+  Object.keys(targets).forEach(function(key){
+    const host = document.querySelector("#" + targets[key] + " .content");
+    pmRenderText(host, sections[key]);
+  });
+  const title = document.getElementById("analysis-title");
+  if(title) title.textContent = "五维体态解码报告：" + (query.length > 24 ? query.slice(0, 24) + "…" : query);
+  const level = /风险等级：三级/.test(sections.risk) ? 3 : /风险等级：二级/.test(sections.risk) ? 2 : 1;
+  const chip = document.getElementById("risk-chip");
+  if(chip){
+    chip.className = "risk-chip level-" + level;
+    chip.textContent = "风险等级：" + ["", "一级", "二级", "三级"][level];
+  }
+  const out = document.getElementById("analysis-output");
+  if(out){
+    out.classList.remove("hidden");
+  }
+  return level;
+}
+
+function pmLoadingDimensions(){
+  ["dim-structure", "dim-mechanism", "dim-risk", "dim-intervention", "dim-thinking"].forEach(function(id){
+    const host = document.querySelector("#" + id + " .content");
+    pmRenderText(host, "正在依据结构-功能-风险-管理链进行教学分析…");
+  });
+  const chip = document.getElementById("risk-chip");
+  if(chip){ chip.className = "risk-chip"; chip.textContent = "正在解码"; }
+  const title = document.getElementById("analysis-title");
+  if(title) title.textContent = "正在生成五维体态解码报告";
+  const out = document.getElementById("analysis-output");
+  if(out) out.classList.remove("hidden");
+}
+
+function pmRecordAnalysis(query, level){
+  const store = pmReadStore();
+  const record = {
+    id: Date.now() + "-" + Math.random().toString(36).slice(2, 7),
+    module: postureActiveModule,
+    query: query.replace(/\s+/g, " ").slice(0, 50),
+    level: level,
+    time: new Date().toLocaleString("zh-CN", { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" })
+  };
+  store.records.unshift(record);
+  store.records = store.records.slice(0, 8);
+  store.completed += 1;
+  pmWriteStore(store);
+  pmRenderArchive();
+  pmUpdateScaffold();
+  // 同步刷新数据看板（若已渲染）
+  renderDashMetrics();
+}
+
+function pmRenderArchive(){
+  const store = pmReadStore();
+  const total = document.getElementById("analysis-total");
+  const risk = document.getElementById("risk-total");
+  if(total) total.textContent = String(store.completed);
+  if(risk) risk.textContent = String(store.records.filter(function(item){ return item.level === 3; }).length);
+  const history = document.getElementById("session-history");
+  if(history){
+    history.innerHTML = "";
+    if(!store.records.length){
+      const empty = document.createElement("p");
+      empty.className = "muted small";
+      empty.textContent = "尚无记录。完成一次解码后会显示在这里。";
+      history.appendChild(empty);
+    } else {
+      store.records.forEach(function(record){
+        const item = document.createElement("div");
+        item.className = "history-item level-" + record.level;
+        const t = document.createElement("strong");
+        const m = document.createElement("span");
+        t.textContent = record.query;
+        const mod = POSTURE_MODULES[record.module];
+        m.textContent = (mod ? mod.title : "运动系统") + " · " + record.time + " · " + ["", "一级", "二级", "三级"][record.level] + "风险";
+        item.appendChild(t);
+        item.appendChild(m);
+        history.appendChild(item);
+      });
+    }
+  }
+  pmDrawRadar(store);
+}
+
+function pmDrawRadar(store){
+  const canvas = document.getElementById("radar-chart");
+  if(!canvas || !canvas.getContext) return;
+  const context = canvas.getContext("2d");
+  const width = canvas.width, height = canvas.height;
+  const centerX = width / 2;
+  const centerY = height / 2 - 3;
+  const radius = 75;
+  const values = POSTURE_SKILLS.map(function(pair){
+    return Math.min(5, 1 + Number(store.skills[pair[0]] || 0) * 0.5 + store.completed * 0.08);
+  });
+  context.clearRect(0, 0, width, height);
+  context.font = '11px "Microsoft YaHei", sans-serif';
+  context.textAlign = "center";
+  for(let level = 1; level <= 5; level += 1){
+    context.beginPath();
+    POSTURE_SKILLS.forEach(function(_, index){
+      const angle = -Math.PI / 2 + (Math.PI * 2 * index) / POSTURE_SKILLS.length;
+      const x = centerX + Math.cos(angle) * radius * level / 5;
+      const y = centerY + Math.sin(angle) * radius * level / 5;
+      if(index) context.lineTo(x, y); else context.moveTo(x, y);
+    });
+    context.closePath();
+    context.strokeStyle = "#d5dce8";
+    context.lineWidth = 1;
+    context.stroke();
+  }
+  POSTURE_SKILLS.forEach(function(pair, index){
+    const angle = -Math.PI / 2 + (Math.PI * 2 * index) / POSTURE_SKILLS.length;
+    const x = centerX + Math.cos(angle) * (radius + 25);
+    const y = centerY + Math.sin(angle) * (radius + 25) + 4;
+    context.fillStyle = "#5a6b84";
+    context.fillText(pair[1], x, y);
+  });
+  context.beginPath();
+  values.forEach(function(value, index){
+    const angle = -Math.PI / 2 + (Math.PI * 2 * index) / values.length;
+    const x = centerX + Math.cos(angle) * radius * value / 5;
+    const y = centerY + Math.sin(angle) * radius * value / 5;
+    if(index) context.lineTo(x, y); else context.moveTo(x, y);
+  });
+  context.closePath();
+  context.fillStyle = "rgba(23,105,209,.18)";
+  context.fill();
+  context.strokeStyle = "#1769d1";
+  context.lineWidth = 2;
+  context.stroke();
+}
+
+async function analyzePosture(){
+  const inputEl = document.getElementById("posture-input");
+  const input = (inputEl && inputEl.value || "").trim();
+  if(!input){
+    alert("请输入体态描述，或点击上方快捷标签");
+    if(inputEl) inputEl.focus();
+    return;
+  }
+  pmLoadingDimensions();
+  const module = POSTURE_MODULES[postureActiveModule];
+  const stage = pmPracticeCount() + 1;
+  const prompt =
+    "【体态案例解码任务】\n" +
+    "分析区域：" + module.title + "\n" +
+    "涉及结构：" + module.structures + "\n" +
+    "学习阶段：第 " + stage + " 次案例练习\n" +
+    "学生描述的案例：" + input + "\n\n" +
+    "请严格按以下五维格式输出（保留每个 emoji 标题行）：\n" +
+    "📍 结构定位（骨骼/关节、肌肉、神经、体表标志）\n" +
+    "🔍 机制推演（类比教学 + 因果链）\n" +
+    "⚠️ 健康风险（给出风险等级：一级/二级/三级 + 职业场景；如有红旗表现须给出转介建议）\n" +
+    "💡 管理干预（运动处方：松解/强化/禁忌 + 行为管理 + 随访指标）\n" +
+    "🎓 延伸思考（一个引导性问题）\n" +
+    "要求：面向健康服务与管理专业大一学生的非医疗性教学分析，保留职业边界，不构成医疗诊断。";
+  let reply;
+  try{
+    reply = await callLLM(prompt, []);
+    if(!reply || reply.indexOf("📍") === -1){
+      reply = pmFallbackReport(input);
+    }
+  }catch(e){
+    reply = pmFallbackReport(input);
+  }
+  // 更新测评引流按钮
+  const refBtn = document.getElementById("referralQuizBtn");
+  if(refBtn){
+    refBtn.textContent = "去完成「" + module.systems[0] + "」测评 →";
+    refBtn.dataset.system = module.systems[0];
+  }
+  const refBox = document.getElementById("quizReferral");
+  if(refBox){
+    const extra = module.systems.slice(1);
+    const hint = refBox.querySelector(".muted.small");
+    if(hint) hint.textContent = extra.length
+      ? "推荐完成「" + module.systems[0] + "」单元测评" + "；学有余力可继续：" + extra.join("、") + "。"
+      : "完成「" + module.systems[0] + "」单元测评，验证结构知识掌握程度（阶段 3 校验环节）。";
+  }
+  const level = pmRenderDimensions(reply, input);
+  pmRecordAnalysis(input, level);
+  const out = document.getElementById("analysis-output");
+  if(out && out.scrollIntoView) out.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+window.analyzePosture = analyzePosture;
+
+function pmRegisterEvidence(skill){
+  const store = pmReadStore();
+  store.skills[skill] = Number(store.skills[skill] || 0) + 1;
+  pmWriteStore(store);
+  const btn = document.querySelector('[data-skill="' + skill + '"]');
+  if(btn) btn.classList.add("recorded");
+  pmRenderArchive();
+}
+
+function gotoSystemQuiz(system){
+  const select = document.getElementById("studentSystem");
+  if(select){
+    const opts = Array.from(select.options).map(function(o){ return o.value; });
+    if(opts.indexOf(system) === -1) system = opts[0] || system;
+    select.value = system;
+    select.dispatchEvent(new Event("change"));
+  }
+  const tab = document.querySelector('.tab[data-v="student"]');
+  if(tab) tab.click();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function setupPosture(){
+  // 渲染区域 Tab
+  const tabsHost = document.getElementById("pmTabs");
+  if(tabsHost){
+    tabsHost.innerHTML = "";
+    Object.keys(POSTURE_MODULES).forEach(function(id){
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "pm-tab";
+      b.dataset.module = id;
+      b.textContent = POSTURE_MODULES[id].title;
+      b.onclick = function(){ pmSelectModule(id); };
+      tabsHost.appendChild(b);
+    });
+  }
+  // 事件绑定
+  const analyzeBtn = document.getElementById("postureAnalyze");
+  if(analyzeBtn) analyzeBtn.onclick = analyzePosture;
+  const clearBtn = document.getElementById("postureClear");
+  if(clearBtn) clearBtn.onclick = function(){
+    const input = document.getElementById("posture-input");
+    input.value = "";
+    input.focus();
+  };
+  const checks = document.getElementById("competency-checks");
+  if(checks){
+    checks.addEventListener("click", function(event){
+      const button = event.target.closest ? event.target.closest("button[data-skill]") : null;
+      if(button) pmRegisterEvidence(button.dataset.skill);
+    });
+  }
+  const resetBtn = document.getElementById("reset-records");
+  if(resetBtn){
+    resetBtn.onclick = function(){
+      if(!confirm("将清除这台设备上的体态训练记录和自评数据，是否继续？")) return;
+      try{ localStorage.removeItem(POSTURE_KEY); }catch(e){}
+      document.querySelectorAll(".competency-checks button").forEach(function(button){
+        button.classList.remove("recorded");
+      });
+      pmRenderArchive();
+      pmUpdateScaffold();
+      renderDashMetrics();
+    };
+  }
+  const refBtn = document.getElementById("referralQuizBtn");
+  if(refBtn){
+    refBtn.onclick = function(){
+      gotoSystemQuiz(refBtn.dataset.system || "运动系统");
+    };
+  }
+  // 默认选中脊柱区
+  pmSelectModule("spine");
+  pmRenderArchive();
+}
