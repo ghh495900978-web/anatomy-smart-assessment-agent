@@ -1,0 +1,497 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="肌骨解码师——面向健康服务与管理专业的运动系统深度学习与体态评估智能体：原动肌分析+动作解剖+知识图谱测评+个性化学习路径+大模型智能伴学" />
+  <title>肌骨解码师 · 运动系统智能体｜健康服务与管理专业解剖学训练系统</title>
+  <link rel="stylesheet" href="styles.css" />
+  <!-- ECharts：可视化（雷达图/柱状图/饼图/知识图谱） -->
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js" defer></script>
+  <!-- html2canvas：报告导出图片（可选增强） -->
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js" defer></script>
+</head>
+<body>
+
+<!-- 顶部品牌区 -->
+<header class="topbar" role="banner">
+  <div class="brand-lockup">
+    <span class="brand-mark" aria-hidden="true">
+      <svg viewBox="0 0 32 64" width="32" height="64">
+        <circle cx="16" cy="10" r="6" fill="#fff"/>
+        <path d="M9 18 L9 36 M23 18 L23 36 M9 30 L23 30 M9 36 Q16 50 23 36" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+      </svg>
+    </span>
+    <div>
+      <p class="eyebrow">健康服务与管理专业 · 人体解剖学课程</p>
+      <h1>肌骨解码师 · 运动系统智能体</h1>
+      <p class="sub">体态案例解码 · 形成性测评 · 个性化学习路径 · 大模型智能伴学</p>
+    </div>
+  </div>
+  <div class="topbar-meta">
+    <div class="pill ok" id="engineStatus">
+      <span class="dot"></span><span>教学引擎就绪</span>
+    </div>
+    <div class="pill" id="aiStatus">
+      <span class="dot off"></span><span id="aiStatusText">AI 大脑 · 本地模式</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- 工作流指示器 -->
+  <section class="workflow" aria-label="核心工作流">
+    <div class="wf-step"><b>① 学情诊断</b><span>六维能力定位</span></div>
+    <i>→</i>
+    <div class="wf-step"><b>② 运动系统深学</b><span>骨学·关节学·肌学·生物力学</span></div>
+    <i>→</i>
+    <div class="wf-step"><b>③ 体态实训</b><span>五维解码·脚手架递减</span></div>
+    <i>→</i>
+    <div class="wf-step"><b>④ 能力档案</b><span>L1—L6 统一画像</span></div>
+    <i>→</i>
+    <div class="wf-step"><b>⑤ 智能伴学</b><span>AI 解析 + 路径推荐</span></div>
+    <i>→</i>
+    <div class="wf-step"><b>⑥ 复盘自测</b><span>80% 通过校验</span></div>
+  </section>
+
+  <!-- Tab 导航（递进式：诊断 → 学练 → 实训 → 档案） -->
+  <nav class="tabs" role="tablist" aria-label="主导航">
+    <button class="tab active" data-v="diagnosis" role="tab">🎯 学情诊断</button>
+    <button class="tab" data-v="student" role="tab">🦴 运动系统</button>
+    <button class="tab" data-v="posture" role="tab">🧍 体态实训</button>
+    <button class="tab" data-v="dashboard" role="tab">📈 能力档案</button>
+    <button class="tab" data-v="extra" role="tab">🧭 拓展学练</button>
+    <button class="tab" data-v="graph" role="tab">🕸️ 知识图谱</button>
+    <button class="tab" data-v="assistant" role="tab">🤖 AI 伴学</button>
+    <button class="tab" data-v="teacher" role="tab">🏫 教师端</button>
+    <span class="tab-spacer"></span>
+    <span class="tab-meta" id="lastUpdate">最近刷新：刚刚</span>
+  </nav>
+
+  <!-- ============================== 学情诊断（融合闭环起点） ============================== -->
+  <section class="view" data-view="diagnosis" role="tabpanel">
+    <div class="grid-2">
+      <div class="panel">
+        <div class="panel-head">
+          <h2>六维能力画像</h2>
+          <span class="tag-note">L1—L3 学科基础 · L4—L6 专业特色</span>
+        </div>
+        <div id="diagRadar" class="chart"></div>
+        <div id="compBars" class="comp-bars"></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head">
+          <h2>下一步学什么</h2>
+          <span class="muted small">由能力数据实时计算</span>
+        </div>
+        <div id="diagRecommend"></div>
+        <div class="panel-head" style="margin-top:16px">
+          <h2>能力成长曲线</h2>
+          <span class="muted small">基础线与专业线同步抬升</span>
+        </div>
+        <div id="diagTrend" class="chart"></div>
+      </div>
+    </div>
+    <div class="panel" style="margin-top:18px">
+      <div class="panel-head">
+        <h2>学习进度</h2>
+        <span class="tag-note" id="diagProgress">0 掌握 / 0 已接触</span>
+      </div>
+      <div id="diagProgressBody" class="metrics" style="margin-top:10px"></div>
+      <p class="muted small" style="margin-top:10px">
+        本页所有数据来自「单元学练」与「体态实训」两侧的实时写入，两份老档案已在首次打开时自动合并为这一份统一档案。
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================== 体态实训 ============================== -->
+  <section class="view hidden" data-view="posture" role="tabpanel">
+    <div class="panel">
+      <div class="panel-head">
+        <div>
+          <h1>🧍 体态解码工作台</h1>
+          <p class="muted">从体态线索建立职业思维链：观察 → 结构定位 → 机制推演 → 风险沟通 → 健康管理。请以学习案例代替真实个人信息。</p>
+        </div>
+        <span id="scaffold-note" class="tag-note">首次案例：完整示范模式</span>
+      </div>
+      <div class="pm-tabs" id="pmTabs" role="tablist" aria-label="体态分析区"></div>
+      <div class="pm-info">
+        <div class="pm-copy">
+          <p id="pmStructures" class="muted"></p>
+          <p id="pmPostures" class="muted"></p>
+        </div>
+        <figure class="pm-atlas">
+          <img id="pmAtlasImg" src="assets/atlas/spine.png" alt="脊柱区解剖图谱" />
+          <figcaption id="pmAtlasCap">课程图谱：脊柱</figcaption>
+        </figure>
+      </div>
+      <label class="field">
+        <span>体态案例描述</span>
+        <textarea id="posture-input" rows="4" placeholder="例：一位办公室白领，长期伏案工作，出现肩膀内扣、脖子前倾，偶尔头晕。"></textarea>
+      </label>
+      <div class="tag-row-head"><span>常见体态问题（点击填入）</span><span id="quick-tag-context" class="muted small"></span></div>
+      <div id="quick-tags" class="quick-tags" aria-label="常见体态问题快捷标签"></div>
+      <div class="actions">
+        <button class="primary" id="postureAnalyze">开始解码 →</button>
+        <button class="ghost" id="postureClear" type="button">清空案例</button>
+      </div>
+    </div>
+
+    <div id="analysis-output" class="panel hidden" aria-live="polite">
+      <div class="analysis-summary">
+        <div>
+          <p class="eyebrow">解码结果</p>
+          <strong id="analysis-title">五维体态解码报告</strong>
+        </div>
+        <span id="risk-chip" class="risk-chip">健康管理视角</span>
+      </div>
+      <div class="dim-card" id="dim-structure"><h4>📍 结构定位</h4><div class="content"></div></div>
+      <div class="dim-card" id="dim-mechanism"><h4>🔍 机制推演</h4><div class="content"></div></div>
+      <div class="dim-card" id="dim-risk"><h4>⚠️ 健康风险</h4><div class="content"></div></div>
+      <div class="dim-card" id="dim-intervention"><h4>💡 管理干预</h4><div class="content"></div></div>
+      <div class="dim-card" id="dim-thinking"><h4>🎓 延伸思考</h4><div class="content"></div></div>
+
+      <!-- 融合点：体态案例 → 针对性解剖测评引流 -->
+      <div class="quiz-referral" id="quizReferral">
+        <div>
+          <strong>🧪 学以致用 · 针对性测评</strong>
+          <p class="muted small">完成本区域相关的解剖系统单元测评，验证结构知识掌握程度（阶段 3 校验环节）。</p>
+        </div>
+        <button class="primary" id="referralQuizBtn">去完成「运动系统」测评 →</button>
+      </div>
+
+      <div class="evidence-check" aria-label="学习证据自评">
+        <div>
+          <strong>留下你的学习证据</strong>
+          <span>由你自主确认，不由系统替你判分。</span>
+        </div>
+        <div id="competency-checks" class="competency-checks">
+          <button type="button" data-skill="structure">我能说明结构</button>
+          <button type="button" data-skill="mechanism">我能推演机制</button>
+          <button type="button" data-skill="risk">我能完成风险沟通</button>
+          <button type="button" data-skill="intervention">我能提出管理建议</button>
+          <button type="button" data-skill="ethics">我能守住职业边界</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="panel">
+        <div class="panel-head">
+          <h2>📊 我的训练档案</h2>
+          <button id="reset-records" class="ghost small" type="button" title="清除本机训练记录">↺ 清除</button>
+        </div>
+        <div class="pm-stats">
+          <div><strong id="analysis-total">0</strong><span>完成案例</span></div>
+          <div><strong id="risk-total">0</strong><span>转介识别</span></div>
+        </div>
+        <canvas id="radar-chart" width="300" height="250" aria-label="五项能力训练雷达图"></canvas>
+        <p class="muted small">雷达图记录你的案例完成与自评学习证据，不对学习能力作自动判定。仅本机保存。</p>
+        <div class="history-heading"><strong>最近训练</strong><span class="muted small">最多保留 8 条</span></div>
+        <div id="session-history" class="session-history"><p class="muted small">尚无记录。完成一次解码后会显示在这里。</p></div>
+      </div>
+      <div class="panel">
+        <h2>📚 课程依据与职业边界</h2>
+        <ul class="res-list">
+          <li>《人体解剖学》课程运动系统资料</li>
+          <li>《运动解剖学（第3版）》相关内容</li>
+          <li>课程解剖图谱：骨、关节、肌、周围神经</li>
+        </ul>
+        <div class="ethics-banner" role="note">
+          <span aria-hidden="true">⚠️</span>
+          <div>
+            <strong>职业边界提示</strong>
+            <p>本系统仅提供健康服务与管理专业的<strong>非医疗性</strong>教学训练。所有输出均为教学模拟，不构成医疗诊断、治疗建议或药物推荐。涉及结构性病变风险、持续疼痛或红旗表现，应建议客户转介至医疗机构。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== 学生测评 ============================== -->
+  <section class="view hidden" data-view="student" role="tabpanel">
+    <div class="grid">
+      <aside class="panel">
+        <h1 id="scopeTitle">① 选择本次测评范围</h1>
+        <p class="muted" id="scopeTip"></p>
+        <label class="field">
+          <span>系统 / 章节</span>
+          <select id="studentSystem"></select>
+        </label>
+        <label class="field" id="layerField">
+          <span>知识层级</span>
+          <select id="quizLayer">
+            <option value="">全部层级（混合出题）</option>
+            <option value="骨学">骨学 · 形态与标志</option>
+            <option value="关节学">关节学 · 运动与稳定</option>
+            <option value="肌学">肌学 · 动力与失衡</option>
+            <option value="体态生物力学">体态生物力学 · 力线与代偿</option>
+          </select>
+        </label>
+        <label class="field">
+          <span>题型范围</span>
+          <div class="checks">
+            <label><input type="checkbox" id="assignSingle" checked> 单选题</label>
+            <label><input type="checkbox" id="assignMultiple" checked> 多选题</label>
+            <label><input type="checkbox" id="assignFill" checked> 填空题</label>
+            <label><input type="checkbox" id="assignImage" checked> 识图选择题</label>
+          </div>
+        </label>
+        <label class="field">
+          <span>本次题量（<span id="countHint">8</span> 题可用）</span>
+          <input type="number" id="assignCount" min="1" max="20" value="8" />
+        </label>
+        <button class="primary block" id="startQuiz">开始测评 →</button>
+        <p class="muted small">提示：完成后会立即生成 AI 诊断报告与个性化学习路径。</p>
+      </aside>
+
+      <article class="panel" id="quizPanel">
+        <div class="empty">
+          <svg viewBox="0 0 64 64" width="64" height="64" fill="none">
+            <rect x="6" y="10" width="52" height="44" rx="4" stroke="#1769d1" stroke-width="2"/>
+            <path d="M16 22 H48 M16 30 H48 M16 38 H36" stroke="#1769d1" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+            <h2>请在左侧选择系统并点击「开始测评」</h2>
+            <p class="muted">系统会按教师配置自动出题，提交后立即生成诊断报告。</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============================== 数据看板 ============================== -->
+  <section class="view hidden" data-view="dashboard" role="tabpanel">
+    <div class="panel">
+      <h1>个人学习数据看板</h1>
+      <p class="muted">本机累积数据 · 关闭浏览器不清空（除非主动清理）。</p>
+      <div class="metrics" id="dashMetrics"></div>
+    </div>
+    <div class="grid-2">
+      <div class="panel"><h2>能力画像雷达图</h2><div id="radarChart" class="chart"></div></div>
+      <div class="panel"><h2>模块正确率对比</h2><div id="barChart" class="chart"></div></div>
+    </div>
+    <div class="grid-2">
+      <div class="panel">
+        <h2>错误类型分布</h2>
+        <div id="errorPie" class="chart"></div>
+        <p class="muted small">A=概念名词 · B=结构毗邻 · C=识图辨认 · D=功能机制</p>
+      </div>
+      <div class="panel">
+        <h2>最近训练记录（最多 10 条）</h2>
+        <div id="historyTable"></div>
+        <button class="ghost" id="exportData">导出学习数据 (JSON)</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== 知识图谱 ============================== -->
+  <section class="view hidden" data-view="graph" role="tabpanel">
+    <div class="panel">
+      <h1>人体解剖学知识图谱</h1>
+      <p class="muted">节点 = 三级知识点；箭头 = 前置依赖关系。点击节点查看掌握度。</p>
+      <div class="kg-controls">
+        <label>聚焦系统
+          <select id="kgSystem"></select>
+        </label>
+        <label class="check">
+          <input type="checkbox" id="kgOnlyWeak"> 只显示薄弱知识点
+        </label>
+        <span class="legend">
+          <i class="dot ok"></i>掌握良好
+          <i class="dot warn"></i>部分掌握
+          <i class="dot bad"></i>未掌握
+          <i class="dot none"></i>未学过
+        </span>
+      </div>
+      <div id="kgChart" class="chart big"></div>
+    </div>
+  </section>
+
+  <!-- ============================== AI 智能伴学 ============================== -->
+  <section class="view hidden" data-view="assistant" role="tabpanel">
+    <div class="grid assistant">
+      <article class="panel">
+        <h1>AI 解剖学伴学助手</h1>
+        <p class="muted">你可以自由提问、让 AI 讲解知识点、解释错题、推荐下一步学习内容。输入"语音"二字可尝试麦克风输入。</p>
+        <div id="chatStream" class="chat-stream"></div>
+        <div class="chat-input">
+          <textarea id="chatInput" placeholder="例：解释肱肌的起止与作用；解析我刚才错的那道肝毗邻题；接下来我该学什么？" rows="2"></textarea>
+          <div class="chat-actions">
+            <button class="ghost" id="chatVoice" title="麦克风输入">🎙 语音</button>
+            <button class="ghost" id="chatClear" title="清空对话">清空</button>
+            <button class="primary" id="chatSend">发送 ⏎</button>
+          </div>
+          <p class="muted small" id="chatHint">默认本地模拟回复；如要启用真实大模型，请点右上角「教师端 → 大模型设置」配置 API Key。</p>
+        </div>
+      </article>
+      <aside class="panel">
+        <h2>快捷场景</h2>
+        <div class="chips" id="quickPrompts">
+          <button class="chip">解释肱肌的起止与作用</button>
+          <button class="chip">肝的分叶术语容易混，帮我对比记忆</button>
+          <button class="chip">冠状动脉从哪里发出？分支走向？</button>
+          <button class="chip">给我出 3 道心脏传导系的练习题</button>
+          <button class="chip">我最近薄弱的是识图题，怎么提升？</button>
+          <button class="chip">总结一下运动系统的学习路径</button>
+        </div>
+        <h2>本地历史</h2>
+        <ul class="local-history" id="chatHistory"></ul>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ============================== 教师端 ============================== -->
+  <section class="view hidden" data-view="teacher" role="tabpanel">
+    <div id="teacherGate" class="gate">
+      <h1>教师端登录</h1>
+      <p class="muted">教师工作台：题库编辑、班级数据汇总、大模型配置、推广说明。</p>
+      <label class="field">
+        <span>教师口令</span>
+        <input type="password" id="teacherPin" placeholder="请输入口令" />
+      </label>
+      <button class="primary" id="teacherLogin">解锁教师端</button>
+      <p class="muted small" id="teacherLoginMsg">默认口令：<code>anatomy2026</code>（可在配置中修改）</p>
+    </div>
+
+    <div id="teacherWorkspace" class="hidden">
+      <div class="grid-2">
+        <div class="panel">
+          <h1>题库编辑</h1>
+          <label class="field">
+            <span>系统 / 章节</span>
+            <select id="teacherSystem"></select>
+          </label>
+          <label class="field">
+            <span>测评标题</span>
+            <input id="quizTitle" />
+          </label>
+          <label class="field">
+            <span>快速添加一题</span>
+            <div class="qa-row">
+              <select id="tqType">
+                <option value="single">单选</option>
+                <option value="multiple">多选</option>
+                <option value="fill">填空</option>
+                <option value="image">识图选择</option>
+              </select>
+              <input id="tqScore" type="number" min="1" value="10" placeholder="分值" />
+            </div>
+            <input id="tqKnowledge" placeholder="三级知识点，如：肱肌" />
+            <input id="tqPrompt" placeholder="题干" />
+            <div class="qa-row">
+              <input id="tqOptA" placeholder="选项 A" />
+              <input id="tqOptB" placeholder="选项 B" />
+            </div>
+            <div class="qa-row">
+              <input id="tqOptC" placeholder="选项 C" />
+              <input id="tqOptD" placeholder="选项 D" />
+            </div>
+            <div class="qa-row">
+              <input id="tqCorrect" placeholder="正确答案（如 A 或 A,B,D 或 肝左叶）" />
+              <select id="tqError">
+                <option>A</option><option>B</option><option>C</option><option>D</option><option>待判定</option>
+              </select>
+            </div>
+            <input id="tqBrief" placeholder="题目简述（错题摘要用）" />
+            <button class="primary block" id="addQuestion">加入草稿 ↓</button>
+          </label>
+          <p class="muted small" id="teacherMsg">提示：编辑下方列表后，点击「发布」即可让学生端下次刷新时使用新题库。</p>
+          <button class="primary block" id="publishQuiz">发布到学生端</button>
+        </div>
+
+        <div class="panel">
+          <h2>当前系统题库列表</h2>
+          <div id="questionList"></div>
+          <p class="muted small">JSON 预览：</p>
+          <textarea id="quizEditor" rows="4" readonly></textarea>
+        </div>
+      </div>
+
+      <div id="teacherReport" class="hidden">
+        <div class="panel">
+          <h1>班级形成性学情汇总</h1>
+          <p class="muted">将多个学生的脱敏测评数据粘贴到下方 JSON 数组（每条形如 <code>{title,system,questions:[...]}</code>），点生成报告。</p>
+          <label class="field">
+            <span>脱敏样本（JSON 数组）</span>
+            <textarea id="cohort" rows="6" placeholder='[{"title":"...","system":"运动系统","questions":[{...}]}]'></textarea>
+          </label>
+          <div class="actions">
+            <button class="primary" id="runReport">生成班级报告</button>
+            <button class="ghost" id="loadSampleCohort">载入示例样本（10 人模拟）</button>
+          </div>
+          <div id="teacherReportOut"></div>
+        </div>
+
+        <div class="grid-3">
+          <div class="panel"><h2>班级模块正确率</h2><div id="tBar" class="chart"></div></div>
+          <div class="panel"><h2>错误类型分布</h2><div id="tPie" class="chart"></div></div>
+          <div class="panel"><h2>高频薄弱点 Top 8</h2><div id="tTopBar" class="chart"></div></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h1>大模型与多模态配置</h1>
+        <p class="muted">配置后 AI 伴学、智能错题解析、学习路径推荐将启用真实大模型。本地模式仍可使用。</p>
+        <label class="field">
+          <span>提供方</span>
+          <select id="llmProvider">
+            <option value="mock">本地模拟（默认，无需 Key）</option>
+            <option value="zhipu">智谱 GLM-4-Flash（推荐免费层）</option>
+            <option value="dashscope">通义千问 DashScope</option>
+            <option value="kimi">月之暗面 Kimi</option>
+            <option value="openai_compat">OpenAI 兼容（自定义）</option>
+          </select>
+        </label>
+        <label class="field">
+          <span>API Key（仅存本机）</span>
+          <input type="password" id="llmKey" placeholder="sk-..." />
+        </label>
+        <label class="field">
+          <span>Base URL（自定义时填写）</span>
+          <input id="llmBase" placeholder="https://open.bigmodel.cn/api/paas/v4" />
+        </label>
+        <label class="field">
+          <span>模型名</span>
+          <input id="llmModel" placeholder="glm-4-flash" />
+        </label>
+        <div class="actions">
+          <button class="primary" id="saveLlm">保存配置</button>
+          <button class="ghost" id="testLlm">测试连通</button>
+          <span class="muted small" id="llmTestResult"></span>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h1>试点应用成效（用于「实施与效果」35 分项）</h1>
+        <p class="muted">建议替换为真实试点数据（学校、教务部门审核）。下表为示例展示。</p>
+        <table class="table" id="pilotTable"></table>
+        <button class="ghost" id="downloadSummary">导出建设说明书摘要 (.md)</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- AI 浮窗按钮（伴学入口） -->
+<button class="fab" id="fabAssistant" title="AI 伴学" aria-label="打开 AI 伴学助手">
+  <svg viewBox="0 0 24 24" width="22" height="22" fill="#fff"><path d="M12 2 4 6v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V6l-8-4z"/></svg>
+</button>
+
+<!-- 浮窗对话框 -->
+<div class="fab-pop hidden" id="fabPop" role="dialog" aria-label="AI 伴学">
+  <header><b>AI 解剖学伴学</b><button id="fabClose" aria-label="关闭">×</button></header>
+  <div id="fabChat" class="chat-stream"></div>
+  <div class="chat-input mini">
+    <input id="fabInput" placeholder="问我任何解剖学问题…" />
+    <button class="primary" id="fabSend">发送</button>
+  </div>
+</div>
+
+<!-- 页脚 -->
+<footer class="foot">
+  <p>参考资料：①《人体解剖学》课程运动系统、内脏学、脉管系统、内分泌系统、感觉器、神经系统等章节；②《运动解剖学（第 3 版）》相关章节；③课程解剖图谱（骨、关节、肌、周围神经）。</p>
+  <p>&copy; 健康服务与管理专业 &middot; 肌骨解码师运动系统智能体 &middot; 参考北体《运动解剖学》第3版 &middot; 仅作教学辅助 &middot; 疑难以任课教师授课与临床教材为准。</p>
+</footer>
+
+<script src="app.js" defer></script>
+</body>
+</html>
