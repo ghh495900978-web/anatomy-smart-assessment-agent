@@ -228,17 +228,73 @@ const FIGURES={
 };
 
 const SYSTEM_BANKS={
-"运动系统":{title:"运动系统·单元测评",questions:[
-{id:1,type:"single",knowledgePoint:"肱肌",prompt:"肱肌的主要作用是？",options:["屈肘关节","伸肘关节","外展肩关节","旋前前臂"],correct:"A",score:10,errorType:"D",brief:"肱肌的起止与作用",explain:"肱肌起自肱骨体前面下半，止于尺骨粗隆，主要作用为屈肘关节。",scene:"社区体检中，一位长期伏案工作者主诉屈肘费力，需判断受累肌肉。"},
-{id:2,type:"single",knowledgePoint:"肱骨骨性结构",prompt:"肱骨近端的骨性标志是？",options:["大结节","冠突","尺骨鹰嘴","桡骨头"],correct:"A",score:10,errorType:"C",brief:"肱骨标志辨认",explain:"大结节位于肱骨上端外侧，是肩部重要骨性标志；冠突、鹰嘴属尺骨，桡骨头属桡骨。",scene:"体态评估触诊肩部骨性标志时，需定位的肱骨上端结构是？"},
-{id:3,type:"multiple",knowledgePoint:"肩关节",prompt:"肩关节的组成结构包括？",options:["肱骨头","肩胛骨关节盂","尺骨滑车","关节囊"],correct:["A","B","D"],score:10,errorType:"B",brief:"肩关节组成",explain:"肩关节由肱骨头与肩胛骨关节盂构成，外被关节囊；尺骨滑车参与肘关节。",scene:"为圆肩客户设计肩带稳定性训练前，需先明确参与的关节结构。"},
-{id:4,type:"fill",knowledgePoint:"骨连接",prompt:"骨与骨之间借纤维结缔组织、软骨或骨相连，统称为___。",options:[],correct:["骨连接","骨连结"],score:10,errorType:"A",brief:"骨连接的定义",explain:"骨与骨之间的连结结构统称骨连接（骨连结），包括直接连结与间接连结（关节）。",scene:"向客户解释「为何久坐后关节发僵」时，需先讲清骨与骨的连结形式。"},
-{id:5,type:"single",knowledgePoint:"肌的起止和作用",prompt:"肌肉中通常被固定的一端称为？",options:["起点","止点","肌腹","腱膜"],correct:"A",score:10,errorType:"A",brief:"肌的起止概念",explain:"肌肉附着中通常固定不动的一端为起点，移动的一端为止点；起点止点是相对的。",scene:"分析头前伸人群的肌力失衡，需先区分肌肉的固定端与移动端。"},
-{id:6,type:"image",knowledgePoint:"肩关节",prompt:"识图判断：图中标“？”的关节属于？",options:["肩关节","肘关节","髋关节","膝关节"],correct:"A",score:10,errorType:"C",brief:"关节图谱辨认",figure:"shoulder",explain:"图示为肩胛骨关节盂与肱骨头构成的肩关节，是典型的球窝关节。",scene:"体态筛查图谱中标注「？」的关节，是圆肩评估的关键部位。"},
-{id:7,type:"multiple",knowledgePoint:"膝关节",prompt:"膝关节的主要韧带包括？",options:["前交叉韧带","后交叉韧带","髌韧带","桡骨环状韧带"],correct:["A","B","C"],score:10,errorType:"B",brief:"膝关节韧带",explain:"膝交叉韧带（前、后）与髌韧带均为膝关节重要韧带；桡骨环状韧带属肘关节。",scene:"为运动风险较高的客户做膝扭伤宣教，需重点说明的稳定结构是？"},
-{id:8,type:"single",knowledgePoint:"前臂骨",prompt:"前臂位于外侧（桡侧）的骨是？",options:["桡骨","尺骨","肱骨","肩胛骨"],correct:"A",score:10,errorType:"C",brief:"前臂骨位置",explain:"解剖姿势下前臂外侧为桡骨（桡侧），内侧为尺骨（尺侧）。",scene:"评估前臂旋前受限者时，需先明确桡侧与尺侧各自的骨。"},
-{id:9,type:"single",knowledgePoint:"肱骨骨性结构",prompt:"肱骨体后面自内上斜向外下的浅沟是？",options:["桡神经沟","尺神经沟","结节间沟","肱骨滋养孔"],correct:"A",score:10,errorType:"B",brief:"桡神经沟",explain:"桡神经沟内有桡神经与肱深动脉走行，肱骨中段骨折易损伤桡神经。",scene:"客户肱骨中段骨折后出现垂腕，需判断易受损伤的神经走行部位。",comp:"L4"},
-{id:10,type:"single",knowledgePoint:"膝关节",prompt:"膝关节内具有缓冲震荡作用的结构是？",options:["半月板","前交叉韧带","髌韧带","腓侧副韧带"],correct:"A",score:10,errorType:"D",brief:"半月板功能",explain:"半月板为纤维软骨板，加深关节窝并缓冲震荡；交叉韧带主要限制胫骨前后移位。",scene:"为长期深蹲人群做膝部健康宣教时，需讲明起缓冲作用的结构。"}
+"运动系统":{title:"运动系统·深度学习（主战场）",questions:[
+{layer:"肌学",id:1,type:"single",knowledgePoint:"肱肌",prompt:"肱肌的主要作用是？",options:["屈肘关节","伸肘关节","外展肩关节","旋前前臂"],correct:"A",score:10,errorType:"D",brief:"肱肌的起止与作用",explain:"肱肌起自肱骨体前面下半，止于尺骨粗隆，主要作用为屈肘关节。",scene:"社区体检中，一位长期伏案工作者主诉屈肘费力，需判断受累肌肉。"},
+{layer:"骨学",id:2,type:"single",knowledgePoint:"肱骨骨性结构",prompt:"肱骨近端的骨性标志是？",options:["大结节","冠突","尺骨鹰嘴","桡骨头"],correct:"A",score:10,errorType:"C",brief:"肱骨标志辨认",explain:"大结节位于肱骨上端外侧，是肩部重要骨性标志；冠突、鹰嘴属尺骨，桡骨头属桡骨。",scene:"体态评估触诊肩部骨性标志时，需定位的肱骨上端结构是？"},
+{layer:"关节学",id:3,type:"multiple",knowledgePoint:"肩关节",prompt:"肩关节的组成结构包括？",options:["肱骨头","肩胛骨关节盂","尺骨滑车","关节囊"],correct:["A","B","D"],score:10,errorType:"B",brief:"肩关节组成",explain:"肩关节由肱骨头与肩胛骨关节盂构成，外被关节囊；尺骨滑车参与肘关节。",scene:"为圆肩客户设计肩带稳定性训练前，需先明确参与的关节结构。"},
+{layer:"骨学",id:4,type:"fill",knowledgePoint:"骨连接",prompt:"骨与骨之间借纤维结缔组织、软骨或骨相连，统称为___。",options:[],correct:["骨连接","骨连结"],score:10,errorType:"A",brief:"骨连接的定义",explain:"骨与骨之间的连结结构统称骨连接（骨连结），包括直接连结与间接连结（关节）。",scene:"向客户解释「为何久坐后关节发僵」时，需先讲清骨与骨的连结形式。"},
+{layer:"肌学",id:5,type:"single",knowledgePoint:"肌的起止和作用",prompt:"肌肉中通常被固定的一端称为？",options:["起点","止点","肌腹","腱膜"],correct:"A",score:10,errorType:"A",brief:"肌的起止概念",explain:"肌肉附着中通常固定不动的一端为起点，移动的一端为止点；起点止点是相对的。",scene:"分析头前伸人群的肌力失衡，需先区分肌肉的固定端与移动端。"},
+{layer:"关节学",id:6,type:"image",knowledgePoint:"肩关节",prompt:"识图判断：图中标“？”的关节属于？",options:["肩关节","肘关节","髋关节","膝关节"],correct:"A",score:10,errorType:"C",brief:"关节图谱辨认",figure:"shoulder",explain:"图示为肩胛骨关节盂与肱骨头构成的肩关节，是典型的球窝关节。",scene:"体态筛查图谱中标注「？」的关节，是圆肩评估的关键部位。"},
+{layer:"关节学",id:7,type:"multiple",knowledgePoint:"膝关节",prompt:"膝关节的主要韧带包括？",options:["前交叉韧带","后交叉韧带","髌韧带","桡骨环状韧带"],correct:["A","B","C"],score:10,errorType:"B",brief:"膝关节韧带",explain:"膝交叉韧带（前、后）与髌韧带均为膝关节重要韧带；桡骨环状韧带属肘关节。",scene:"为运动风险较高的客户做膝扭伤宣教，需重点说明的稳定结构是？"},
+{layer:"骨学",id:8,type:"single",knowledgePoint:"前臂骨",prompt:"前臂位于外侧（桡侧）的骨是？",options:["桡骨","尺骨","肱骨","肩胛骨"],correct:"A",score:10,errorType:"C",brief:"前臂骨位置",explain:"解剖姿势下前臂外侧为桡骨（桡侧），内侧为尺骨（尺侧）。",scene:"评估前臂旋前受限者时，需先明确桡侧与尺侧各自的骨。"},
+{layer:"骨学",id:9,type:"single",knowledgePoint:"肱骨骨性结构",prompt:"肱骨体后面自内上斜向外下的浅沟是？",options:["桡神经沟","尺神经沟","结节间沟","肱骨滋养孔"],correct:"A",score:10,errorType:"B",brief:"桡神经沟",explain:"桡神经沟内有桡神经与肱深动脉走行，肱骨中段骨折易损伤桡神经。",scene:"客户肱骨中段骨折后出现垂腕，需判断易受损伤的神经走行部位。",comp:"L4"},
+{layer:"关节学",id:10,type:"single",knowledgePoint:"膝关节",prompt:"膝关节内具有缓冲震荡作用的结构是？",options:["半月板","前交叉韧带","髌韧带","腓侧副韧带"],correct:"A",score:10,errorType:"D",brief:"半月板功能",explain:"半月板为纤维软骨板，加深关节窝并缓冲震荡；交叉韧带主要限制胫骨前后移位。",scene:"为长期深蹲人群做膝部健康宣教时，需讲明起缓冲作用的结构。"},
+{id:11,type:"single",layer:"骨学",knowledgePoint:"骨的形态分类",prompt:"按形态分类，腕骨属于？",options:["短骨","长骨","扁骨","不规则骨"],correct:"A",score:10,errorType:"A",brief:"骨的形态分类",scene:"阅读骨科影像报告时，需先明确各类骨的形态归属。",explain:"骨按形态分为长骨、短骨、扁骨和不规则骨四类；腕骨、跗骨属短骨，多成群分布于承受压力且运动复杂的部位。"},
+{id:12,type:"single",layer:"骨学",knowledgePoint:"骨的构造",prompt:"骨质按结构可分为？",options:["骨密质和骨松质","骨外膜和骨内膜","红骨髓和黄骨髓","有机质和无机质"],correct:"A",score:10,errorType:"A",brief:"骨的构造层次",scene:"为骨质疏松人群讲解骨强度时，需说明骨质的结构分层。",explain:"骨由骨膜、骨质和骨髓构成；骨质是骨的主要部分，分骨密质（致密坚硬）与骨松质（海绵状、交织成骨小梁）。"},
+{id:13,type:"single",layer:"骨学",knowledgePoint:"骨髓",prompt:"成人具有造血功能的红骨髓主要存在于？",options:["骨松质的间隙内","长骨的骨髓腔内","骨密质的骨板间","骨外膜的深面"],correct:"A",score:10,errorType:"B",brief:"红骨髓的分布",scene:"解读血常规异常报告时，需明确成人造血组织的所在部位。",explain:"胎儿及幼儿骨髓均为红骨髓；成年后长骨骨髓腔内的红骨髓被脂肪组织代替成为黄骨髓，红骨髓主要保留于骨松质间隙内。"},
+{id:14,type:"single",layer:"骨学",knowledgePoint:"骨的化学成分",prompt:"老年人骨中无机质比例相对增大，其物理特性表现为？",options:["脆性较大，易发生骨折","易变形而不易骨折","弹性和硬度俱佳","韧性增强、不易折断"],correct:"A",score:10,errorType:"D",brief:"骨成分与物理特性",scene:"为老年客户做防跌倒宣教时，需解释其骨折风险增高的结构基础。",explain:"成人骨有机质与无机质之比约为3:7；老年人无机质比例更高，骨的脆性增大、韧性下降，轻微外力即可造成骨折。"},
+{id:15,type:"single",layer:"骨学",knowledgePoint:"椎骨一般形态",prompt:"相邻椎骨的椎弓根上、下切迹共同围成？",options:["椎间孔","椎孔","椎管","骶管裂孔"],correct:"A",score:10,errorType:"B",brief:"椎间孔的形成",scene:"客户主诉久坐后下肢放射痛，需判断神经根可能受压的通道。",explain:"椎体与椎弓围成椎孔，各椎孔相连成椎管；相邻椎骨的椎弓根上下切迹围成椎间孔，内有脊神经和血管通过。"},
+{id:16,type:"single",layer:"骨学",knowledgePoint:"颈椎特征",prompt:"颈椎区别于其他椎骨的特征性结构是？",options:["横突有横突孔","椎体侧面有肋凹","棘突呈叠瓦状排列","棘突呈板状水平后伸"],correct:"A",score:10,errorType:"A",brief:"颈椎的形态特征",scene:"解读颈椎影像报告时，需明确颈椎的标志性结构。",explain:"颈椎椎体较小、椎孔较大，横突根部有横突孔（内有椎动脉通过），第2—6颈椎棘突末端分叉，这些是与胸、腰椎鉴别的关键。"},
+{id:17,type:"single",layer:"骨学",knowledgePoint:"胸椎特征",prompt:"胸椎的主要形态特征是？",options:["椎体侧面及横突有肋凹","横突有孔","椎体最大","棘突末端分叉"],correct:"A",score:10,errorType:"A",brief:"胸椎的形态特征",scene:"进行胸椎节段定位时，需依据其特征性结构。",explain:"胸椎椎体侧面及横突末端有与肋相连的肋凹，棘突细长并向后下方倾斜呈叠瓦状排列，是与肋构成胸廓的基础。"},
+{id:18,type:"single",layer:"骨学",knowledgePoint:"腰椎特征",prompt:"腰椎棘突的形态特点是？",options:["呈板状，水平伸向后方","细长并呈叠瓦状","末端分叉","短小而向后下倾斜"],correct:"A",score:10,errorType:"A",brief:"腰椎的形态特征",scene:"为客户定位腰段棘突、评估腰椎生理曲度时，需明确其形态特点。",explain:"腰椎椎体粗大，棘突呈板状、水平伸向后方，棘突间隙较宽，故腰椎穿刺常选第3—4或第4—5腰椎棘突间隙。"},
+{id:19,type:"single",layer:"骨学",knowledgePoint:"胸骨角",prompt:"胸骨角平对的标志是？",options:["第2肋软骨，约平第4胸椎下缘","第1肋软骨","第4肋软骨","第7肋软骨"],correct:"A",score:10,errorType:"B",brief:"胸骨角的体表意义",scene:"为客户进行胸部体表定位与肋计数时，需找到起始标志。",explain:"胸骨角是胸骨柄与胸骨体结合处微向前突的横行隆起，两侧平对第2肋软骨，后方约平第4胸椎体下缘，是计数肋和肋间隙的重要标志。"},
+{id:20,type:"fill",layer:"骨学",knowledgePoint:"椎骨的数目",prompt:"成人骶骨由5块骶椎融合而成，尾骨通常由___块尾椎融合而成。",options:[],correct:["3~4","3-4","4","3"],score:10,errorType:"A",brief:"椎骨数目",scene:"解读腰骶部影像报告时，需明确各段椎骨的数目。",explain:"成人椎骨共26块：颈椎7、胸椎12、腰椎5、骶骨1（由5块骶椎融合）、尾骨1（由3—4块尾椎融合）。"},
+{id:21,type:"multiple",layer:"骨学",knowledgePoint:"肩胛骨标志",prompt:"属于肩胛骨的骨性标志包括？",options:["肩峰","喙突","关节盂","大结节"],correct:["A","B","C"],score:10,errorType:"A",brief:"肩胛骨标志辨认",scene:"体态评估中触诊肩带骨性标志时，需区分肩胛骨与肱骨的标志。",explain:"肩胛骨有肩峰、喙突、关节盂、肩胛冈、肩胛下角等标志；大结节属肱骨，是肩部重要的骨性标志。"},
+{id:22,type:"multiple",layer:"骨学",knowledgePoint:"肱骨标志",prompt:"属于肱骨的骨性标志有？",options:["大结节","外科颈","桡神经沟","尺骨鹰嘴"],correct:["A","B","C"],score:10,errorType:"C",brief:"肱骨标志辨认",scene:"评估上肢力线与触诊肘部标志时，需区分肱骨与尺骨的结构。",explain:"肱骨有大结节、小结节、外科颈、三角肌粗隆、桡神经沟、内外上髁等标志；尺骨鹰嘴属尺骨。"},
+{id:23,type:"single",layer:"骨学",knowledgePoint:"髋骨的构成",prompt:"髋骨由哪三块骨融合而成？",options:["髂骨、坐骨和耻骨","髂骨、骶骨和尾骨","股骨、髌骨和胫骨","耻骨、坐骨和骶骨"],correct:"A",score:10,errorType:"A",brief:"髋骨的组成",scene:"评估骨盆带与下肢力线时，需明确髋骨的构成。",explain:"髋骨为不规则骨，幼年时由髂骨、坐骨和耻骨以软骨连结，16岁前后在髋臼处融合为一块髋骨。"},
+{id:24,type:"single",layer:"关节学",knowledgePoint:"椎间盘",prompt:"椎间盘的纤维环破裂、髓核突出，最可能导致？",options:["椎间盘突出症，压迫神经根","骶髂关节错位","黄韧带肥厚","脊柱滑脱"],correct:"A",score:10,errorType:"D",brief:"椎间盘与间盘突出",scene:"客户主诉久坐后腰痛并向一侧下肢放射，需判断可能的解剖学基础。",explain:"椎间盘由周围的纤维环和中央的胶状髓核构成；纤维环破裂后髓核突出可压迫脊神经根或脊髓，形成椎间盘突出症，以颈、腰部多见。"},
+{id:25,type:"single",layer:"关节学",knowledgePoint:"前纵韧带",prompt:"前纵韧带的主要作用是防止脊柱？",options:["过度后伸","过度前屈","过度侧屈","过度旋转"],correct:"A",score:10,errorType:"D",brief:"前纵韧带功能",scene:"为客户设计腰背伸展类动作时，需明确限制过伸的结构。",explain:"前纵韧带位于椎体前面，宽而坚韧，有限制脊柱过度后伸和防止椎间盘向前脱出的作用。"},
+{id:26,type:"single",layer:"关节学",knowledgePoint:"后纵韧带",prompt:"后纵韧带的主要作用是防止脊柱？",options:["过度前屈","过度后伸","过度侧屈","椎体左右移位"],correct:"A",score:10,errorType:"D",brief:"后纵韧带功能",scene:"指导客户进行体前屈类拉伸时，需明确限制过度前屈的结构。",explain:"后纵韧带位于椎体后面、椎管前壁，较前纵韧带窄，有限制脊柱过度前屈的作用。"},
+{id:27,type:"fill",layer:"关节学",knowledgePoint:"脊柱的生理性弯曲",prompt:"脊柱从侧面观有颈曲、胸曲、腰曲和___曲四个生理性弯曲。",options:[],correct:["骶"],score:10,errorType:"A",brief:"脊柱四曲",scene:"评估客户侧面体态照时，需对照脊柱的正常生理曲度。",explain:"脊柱侧面观有颈曲（凸向前）、胸曲（凸向后）、腰曲（凸向前）和骶曲（凸向后）四个生理性弯曲，增大了脊柱的弹性与承重能力。"},
+{id:28,type:"multiple",layer:"关节学",knowledgePoint:"胸廓的组成",prompt:"胸廓由下列哪些结构共同组成？",options:["12对肋","12个胸椎","胸骨","锁骨"],correct:["A","B","C"],score:10,errorType:"A",brief:"胸廓构成",scene:"为客户进行呼吸模式评估时，需明确参与呼吸运动的骨性结构。",explain:"胸廓由12个胸椎、12对肋、胸骨及其骨连结构成，具有保护心肺、参与呼吸运动的功能；锁骨不参与胸廓构成。"},
+{id:29,type:"single",layer:"关节学",knowledgePoint:"肩关节特点",prompt:"关于肩关节结构特点的描述，正确的是？",options:["肱骨头大、关节盂浅，关节囊薄而松弛","肱骨头小、关节盂深，关节囊厚而紧张","由肱骨头与肩峰构成","稳定性强而运动幅度小"],correct:"A",score:10,errorType:"A",brief:"肩关节结构特点",scene:"为客户设计肩带稳定性训练前，需明确肩关节的结构特点与风险。",explain:"肩关节由肱骨头与肩胛骨关节盂构成，头大窝浅、关节囊薄而松弛，是全身运动幅度最大但稳定性最差的关节，故易发生脱位。"},
+{id:30,type:"multiple",layer:"关节学",knowledgePoint:"肘关节的组成",prompt:"肘关节为复合关节，包括下列哪些关节？",options:["肱尺关节","肱桡关节","桡尺近侧关节","桡腕关节"],correct:["A","B","C"],score:10,errorType:"A",brief:"肘关节构成",scene:"客户肘部活动受限，需判断受累的具体关节。",explain:"肘关节由肱尺关节、肱桡关节和桡尺近侧关节共同组成，包在一个关节囊内；桡腕关节属腕部，不属肘关节。"},
+{id:31,type:"single",layer:"关节学",comp:"L4",knowledgePoint:"桡骨环状韧带",prompt:"幼儿前臂被突然牵拉后哭闹、不肯活动上肢，最可能损伤的结构是？",options:["桡骨环状韧带","尺侧副韧带","桡侧副韧带","肱二头肌长头腱"],correct:"A",score:10,errorType:"D",brief:"桡骨小头半脱位",scene:"家长牵拉幼儿手腕后孩子哭闹拒动，健康管理师需快速判断可能损伤并决定是否转诊。",explain:"幼儿桡骨头发育尚不完善、桡骨环状韧带松弛，前臂旋前位被牵拉时易发生桡骨小头半脱位，需及时就医复位。"},
+{id:32,type:"single",layer:"关节学",knowledgePoint:"骶髂关节",prompt:"全身最稳固的关节是？",options:["骶髂关节","肩关节","髋关节","膝关节"],correct:"A",score:10,errorType:"A",brief:"骶髂关节的稳定性",scene:"评估骨盆带稳定性与腰骶部负荷传递时，需明确该关节的特点。",explain:"骶髂关节由骶骨与髂骨的耳状面构成，关节面凹凸嵌合、周围韧带强劲，活动度极小，是全身最稳固的关节，主要承担躯干重力向骨盆的传递。"},
+{id:33,type:"single",layer:"关节学",knowledgePoint:"髋关节特点",prompt:"关于髋关节结构特点的描述，正确的是？",options:["股骨头大、髋臼深，关节囊及髂股韧带厚而紧张","股骨头大、髋臼浅，关节囊薄而松弛","由股骨头与髋臼唇单独构成","运动幅度明显大于肩关节"],correct:"A",score:10,errorType:"A",brief:"髋关节结构特点",scene:"为老年客户做防跌倒宣教时，需说明髋关节稳定性与骨折风险的关系。",explain:"髋关节由股骨头与髋臼构成，头大窝深，关节囊厚韧并有髂股韧带加强，稳定性强于肩关节，但运动幅度相应较小。"},
+{id:34,type:"multiple",layer:"关节学",knowledgePoint:"膝关节的辅助结构",prompt:"膝关节内的重要辅助结构包括？",options:["前交叉韧带","后交叉韧带","内侧半月板","桡骨环状韧带"],correct:["A","B","C"],score:10,errorType:"A",brief:"膝关节辅助结构",scene:"客户运动后膝部疼痛、打软腿，需判断可能受累的膝内结构。",explain:"膝关节内有前、后交叉韧带和内、外侧半月板等重要辅助结构；桡骨环状韧带属肘关节。"},
+{id:35,type:"single",layer:"关节学",knowledgePoint:"骨盆的分界",prompt:"大骨盆与小骨盆的分界（界线）由下列哪些结构连成？",options:["骶骨岬、弓状线、耻骨梳和耻骨联合上缘","两侧髂前上棘连线","耻骨联合下缘与尾骨尖","两侧坐骨结节连线"],correct:"A",score:10,errorType:"B",brief:"骨盆界线",scene:"解读盆腔影像报告、定位盆腔脏器时，需明确大小骨盆的分界。",explain:"界线由骶骨岬、弓状线、耻骨梳、耻骨结节和耻骨联合上缘连成，是大、小骨盆的分界。"},
+{id:36,type:"single",layer:"关节学",knowledgePoint:"踝关节",prompt:"踝关节（距小腿关节）主要由哪些骨构成？",options:["胫骨、腓骨下端与距骨","胫骨下端与跟骨","距骨与跟骨","腓骨下端与跟骨"],correct:"A",score:10,errorType:"A",brief:"踝关节构成",scene:"客户踝扭伤后肿胀疼痛，需判断受累关节与可能的损伤结构。",explain:"踝关节由胫骨、腓骨下端与距骨滑车构成，主要作背屈与跖屈；距骨与跟骨之间为距跟关节，参与足的内翻与外翻。"},
+{id:37,type:"single",layer:"肌学",knowledgePoint:"肌的形态和构造",prompt:"骨骼肌的基本构成是？",options:["肌腹和肌腱","肌腹和筋膜","肌腱和韧带","肌纤维和骨膜"],correct:"A",score:10,errorType:"A",brief:"骨骼肌的构造",scene:"为客户解释肌肉拉伤好发部位时，需说明肌的结构组成。",explain:"每块骨骼肌由肌腹（肌纤维构成，能收缩）和肌腱（致密结缔组织，附着于骨）两部分构成。"},
+{id:38,type:"multiple",layer:"肌学",knowledgePoint:"肌的辅助装置",prompt:"属于肌的辅助装置的有？",options:["筋膜","滑膜囊","腱鞘","关节盘"],correct:["A","B","C"],score:10,errorType:"A",brief:"肌辅助装置",scene:"客户腕部反复用力后疼痛，需判断可能受累的辅助结构。",explain:"肌的辅助装置包括筋膜、滑膜囊、腱鞘和籽骨，具有保护、减少摩擦和改变肌牵引方向的作用；关节盘属关节的辅助结构。"},
+{id:39,type:"single",layer:"肌学",comp:"L4",knowledgePoint:"斜方肌",prompt:"客户一侧肩膀偏低、耸肩无力，最可能受累的肌肉是？",options:["斜方肌","三角肌","背阔肌","胸大肌"],correct:"A",score:10,errorType:"D",brief:"斜方肌功能与损伤判断",scene:"体态照显示客户一侧肩线偏低且耸肩困难，需判断受累肌肉。",explain:"斜方肌上部纤维上提肩胛骨、下部纤维下降肩胛骨，全部纤维收缩使肩胛骨向脊柱靠拢；一侧斜方肌瘫痪可致该侧肩胛骨下垂、耸肩无力。"},
+{id:40,type:"single",layer:"肌学",knowledgePoint:"背阔肌",prompt:"背阔肌的主要作用是？",options:["使肩关节内收、后伸和旋内","使肩关节外展","使肩胛骨上提","屈肘关节"],correct:"A",score:10,errorType:"D",brief:"背阔肌的功能",scene:"为客户设计划船类动作训练时，需明确主要发力肌肉。",explain:"背阔肌位于背下部及胸后外侧，主要作用是使肩关节内收、后伸和旋内；上肢上举固定时可上提躯干。"},
+{id:41,type:"single",layer:"肌学",knowledgePoint:"竖脊肌",prompt:"对人体维持直立起重要作用的背深层肌是？",options:["竖脊肌","背阔肌","斜方肌","菱形肌"],correct:"A",score:10,errorType:"D",brief:"竖脊肌的功能",scene:"久坐人群腰背酸痛、直立困难，需明确维持人体直立的关键肌群。",explain:"竖脊肌位于脊柱两侧、斜方肌与背阔肌深面，是背肌中最长最大的肌，一侧收缩使脊柱侧屈，两侧收缩使脊柱后伸并仰头，对维持人体直立至关重要。"},
+{id:42,type:"single",layer:"肌学",knowledgePoint:"胸大肌",prompt:"胸大肌的主要作用是？",options:["使肩关节内收、屈和内旋","使肩关节外展","使肩胛骨后缩","伸肘关节"],correct:"A",score:10,errorType:"D",brief:"胸大肌的功能",scene:"圆肩体态客户胸前紧张，需明确短缩肌肉及其作用。",explain:"胸大肌位于胸廓前壁，使肩关节内收、屈和内旋；上肢固定时可上提躯干，并协助吸气。"},
+{id:43,type:"single",layer:"肌学",comp:"L4",knowledgePoint:"前锯肌",prompt:"客户做推墙动作时肩胛骨内侧缘翘起呈翼状，最可能无力的肌肉是？",options:["前锯肌","斜方肌","背阔肌","大圆肌"],correct:"A",score:10,errorType:"D",brief:"翼状肩胛的判断",scene:"体态筛查中客户推墙时肩胛骨内侧缘明显翘起，需判断受累肌肉。",explain:"前锯肌牵引肩胛骨向前并紧贴胸廓，其瘫痪时肩胛骨内侧缘翘起，形成翼状肩胛。"},
+{id:44,type:"single",layer:"肌学",knowledgePoint:"膈的裂孔",prompt:"膈的食管裂孔约平对？",options:["第10胸椎","第8胸椎","第12胸椎","第1腰椎"],correct:"A",score:10,errorType:"B",brief:"膈的三个裂孔",scene:"解读膈疝相关影像报告时，需明确各裂孔的定位。",explain:"膈有三个裂孔：主动脉裂孔约平第12胸椎，食管裂孔约平第10胸椎，腔静脉孔约平第8胸椎。"},
+{id:45,type:"multiple",layer:"肌学",knowledgePoint:"腹肌前外侧群",prompt:"构成腹前外侧壁的肌包括？",options:["腹直肌","腹外斜肌","腹内斜肌","腰方肌"],correct:["A","B","C"],score:10,errorType:"A",brief:"腹前外侧壁肌群",scene:"为客户设计核心训练时，需明确腹壁各层肌肉的构成。",explain:"腹前外侧群包括腹直肌、腹外斜肌、腹内斜肌和腹横肌；腰方肌属腹后群。"},
+{id:46,type:"single",layer:"肌学",knowledgePoint:"腹股沟韧带",prompt:"腹股沟韧带由哪块肌的腱膜下缘卷曲增厚形成？",options:["腹外斜肌","腹内斜肌","腹横肌","腹直肌"],correct:"A",score:10,errorType:"B",brief:"腹股沟韧带的形成",scene:"客户腹股沟区不适，需明确该区韧带的来源与体表定位。",explain:"腹外斜肌腱膜下缘在髂前上棘与耻骨结节之间卷曲增厚，形成腹股沟韧带。"},
+{id:47,type:"single",layer:"肌学",knowledgePoint:"三角肌",prompt:"三角肌的主要作用是？",options:["使肩关节外展","屈肘关节","伸肘关节","使肩关节内收"],correct:"A",score:10,errorType:"D",brief:"三角肌的功能",scene:"客户肩部外展无力，需判断主要受累肌肉。",explain:"三角肌从前、外、后三面包绕肩关节，主要作用是使肩关节外展（中部纤维）；前部纤维屈和内旋，后部纤维伸和外旋。"},
+{id:48,type:"multiple",layer:"肌学",comp:"L4",knowledgePoint:"肩袖",prompt:"组成肩袖（肌腱袖）的肌包括？",options:["冈上肌","冈下肌","小圆肌","三角肌"],correct:["A","B","C"],score:10,errorType:"A",brief:"肩袖肌群构成",scene:"客户举臂时肩部疼痛、外展困难，需判断肩袖的构成肌肉。",explain:"肩袖由冈上肌、冈下肌、小圆肌和肩胛下肌的腱共同构成，包绕肩关节并加强其稳定性；三角肌不属于肩袖。"},
+{id:49,type:"single",layer:"肌学",knowledgePoint:"肱二头肌",prompt:"肱二头肌的主要作用是？",options:["屈肘，并使前臂旋后","伸肘关节","屈肩关节并内收","使前臂旋前"],correct:"A",score:10,errorType:"D",brief:"肱二头肌的功能",scene:"客户屈肘及旋后动作无力，需判断受累肌肉。",explain:"肱二头肌位于臂前群浅层，主要作用是屈肘关节，并使旋前的前臂旋后；另有屈肩作用。"},
+{id:50,type:"single",layer:"肌学",comp:"L4",knowledgePoint:"肱三头肌的神经支配",prompt:"客户肱骨中段骨折后出现伸肘无力，最可能损伤的神经是？",options:["桡神经","正中神经","尺神经","肌皮神经"],correct:"A",score:10,errorType:"B",brief:"桡神经与肱骨的关系",scene:"客户肱骨干骨折后伸肘困难，需判断受损神经及其走行关系。",explain:"桡神经紧贴肱骨体后面的桡神经沟走行，肱骨中段骨折时易损伤桡神经，导致伸肘、伸腕障碍。"},
+{id:51,type:"single",layer:"肌学",comp:"L4",knowledgePoint:"前臂肌起点",prompt:"客户反复用力屈腕后肘内侧疼痛，前臂前群肌多起自？",options:["肱骨内上髁","肱骨外上髁","尺骨鹰嘴","桡骨茎突"],correct:"A",score:10,errorType:"B",brief:"前臂肌的起止",scene:"客户反复屈腕后肘内侧疼痛（高尔夫球肘），需判断受累肌群的起点。",explain:"前臂前群肌共9块，多起自肱骨内上髁，主要司屈腕、屈指和前臂旋前；后群肌多起自肱骨外上髁，司伸腕伸指与旋后。"},
+{id:52,type:"single",layer:"肌学",comp:"L4",knowledgePoint:"髂腰肌",prompt:"久坐人群站立时髋前部紧张、骨盆前倾，常与哪块肌短缩有关？",options:["髂腰肌","臀大肌","腘绳肌","胫骨前肌"],correct:"A",score:10,errorType:"D",brief:"髂腰肌与骨盆前倾",scene:"久坐客户站立时骨盆前倾、髋前紧张，需判断可能短缩的肌肉。",explain:"髂腰肌由髂肌和腰大肌组成，主要作用是屈髋关节；长期屈髋久坐可致其短缩紧张，牵拉腰椎增大腰曲，形成骨盆前倾体态。"},
+{id:53,type:"single",layer:"肌学",knowledgePoint:"臀大肌",prompt:"臀大肌的主要作用是？",options:["伸髋关节","屈髋关节","外展髋关节","屈膝关节"],correct:"A",score:10,errorType:"D",brief:"臀大肌的功能",scene:"客户从坐位站起困难、爬楼无力，需判断主要受累肌肉。",explain:"臀大肌位于臀部浅层，越过髋关节后方，主要作用是伸髋关节，并使髋关节外旋；人体直立、起立和跑跳时发挥重要作用。"},
+{id:54,type:"single",layer:"肌学",comp:"L4",knowledgePoint:"臀中肌",prompt:"客户单腿站立时对侧骨盆下降，最可能无力的肌肉是？",options:["臀中肌","臀大肌","股四头肌","缝匠肌"],correct:"A",score:10,errorType:"D",brief:"臀中肌与 Trendelenburg 征",scene:"体态筛查中客户单腿站立时对侧骨盆下降，需判断无力肌肉并评估跌倒风险。",explain:"臀中肌与臀小肌越过髋关节上方，是维持单腿站立时骨盆水平的主要肌肉；一侧无力时出现对侧骨盆下降（Trendelenburg 征阳性）。"},
+{id:55,type:"multiple",layer:"肌学",knowledgePoint:"股四头肌",prompt:"股四头肌包括下列哪些肌？",options:["股直肌","股内侧肌","股外侧肌","股二头肌"],correct:["A","B","C"],score:10,errorType:"A",brief:"股四头肌组成",scene:"客户伸膝无力、上下楼梯困难，需判断受累肌群。",explain:"股四头肌由股直肌、股内侧肌、股外侧肌和股中间肌组成，是膝关节主要的伸肌；股二头肌属大腿后群。"},
+{id:56,type:"multiple",layer:"肌学",knowledgePoint:"大腿后群肌",prompt:"大腿后群肌（腘绳肌）包括？",options:["股二头肌","半腱肌","半膜肌","股薄肌"],correct:["A","B","C"],score:10,errorType:"A",brief:"腘绳肌组成",scene:"客户运动中突发大腿后侧疼痛，需判断受累肌群。",explain:"大腿后群肌包括股二头肌、半腱肌和半膜肌，共同作用是伸髋和屈膝；股薄肌属大腿内侧群。"},
+{id:57,type:"single",layer:"肌学",knowledgePoint:"小腿三头肌",prompt:"小腿三头肌由腓肠肌和哪块肌组成？",options:["比目鱼肌","胫骨前肌","腓骨长肌","趾长屈肌"],correct:"A",score:10,errorType:"A",brief:"小腿三头肌组成",scene:"客户提踵无力、跟腱区不适，需判断受累肌群。",explain:"小腿三头肌由浅层的腓肠肌和深层的比目鱼肌组成，向下汇合成跟腱止于跟骨，主要作用是使足跖屈。"},
+{id:58,type:"single",layer:"肌学",comp:"L4",knowledgePoint:"小腿前群肌",prompt:"客户行走时足尖拖地（足下垂），最可能受累的肌群是？",options:["小腿前群肌","小腿后群肌","小腿外侧群肌","大腿后群肌"],correct:"A",score:10,errorType:"D",brief:"足下垂的判断",scene:"客户行走时足尖拖地，需判断受累肌群并评估是否需要转诊。",explain:"小腿前群肌（胫骨前肌、𧿹长伸肌、趾长伸肌）主要使足背屈并内翻；该群肌麻痹时可出现足下垂、行走时足尖拖地。"},
+{id:59,type:"single",layer:"体态生物力学",comp:"L4",knowledgePoint:"人体重力线",prompt:"正常人体直立时，侧面观重力线大致经过？",options:["外耳孔—肩峰—股骨大转子—膝关节前方—外踝前方","枕外隆凸—脊柱正中—足跟","头顶—脐—足跟后方","肩峰—髂前上棘—内踝"],correct:"A",score:10,errorType:"B",brief:"正常重力线参照",scene:"体态评估时，需先建立正常重力线的参照标准，再判断偏离。",explain:"正常直立位侧面观，重力线大致经过外耳孔、肩峰、股骨大转子、膝关节前方和外踝前方，是判断体态偏离的基准。"},
+{id:60,type:"multiple",layer:"体态生物力学",comp:"L4",knowledgePoint:"圆肩含胸的肌力失衡",prompt:"圆肩含胸（上交叉综合征）常见的肌力失衡表现为？",options:["胸大肌与胸小肌紧张短缩","中下斜方肌与菱形肌薄弱","肩胛提肌与上斜方肌紧张","股四头肌紧张短缩"],correct:["A","B","C"],score:10,errorType:"D",brief:"上交叉综合征",scene:"办公族客户圆肩含胸，需分析其肌力失衡模式以设计干预方案。",explain:"上交叉综合征表现为胸大肌、胸小肌与肩胛提肌、上斜方肌紧张短缩，而中下斜方肌、菱形肌与颈深屈肌薄弱，形成圆肩含胸头前伸的交叉模式。"},
+{id:61,type:"single",layer:"体态生物力学",comp:"L4",knowledgePoint:"头前伸体态",prompt:"头前伸体态中，通常需重点强化（而非牵伸）的肌群是？",options:["颈深屈肌","胸锁乳突肌","肩胛提肌","上斜方肌"],correct:"A",score:10,errorType:"D",brief:"头前伸的干预方向",scene:"客户头前伸明显，制定干预方案时需区分该牵伸还是该强化。",explain:"头前伸时常伴颈深屈肌薄弱与胸锁乳突肌、肩胛提肌、上斜方肌紧张；干预需强化颈深屈肌，同时牵伸后侧紧张肌群。"},
+{id:62,type:"multiple",layer:"体态生物力学",comp:"L4",knowledgePoint:"骨盆前倾的肌力失衡",prompt:"骨盆前倾常见的肌力失衡表现为？",options:["髂腰肌与竖脊肌紧张短缩","臀大肌与腹肌薄弱","腘绳肌紧张短缩","胫骨前肌薄弱"],correct:["A","B"],score:10,errorType:"D",brief:"下交叉综合征",scene:"客户站立时骨盆前倾、腰部前凸增大，需分析肌力失衡模式。",explain:"下交叉综合征表现为髂腰肌与腰段竖脊肌紧张短缩，而臀大肌与腹肌薄弱，导致骨盆前倾并增大腰椎前凸。"},
+{id:63,type:"single",layer:"体态生物力学",comp:"L4",knowledgePoint:"膝超伸",prompt:"膝超伸（膝反张）体态中，通常相对薄弱的肌群是？",options:["腘绳肌","股四头肌","小腿三头肌","髂腰肌"],correct:"A",score:10,errorType:"D",brief:"膝超伸的失衡分析",scene:"客户站立时膝关节过度后伸，需判断薄弱肌群并设计训练。",explain:"膝超伸者常伴腘绳肌相对薄弱、股四头肌与小腿三头肌紧张，使膝关节被动锁于过伸位，增加关节负荷。"},
+{id:64,type:"single",layer:"体态生物力学",comp:"L4",knowledgePoint:"足弓的维持结构",prompt:"维持足内侧纵弓的重要结构包括？",options:["胫骨后肌腱与足底筋膜","腓骨长肌腱","小腿三头肌","胫骨前肌"],correct:"A",score:10,errorType:"D",brief:"足弓维持结构",scene:"客户久站后足底内侧酸痛、足弓塌陷，需判断主要维持结构。",explain:"足内侧纵弓由跟骨、距骨、舟骨、三块楔骨和第1—3跖骨构成，主要靠胫骨后肌腱、足底筋膜与足底韧带维持。"},
+{id:65,type:"single",layer:"体态生物力学",comp:"L4",knowledgePoint:"代偿与异常步态",prompt:"髋外展肌薄弱时，行走中常出现的代偿方式是？",options:["躯干向患侧倾斜（Trendelenburg 步态）","加大屈膝角度","足尖着地","上肢摆动幅度增大"],correct:"A",score:10,errorType:"D",brief:"代偿步态识别",scene:"观察客户行走姿态，需识别代偿动作并追溯到薄弱肌群。",explain:"髋外展肌（臀中肌、臀小肌）薄弱时，为维持单腿支撑期骨盆水平，躯干会向患侧倾斜以移动重心，形成 Trendelenburg 步态。"},
+{id:66,type:"multiple",layer:"体态生物力学",comp:"L4",knowledgePoint:"核心稳定肌群",prompt:"核心稳定肌群（深层核心）通常包括？",options:["腹横肌","多裂肌","盆底肌","胸大肌"],correct:["A","B","C"],score:10,errorType:"A",brief:"核心稳定肌群构成",scene:"为客户设计核心稳定性训练前，需明确深层核心肌群的构成。",explain:"深层核心包括腹横肌、多裂肌、盆底肌和膈，共同通过腹内压调节维持脊柱稳定；胸大肌属胸廓浅层运动肌，不属于核心稳定肌。"}
 ]},
 "消化系统":{title:"消化系统·单元测评",questions:[
 {id:1,type:"single",knowledgePoint:"胃的位置和形态",prompt:"胃大部分位于？",options:["左季肋区和腹上区","右季肋区","脐区","盆腔"],correct:"A",score:10,errorType:"B",brief:"胃的位置",explain:"胃大部分位于左季肋区，小部分位于腹上区。",scene:"客户主诉上腹饱胀，健康管理师需先定位胃所在的腹部分区。"},
@@ -516,19 +572,30 @@ function bumpStats(d){
 
 function setupStudent(){
   const sysSel = document.getElementById("studentSystem");
-  sysSel.innerHTML = Object.keys(SYSTEM_BANKS).map(function(x){return '<option>'+x+'</option>';}).join("");
   document.getElementById("startQuiz").onclick = renderSystemQuiz;
-  updateCountHint();
+  setStudentScope("motor");
   sysSel.onchange = updateCountHint;
+  const layerSel = document.getElementById("quizLayer");
+  if(layerSel) layerSel.onchange = updateCountHint;
   document.querySelectorAll("#studentSystem,#assignSingle,#assignMultiple,#assignFill,#assignImage,#assignCount")
     .forEach(function(el){el.addEventListener("input", updateCountHint);});
+}
+
+/* 当前生效的层级筛选（仅运动系统主战场模式生效） */
+function currentLayer(){
+  if(currentScope !== "motor") return "";
+  var el = document.getElementById("quizLayer");
+  return el ? (el.value || "") : "";
 }
 
 function updateCountHint(){
   const name = document.getElementById("studentSystem").value;
   const bank = SYSTEM_BANKS[name]||{questions:[]};
   const allowed = getAllowedTypes();
-  var available = (bank.questions||[]).filter(function(x){return allowed.includes(x.type)}).length;
+  const layer = currentLayer();
+  var pool = (bank.questions||[]).filter(function(x){return allowed.includes(x.type);});
+  if(layer) pool = pool.filter(function(x){ return x.layer === layer; });
+  var available = pool.length;
   document.getElementById("countHint").textContent = available;
   document.getElementById("assignCount").max = Math.max(available,1);
   if(+document.getElementById("assignCount").value > available){
@@ -547,6 +614,8 @@ function renderSystemQuiz(){
   const allowed = getAllowedTypes();
   var pool = (bank.questions||[]).filter(function(x){return allowed.includes(x.type);});
   if(!pool.length) pool = bank.questions||[];
+  const layer = currentLayer();
+  if(layer) pool = pool.filter(function(x){ return x.layer === layer; });
   const requested = Math.max(1, +document.getElementById("assignCount").value||pool.length);
   const count = Math.min(requested, pool.length);
   // 自适应选题：优先推送掌握度低（薄弱）的知识点
@@ -589,11 +658,14 @@ function renderSystemQuiz(){
     var compHtml = COMP_BY_KEY[ck]
       ? '<span class="comp-tag tier-'+COMP_BY_KEY[ck].tier+'">'+ck+' '+COMP_BY_KEY[ck].name+'</span>'
       : "";
+    var layerHtml = x.layer
+      ? '<span class="layer-tag">'+esc(x.layer)+'</span>'
+      : "";
     qHtml += '<div class="quiz-q">'+
       '<div class="qtitle"><span class="qno">'+(i+1)+'</span>'+esc(x.prompt)+
       '<span class="qtype-tag">'+(typeName[x.type]||x.type)+'</span></div>'+
       sceneHtml+
-      '<div class="qmeta">'+esc(modOf(x, name))+' · '+esc(x.knowledgePoint)+compHtml+'</div>'+
+      '<div class="qmeta">'+layerHtml+esc(modOf(x, name))+' · '+esc(x.knowledgePoint)+compHtml+'</div>'+
       fig+
       body+
       '</div>';
@@ -1645,13 +1717,44 @@ function setupTabs(){
       document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));
       t.classList.add("active");
       const v = t.dataset.v;
+      const target = (v === "extra") ? "student" : v;
       document.querySelectorAll(".view").forEach(x=>x.classList.add("hidden"));
-      document.querySelector(`.view[data-view="${v}"]`)?.classList.remove("hidden");
+      const pane = document.querySelector('.view[data-view="'+target+'"]');
+      if(pane) pane.classList.remove("hidden");
       if(v==="diagnosis") setTimeout(setupDiagnosis, 60);
+      if(v==="student") setStudentScope("motor");
+      if(v==="extra") setStudentScope("extra");
       if(v==="dashboard") setupDashboard();
       if(v==="graph") setTimeout(renderKG, 80);
     };
   });
+}
+
+/* 学生端两种范围：运动系统（主战场，四层深学）/ 全课程拓展学练 */
+let currentScope = "motor";
+const MOTOR_LAYERS = ["骨学", "关节学", "肌学", "体态生物力学"];
+
+function setStudentScope(mode){
+  currentScope = mode;
+  var sel = document.getElementById("studentSystem");
+  var layerField = document.getElementById("layerField");
+  var title = document.getElementById("scopeTitle");
+  var tip = document.getElementById("scopeTip");
+  if(!sel) return;
+  if(mode === "extra"){
+    sel.innerHTML = Object.keys(SYSTEM_BANKS)
+      .filter(function(k){ return k !== "运动系统"; })
+      .map(function(x){ return "<option>"+x+"</option>"; }).join("");
+    if(layerField) layerField.style.display = "none";
+    if(title) title.textContent = "① 选择拓展单元";
+    if(tip) tip.textContent = "拓展学练覆盖课程其余单元，用于知识完整性与期末复习。深度训练请回到「运动系统」主战场。";
+  } else {
+    sel.innerHTML = "<option>运动系统</option>";
+    if(layerField) layerField.style.display = "";
+    if(title) title.textContent = "① 运动系统深度学习";
+    if(tip) tip.textContent = "主战场：按骨学 / 关节学 / 肌学 / 体态生物力学四层组织，全部绑定健康服务场景，与体态实训共用同一套能力坐标。";
+  }
+  updateCountHint();
 }
 
 function applyRoleMode(){
@@ -2174,7 +2277,7 @@ function systemsForPostureModule(id){
 }
 /* 系统 → 主导培养的能力维度 */
 const SYSTEM_PRIMARY_COMP = {
-  "运动系统":["L1","L3"], "神经系统":["L3","L4"], "循环系统":["L3","L4"],
+  "运动系统":["L1","L2","L3"], "神经系统":["L3","L4"], "循环系统":["L3","L4"],
   "呼吸系统":["L3","L4"], "消化系统":["L2","L1"], "泌尿系统":["L2","L1"],
   "生殖系统":["L2","L1"], "内分泌系统":["L3","L1"], "感觉器":["L1","L4"], "绪论":["L1","L2"]
 };
@@ -2228,6 +2331,10 @@ function recommendQuizFromPosture(u){
 }
 
 function gotoQuizSystem(system){
+  // 先切到正确的范围（运动系统走主战场，其余走拓展学练）
+  var isMotor = (system === "运动系统");
+  var tab = document.querySelector('.tab[data-v="' + (isMotor ? "student" : "extra") + '"]');
+  if(tab) tab.click();
   var select = document.getElementById("studentSystem");
   if(select){
     var opts = Array.from(select.options).map(function(o){ return o.value; });
@@ -2235,8 +2342,6 @@ function gotoQuizSystem(system){
     select.value = system;
     select.dispatchEvent(new Event("change"));
   }
-  var tab = document.querySelector('.tab[data-v="student"]');
-  if(tab) tab.click();
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 function gotoPostureModule(id){

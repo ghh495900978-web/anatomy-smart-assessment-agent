@@ -44,7 +44,7 @@
   <section class="workflow" aria-label="核心工作流">
     <div class="wf-step"><b>① 学情诊断</b><span>六维能力定位</span></div>
     <i>→</i>
-    <div class="wf-step"><b>② 单元学练</b><span>情境化形成性测评</span></div>
+    <div class="wf-step"><b>② 运动系统深学</b><span>骨学·关节学·肌学·生物力学</span></div>
     <i>→</i>
     <div class="wf-step"><b>③ 体态实训</b><span>五维解码·脚手架递减</span></div>
     <i>→</i>
@@ -58,9 +58,10 @@
   <!-- Tab 导航（递进式：诊断 → 学练 → 实训 → 档案） -->
   <nav class="tabs" role="tablist" aria-label="主导航">
     <button class="tab active" data-v="diagnosis" role="tab">🎯 学情诊断</button>
-    <button class="tab" data-v="student" role="tab">📚 单元学练</button>
+    <button class="tab" data-v="student" role="tab">🦴 运动系统</button>
     <button class="tab" data-v="posture" role="tab">🧍 体态实训</button>
     <button class="tab" data-v="dashboard" role="tab">📈 能力档案</button>
+    <button class="tab" data-v="extra" role="tab">🧭 拓展学练</button>
     <button class="tab" data-v="graph" role="tab">🕸️ 知识图谱</button>
     <button class="tab" data-v="assistant" role="tab">🤖 AI 伴学</button>
     <button class="tab" data-v="teacher" role="tab">🏫 教师端</button>
@@ -212,11 +213,21 @@
   <section class="view hidden" data-view="student" role="tabpanel">
     <div class="grid">
       <aside class="panel">
-        <h1>① 选择本次测评系统</h1>
-        <p class="muted">基于课程章节，每次测评聚焦一个系统，便于精确定位薄弱点。</p>
+        <h1 id="scopeTitle">① 选择本次测评范围</h1>
+        <p class="muted" id="scopeTip"></p>
         <label class="field">
           <span>系统 / 章节</span>
           <select id="studentSystem"></select>
+        </label>
+        <label class="field" id="layerField">
+          <span>知识层级</span>
+          <select id="quizLayer">
+            <option value="">全部层级（混合出题）</option>
+            <option value="骨学">骨学 · 形态与标志</option>
+            <option value="关节学">关节学 · 运动与稳定</option>
+            <option value="肌学">肌学 · 动力与失衡</option>
+            <option value="体态生物力学">体态生物力学 · 力线与代偿</option>
+          </select>
         </label>
         <label class="field">
           <span>题型范围</span>

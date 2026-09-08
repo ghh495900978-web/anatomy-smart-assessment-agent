@@ -571,3 +571,7 @@ button.primary.small, button.ghost.small{ padding:5px 12px; font-size:12.5px; bo
 .comp-tag{ display:inline-block; border-radius:999px; padding:1px 8px; font-size:11px; font-weight:600 }
 .comp-tag.tier-base{ background:#e8f0fe; color:#1769d1 }
 .comp-tag.tier-pro{ background:#f0ecfd; color:#5b4bb5 }
+
+/* 知识层级标签（运动系统四层） */
+.layer-tag{ display:inline-block; background:#e8f6f3; color:#0f6e56; border-radius:999px; padding:1px 8px; font-size:11px; font-weight:600 }
+.tabs{ flex-wrap: wrap }
