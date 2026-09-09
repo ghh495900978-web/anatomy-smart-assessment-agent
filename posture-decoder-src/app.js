@@ -1794,6 +1794,7 @@ window.addEventListener("DOMContentLoaded", ()=>{
   setupStudent();
   setupAssistant();
   initSandbox();
+  initTeam();
   renderChatLocal();
   applyRoleMode();
 
@@ -2737,4 +2738,226 @@ function initSandbox(){
   buildSandboxHTML(root);
   bindSandbox();
   sbUpdateScore();
+}
+
+/* ============ 肌肉协作战队（角色模拟模块） ============ */
+const TM_ROLES = [
+  { key:"prime",      name:"原动肌·主刀", icon:"⚔️", color:"#e5564b", desc:"发起并主导该动作的原动肌，是「主刀」。" },
+  { key:"antagonist", name:"对抗肌·缓冲", icon:"🛡️", color:"#3b82c4", desc:"与原动肌作用相反，离心缓冲，防止动作过猛拉伤。" },
+  { key:"fixator",    name:"固定肌·稳定", icon:"🧱", color:"#0f9d8e", desc:"固定近侧骨（如肩胛骨/骨盆），为原动肌提供稳定支撑。" },
+  { key:"neutralizer",name:"中和肌·纠偏", icon:"🎯", color:"#8e6fc4", desc:"抵消原动肌的附加动作，使运动沿正确轴进行。" }
+];
+const TM_MOVES = [
+  { id:"pullup", name:"引体向上（上引）", action:"肩后伸 + 肘屈曲，使躯干上移",
+    roles:{ prime:["背阔肌","肱二头肌"], antagonist:["胸大肌","肱三头肌"], fixator:["斜方肌","菱形肌"], neutralizer:["冈下肌","小圆肌"] },
+    distractors:["三角肌","比目鱼肌","竖脊肌","股四头肌"],
+    notes:{ prime:"背阔肌与大圆肌使肩后伸、肱二头肌屈肘，共同把身体拉向上。", antagonist:"胸大肌、肱三头肌在下降阶段离心收缩缓冲，防肩关节与肘部撞击受伤。", fixator:"斜方肌、菱形肌固定肩胛骨于脊柱，避免耸肩借力。", neutralizer:"冈下肌、小圆肌防止肱骨在拉起时内旋，保证肩后伸沿矢状轴。" } },
+  { id:"pushup", name:"俯卧撑（推起）", action:"肩水平屈 + 肘伸展，推离地面",
+    roles:{ prime:["胸大肌","肱三头肌"], antagonist:["背阔肌","肱二头肌"], fixator:["前锯肌","斜方肌"], neutralizer:["冈上肌","冈下肌"] },
+    distractors:["臀大肌","髂腰肌","腓肠肌","缝匠肌"],
+    notes:{ prime:"胸大肌主推、肱三头肌伸肘，把身体推离地面。", antagonist:"背阔肌、肱二头肌在下落阶段离心收缩，缓冲胸肩负荷。", fixator:"前锯肌贴紧肩胛于胸廓、斜方肌协同，稳定肩带防翼状胛。", neutralizer:"冈上肌防肱骨上提撞击肩峰，冈下肌防过度内旋。" } },
+  { id:"squat", name:"深蹲（站起）", action:"髋伸展 + 膝伸展，对抗重力站起",
+    roles:{ prime:["臀大肌","股四头肌"], antagonist:["腘绳肌","腓肠肌"], fixator:["腹直肌","竖脊肌"], neutralizer:["阔筋膜张肌","臀中肌"] },
+    distractors:["背阔肌","肱二头肌","比目鱼肌","冈上肌"],
+    notes:{ prime:"臀大肌伸髋、股四头肌伸膝，是站起的主引擎。", antagonist:"腘绳肌、腓肠肌在下蹲阶段离心缓冲膝髋负荷，保护半月板与韧带。", fixator:"腹直肌、竖脊肌维持躯干与骨盆直立，防止弯腰代偿。", neutralizer:"阔筋膜张肌、臀中肌防骨盆侧倾与股骨内收内旋，保持力线。" } },
+  { id:"legraise", name:"悬垂举腿（屈髋）", action:"髋关节屈曲，使下肢上抬",
+    roles:{ prime:["髂腰肌","股直肌"], antagonist:["臀大肌","腘绳肌"], fixator:["腹直肌","腹外斜肌"], neutralizer:["缝匠肌","阔筋膜张肌"] },
+    distractors:["三角肌","胸大肌","腓肠肌","比目鱼肌"],
+    notes:{ prime:"髂腰肌与股直肌屈髋，把下肢拉向躯干。", antagonist:"臀大肌、腘绳肌离心收缩缓冲，控制下落速度防腰椎过伸。", fixator:"腹直肌、腹外斜肌固定骨盆与躯干，为屈髋提供稳定近端。", neutralizer:"缝匠肌、阔筋膜张肌防止髋外旋外展，保证纯矢状面屈髋。" } }
+];
+let tmState = { move:null, placed:{}, selected:null, checked:false, credited:{}, l5:false };
+
+function tmMoveById(id){ return TM_MOVES.find(function(m){ return m.id===id; }); }
+function tmRoleByKey(k){ return TM_ROLES.find(function(r){ return r.key===k; }); }
+function tmTrayMuscles(m){
+  var set = {};
+  Object.keys(m.roles).forEach(function(rk){ m.roles[rk].forEach(function(n){ set[n]=1; }); });
+  m.distractors.forEach(function(n){ set[n]=1; });
+  return Object.keys(set);
+}
+function buildTeamHTML(root){
+  var moves = TM_MOVES.map(function(m){
+    return '<button class="tm-move" data-move="'+m.id+'" type="button">'+m.name+'</button>';
+  }).join("");
+  var roles = TM_ROLES.map(function(r){
+    return '<div class="tm-role" data-role="'+r.key+'" style="--rc:'+r.color+'">'
+      + '<div class="tm-role-head"><span class="tm-role-icon">'+r.icon+'</span>'
+      + '<div><div class="tm-role-name">'+r.name+'</div><div class="tm-role-desc">'+r.desc+'</div></div></div>'
+      + '<div class="tm-role-slots" id="tmSlots-'+r.key+'"></div></div>';
+  }).join("");
+  root.innerHTML = ""
+    + '<div class="tm-head">'
+    +   '<div class="tm-progress">编组正确 <b id="tmDone">0</b> / <span id="tmTotal">0</span> &nbsp;·&nbsp; 正确率 <b id="tmRate">—</b></div>'
+    +   '<div class="actions"><button class="ghost" id="tmCheck" type="button">✅ 检查评分</button><button class="ghost" id="tmAnalysis" type="button">📖 显示解析</button><button class="ghost" id="tmReset" type="button">↺ 重置</button></div>'
+    + '</div>'
+    + '<div class="tm-moves" id="tmMoves">'+moves+'</div>'
+    + '<div class="tm-arena" id="tmArena">'
+    +   '<div class="tm-field"><div class="tm-action" id="tmAction"></div>'+roles+'</div>'
+    +   '<div class="tm-roster"><h2>肌肉资源库</h2><p class="muted small">点选一块肌肉，再点右侧战位放入；也可拖拽。一个动作一套战队，放对角色即记入 L3 功能机制。</p><div class="tm-tray" id="tmTray"></div><div class="tm-feedback" id="tmFeedback">提示：先选动作，再试着把「背阔肌」放进「原动肌·主刀」战位。</div><div class="tm-analysis" id="tmAnalysisBox"></div></div>'
+    + '</div>';
+}
+function tmRenderTray(){
+  var m = tmMoveById(tmState.move); if(!m) return;
+  var tray = document.getElementById("tmTray"); if(!tray) return;
+  var names = tmTrayMuscles(m);
+  tray.innerHTML = names.map(function(n){
+    var placed = !!tmState.placed[n];
+    return '<div class="tm-mcard'+(placed?" placed":"")+'" data-name="'+n+'" draggable="'+(placed?"false":"true")+'">'+n+'<span class="tm-chip-x">✕</span></div>';
+  }).join("");
+  tmRenderRoles();
+  tmUpdateScore();
+}
+function tmRenderRoles(){
+  TM_ROLES.forEach(function(r){
+    var box = document.getElementById("tmSlots-"+r.key); if(!box) return;
+    var placed = Object.keys(tmState.placed).filter(function(n){ return tmState.placed[n]===r.key; });
+    box.innerHTML = placed.length ? placed.map(function(n){
+      return '<span class="tm-chip" data-name="'+n+'">'+n+'<i class="tm-chip-x">✕</i></span>';
+    }).join("") : '<span class="tm-empty">— 拖入肌肉 —</span>';
+  });
+}
+function bindTeam(){
+  var moves = document.getElementById("tmMoves");
+  if(moves && !moves.dataset.bound){
+    moves.addEventListener("click", function(e){
+      var b = e.target.closest(".tm-move"); if(!b) return;
+      tmSwitchMove(b.getAttribute("data-move"));
+    });
+    moves.dataset.bound = "1";
+  }
+  var tray = document.getElementById("tmTray");
+  if(tray && !tray.dataset.bound){
+    tray.addEventListener("click", function(e){
+      var c = e.target.closest(".tm-mcard"); if(!c) return;
+      if(e.target.closest(".tm-chip-x")){ tmUnplace(c.getAttribute("data-name")); return; }
+      tmSelect(c.getAttribute("data-name"));
+    });
+    tray.addEventListener("dragstart", function(e){
+      var c = e.target.closest(".tm-mcard"); if(!c || c.classList.contains("placed")) return;
+      e.dataTransfer.setData("text/plain", c.getAttribute("data-name"));
+    });
+    tray.dataset.bound = "1";
+  }
+  document.querySelectorAll(".tm-role").forEach(function(z){
+    var role = z.getAttribute("data-role");
+    z.addEventListener("click", function(e){ if(e.target.closest(".tm-chip")) return; if(tmState.selected) tmPlace(tmState.selected, role); });
+    z.addEventListener("dragover", function(e){ e.preventDefault(); z.classList.add("drop"); });
+    z.addEventListener("dragleave", function(){ z.classList.remove("drop"); });
+    z.addEventListener("drop", function(e){ e.preventDefault(); z.classList.remove("drop"); var n = e.dataTransfer.getData("text/plain"); if(n) tmPlace(n, role); });
+  });
+  document.getElementById("tmArena").addEventListener("click", function(e){
+    var chip = e.target.closest(".tm-chip"); if(chip && e.target.closest(".tm-chip-x")){ tmUnplace(chip.getAttribute("data-name")); }
+  });
+  var chk = document.getElementById("tmCheck"); if(chk && !chk.dataset.bound){ chk.addEventListener("click", tmCheck); chk.dataset.bound="1"; }
+  var ana = document.getElementById("tmAnalysis"); if(ana && !ana.dataset.bound){ ana.addEventListener("click", tmShowAnalysis); ana.dataset.bound="1"; }
+  var rst = document.getElementById("tmReset"); if(rst && !rst.dataset.bound){ rst.addEventListener("click", tmReset); rst.dataset.bound="1"; }
+}
+function tmSwitchMove(id){
+  tmState = { move:id, placed:{}, selected:null, checked:false, credited:{}, l5:false };
+  document.querySelectorAll(".tm-move").forEach(function(b){ b.classList.toggle("sel", b.getAttribute("data-move")===id); });
+  var m = tmMoveById(id);
+  var act = document.getElementById("tmAction");
+  if(act) act.innerHTML = "<b>"+m.name+"</b><span>"+m.action+"</span>";
+  tmRenderTray();
+  tmFeedback(false, "已载入「"+m.name+"」。试着把正确肌肉拖入四个战位：主刀 / 缓冲 / 稳定 / 纠偏。");
+  document.getElementById("tmAnalysisBox").classList.remove("show");
+}
+function tmSelect(name){
+  tmState.selected = (tmState.selected===name) ? null : name;
+  document.querySelectorAll(".tm-mcard").forEach(function(c){ c.classList.toggle("sel", c.getAttribute("data-name")===tmState.selected); });
+}
+function tmPlace(name, role){
+  if(tmState.placed[name]) delete tmState.placed[name];
+  tmState.placed[name] = role;
+  tmState.selected = null;
+  tmFeedback(false, "已把「"+name+"」编入「"+tmRoleByKey(role).name+"」。点「检查评分」看对错。");
+  tmRenderTray();
+  document.querySelectorAll(".tm-mcard.sel").forEach(function(c){ c.classList.remove("sel"); });
+}
+function tmUnplace(name){
+  delete tmState.placed[name];
+  tmRenderTray();
+}
+function tmCheck(){
+  var m = tmMoveById(tmState.move); if(!m) return;
+  var correct = 0, wrong = 0;
+  var placedNames = Object.keys(tmState.placed);
+  placedNames.forEach(function(n){
+    var rk = tmState.placed[n];
+    var okRole = m.roles[rk] && m.roles[rk].indexOf(n) >= 0;
+    if(okRole){
+      correct++;
+      if(!tmState.credited[n]){
+        try{ var u = loadUnified(); u = compCredit(u, "L3", 1, "team", n+"→"+tmRoleByKey(rk).name); saveUnified(u); tmState.credited[n]=1; }catch(e){}
+      }
+    } else { wrong++; }
+  });
+  TM_ROLES.forEach(function(r){
+    var box = document.getElementById("tmSlots-"+r.key); if(!box) return;
+    box.querySelectorAll(".tm-chip").forEach(function(chip){
+      var n = chip.getAttribute("data-name");
+      var ok = m.roles[r.key] && m.roles[r.key].indexOf(n) >= 0;
+      chip.classList.toggle("ok", ok); chip.classList.toggle("no", !ok);
+    });
+  });
+  tmState.checked = true;
+  var totalCorrect = Object.keys(m.roles).reduce(function(a,rk){ return a + m.roles[rk].length; }, 0);
+  var placedTotal = placedNames.length;
+  var rate = placedTotal===0 ? 0 : Math.round(correct/placedTotal*100);
+  var miss = [];
+  Object.keys(m.roles).forEach(function(rk){ m.roles[rk].forEach(function(n){ if(!tmState.placed[n]) miss.push(tmRoleByKey(rk).name+"："+n); }); });
+  var msg = "本次正确 "+correct+" 块、放错 "+wrong+" 块（正确率 "+rate+"%）。";
+  if(miss.length) msg += " 还差：" + miss.join("；") + "。点「显示解析」看标准编组。";
+  else msg += " 🎉 全套战队编组正确！L3 功能机制已写入能力档案。";
+  tmFeedback(wrong===0 && miss.length===0, msg);
+  tmUpdateScore();
+}
+function tmShowAnalysis(){
+  var m = tmMoveById(tmState.move); if(!m) return;
+  var box = document.getElementById("tmAnalysisBox");
+  if(!box) return;
+  var html = '<h3>📖 '+m.name+' · 标准战队编组与机制</h3>';
+  TM_ROLES.forEach(function(r){
+    var list = (m.roles[r.key]||[]).join("、");
+    html += '<div class="tm-an-row"><span class="tm-an-dot" style="background:'+r.color+'"></span>'
+      + '<div><b>'+r.name+'：</b>'+list+'<div class="tm-an-note">'+m.notes[r.key]+'</div></div></div>';
+  });
+  box.innerHTML = html; box.classList.add("show");
+  if(!tmState.l5){
+    try{ var u = loadUnified(); u = compCredit(u, "L5", 1, "team-解析", m.name+"风险沟通"); saveUnified(u); tmState.l5=true; }catch(e){}
+  }
+  tmFeedback(true, "已展开标准编组与机制解析（含风险缓冲说明），L5 风险沟通已记入档案。");
+}
+function tmReset(){
+  var id = tmState.move; if(!id) return;
+  tmState = { move:id, placed:{}, selected:null, checked:false, credited:{}, l5:false };
+  document.getElementById("tmAnalysisBox").classList.remove("show");
+  tmRenderTray();
+  tmFeedback(false, "已重置本动作。重新编组试试。");
+}
+function tmUpdateScore(){
+  var m = tmMoveById(tmState.move); if(!m) return;
+  var total = Object.keys(m.roles).reduce(function(a,rk){ return a + m.roles[rk].length; }, 0);
+  var done = Object.keys(tmState.placed).length;
+  var d = document.getElementById("tmDone"); if(d) d.textContent = done;
+  var t = document.getElementById("tmTotal"); if(t) t.textContent = total;
+  var rateEl = document.getElementById("tmRate");
+  if(rateEl){
+    if(!tmState.checked || done===0) rateEl.textContent = "—";
+    else {
+      var correct = 0; Object.keys(tmState.placed).forEach(function(n){ var rk=tmState.placed[n]; if(m.roles[rk]&&m.roles[rk].indexOf(n)>=0) correct++; });
+      rateEl.textContent = Math.round(correct/done*100)+"%";
+    }
+  }
+}
+function tmFeedback(ok, msg){
+  var f = document.getElementById("tmFeedback"); if(!f) return;
+  f.className = "tm-feedback " + (ok?"ok":"no");
+  f.textContent = msg;
+}
+function initTeam(){
+  var root = document.getElementById("teamRoot"); if(!root) return;
+  buildTeamHTML(root);
+  bindTeam();
+  tmSwitchMove(TM_MOVES[0].id);
 }
