@@ -1793,6 +1793,7 @@ window.addEventListener("DOMContentLoaded", ()=>{
   setupPosture();
   setupStudent();
   setupAssistant();
+  initSandbox();
   renderChatLocal();
   applyRoleMode();
 
@@ -2547,3 +2548,193 @@ function renderDiagTrend(u){
 }
 
 function setupDiagnosis(){ renderDiagnosis(); }
+
+/* ==========================================================
+   11. 肌骨装配沙盘（形象化排布设计 · 对标医院资源布局）
+   ========================================================== */
+const SB_REGIONS = [
+  { key:"spine",    name:"脊柱区", color:"#0f9d8e" },
+  { key:"shoulder", name:"肩带区", color:"#e8833a" },
+  { key:"pelvis",   name:"骨盆区", color:"#8e6fc4" },
+  { key:"lower",    name:"下肢区", color:"#e5564b" },
+  { key:"upper",    name:"上肢区", color:"#3b82c4" }
+];
+const SB_ZONE_GEO = {
+  spine:    [{x:170,y:78,w:20,h:112}],
+  shoulder: [{x:116,y:78,w:26,h:26},{x:218,y:78,w:26,h:26}],
+  pelvis:   [{x:148,y:188,w:64,h:34}],
+  lower:    [{x:150,y:222,w:28,h:124},{x:182,y:222,w:28,h:124}],
+  upper:    [{x:116,y:104,w:26,h:84},{x:218,y:104,w:26,h:84}]
+};
+const SB_LABELS = {
+  spine:{x:300,y:120}, shoulder:{x:300,y:92}, pelvis:{x:300,y:206},
+  lower:{x:300,y:300}, upper:{x:300,y:150}
+};
+const SB_CARDS = [
+  { id:"s1", name:"竖脊肌", type:"肌", hint:"脊柱伸 / 直立稳定", region:"spine", why:"竖脊肌纵列于脊柱棘突两侧，是维持直立的核心背肌。" },
+  { id:"s2", name:"椎骨", type:"骨", hint:"椎体+棘突+横突", region:"spine", why:"椎骨借椎间盘与韧带连成脊柱，是躯干的中轴骨。" },
+  { id:"s3", name:"椎间盘", type:"关节", hint:"椎体间纤维软骨连结", region:"spine", why:"椎间盘连于相邻椎体之间，缓冲并允许脊柱运动。" },
+  { id:"sh1", name:"三角肌", type:"肌", hint:"肩关节外展", region:"shoulder", why:"三角肌覆盖肩关节，是肩外展的主力肌。" },
+  { id:"sh2", name:"斜方肌", type:"肌", hint:"肩胛骨上提/后缩", region:"shoulder", why:"斜方肌附着枕外隆凸与锁骨、肩胛冈，稳定并运动肩胛带。" },
+  { id:"sh3", name:"肩锁关节", type:"关节", hint:"锁骨—肩胛肩峰", region:"shoulder", why:"肩锁关节连接锁骨与肩胛骨肩峰，属肩带连结。" },
+  { id:"p1", name:"臀大肌", type:"肌", hint:"髋关节伸 / 骨盆稳定", region:"pelvis", why:"臀大肌起自髂骨翼与骶骨，止于股骨，是髋伸与骨盆稳定肌。" },
+  { id:"p2", name:"髋骨", type:"骨", hint:"髂骨+坐骨+耻骨", region:"pelvis", why:"左右髋骨与骶骨构成骨盆，属下肢带骨。" },
+  { id:"p3", name:"骶髂关节", type:"关节", hint:"骶骨—髂骨", region:"pelvis", why:"骶髂关节连接骶骨与髂骨，将躯干重量传至下肢。" },
+  { id:"l1", name:"股四头肌", type:"肌", hint:"膝关节伸", region:"lower", why:"股四头肌经髌骨止于胫骨结节，是伸膝唯一肌。" },
+  { id:"l2", name:"小腿三头肌", type:"肌", hint:"踝关节跖屈", region:"lower", why:"小腿三头肌（腓肠肌+比目鱼肌）经跟腱止于跟骨，完成踝跖屈。" },
+  { id:"l3", name:"髌骨", type:"骨", hint:"人体最大籽骨", region:"lower", why:"髌骨为股四头肌腱内籽骨，保护并增效伸膝。" },
+  { id:"u1", name:"肱二头肌", type:"肌", hint:"肘屈 / 前臂旋后", region:"upper", why:"肱二头肌跨肩肘，主要屈肘并使前臂旋后。" },
+  { id:"u2", name:"肱三头肌", type:"肌", hint:"肘关节伸", region:"upper", why:"肱三头肌止于尺骨鹰嘴，是伸肘主力肌。" },
+  { id:"u3", name:"桡骨", type:"骨", hint:"前臂外侧骨", region:"upper", why:"桡骨位于前臂外侧（拇指侧），参与肘、腕关节构成。" }
+];
+let sbState = { placed:{}, selected:null, attempts:0, correct:0 };
+
+function sbRegionName(k){ var r = SB_REGIONS.find(function(x){ return x.key===k; }); return r ? r.name : k; }
+function sbBodySVG(){
+  var sil = ''
+    + '<circle cx="180" cy="46" r="24" fill="#dde5ec" stroke="#c3cdd6"/>'
+    + '<rect x="150" y="74" width="60" height="120" rx="22" fill="#dde5ec" stroke="#c3cdd6"/>'
+    + '<rect x="116" y="80" width="26" height="110" rx="13" fill="#dde5ec" stroke="#c3cdd6"/>'
+    + '<rect x="218" y="80" width="26" height="110" rx="13" fill="#dde5ec" stroke="#c3cdd6"/>'
+    + '<rect x="150" y="196" width="28" height="150" rx="14" fill="#dde5ec" stroke="#c3cdd6"/>'
+    + '<rect x="182" y="196" width="28" height="150" rx="14" fill="#dde5ec" stroke="#c3cdd6"/>';
+  var zones = '';
+  SB_REGIONS.forEach(function(rg){
+    var g = SB_ZONE_GEO[rg.key];
+    var rects = g.map(function(b){ return '<rect class="zb" x="'+b.x+'" y="'+b.y+'" width="'+b.w+'" height="'+b.h+'" rx="8" fill="'+rg.color+'" fill-opacity="0.18" stroke="'+rg.color+'" stroke-width="1.4"/>'; }).join('');
+    zones += '<g class="sb-zone" data-region="'+rg.key+'">'+rects+'<g id="sb-placed-'+rg.key+'"></g></g>';
+  });
+  var labels = '';
+  SB_REGIONS.forEach(function(rg){
+    var L = SB_LABELS[rg.key];
+    labels += '<line x1="246" y1="'+L.y+'" x2="294" y2="'+L.y+'" stroke="'+rg.color+'" stroke-width="1" stroke-dasharray="3 3"/>'
+      + '<rect x="296" y="'+(L.y-12)+'" width="62" height="20" rx="10" fill="'+rg.color+'" opacity="0.92"/>'
+      + '<text x="306" y="'+(L.y+3)+'" font-size="11" font-weight="600" fill="#fff">'+rg.name+'</text>'
+      + '<text id="sb-count-'+rg.key+'" x="350" y="'+(L.y+3)+'" font-size="11" font-weight="700" fill="#fff" text-anchor="end">0</text>';
+  });
+  return '<svg viewBox="0 0 360 360" role="img" aria-label="人体运动系统五大区域沙盘">'+ sil + zones + labels + '</svg>';
+}
+function buildSandboxHTML(root){
+  var cards = SB_CARDS.map(function(c){
+    return '<div class="sb-card" data-id="'+c.id+'" draggable="true">'
+      + '<span class="cname">'+c.name+'</span><span class="ctag">'+c.type+'</span>'
+      + '<div class="cmeta">'+c.hint+'</div><span class="cchk">✓</span></div>';
+  }).join('');
+  root.innerHTML = ''
+    + '<div class="sb-head">'
+    +   '<div class="sb-progress">已装配 <b id="sbDone">0</b> / '+SB_CARDS.length+' &nbsp;·&nbsp; 正确率 <b id="sbRate">100%</b></div>'
+    +   '<div class="actions"><button class="ghost" id="sbReset" type="button">↺ 重置沙盘</button></div>'
+    + '</div>'
+    + '<div class="sb-wrap">'
+    +   '<div class="sb-stage">'+sbBodySVG()+'</div>'
+    +   '<div class="sb-side">'
+    +     '<h2>资源托盘 · 运动系统构件</h2>'
+    +     '<p class="muted small">点选一张构件卡，再点人体上对应区域放下；也可直接拖拽。每放对一处，即记入 L2 毗邻关系。</p>'
+    +     '<div class="sb-tray" id="sbTray">'+cards+'</div>'
+    +     '<div class="sb-feedback" id="sbFeedback">提示：先点「股四头肌」，再点「下肢区」试试。</div>'
+    +     '<div class="sb-done" id="sbDone2">🎉 全部 '+SB_CARDS.length+' 块构件已装配到正确区域！L2 毗邻关系已写入能力档案。</div>'
+    +     '<div class="sb-legend">'
+    +       SB_REGIONS.map(function(r){ return '<span><i style="background:'+r.color+'"></i>'+r.name+'</span>'; }).join('')
+    +     '</div>'
+    +   '</div>'
+    + '</div>';
+}
+function bindSandbox(){
+  var tray = document.getElementById("sbTray");
+  if(tray && !tray.dataset.bound){
+    tray.addEventListener("click", function(e){
+      var card = e.target.closest(".sb-card"); if(!card || card.classList.contains("placed")) return;
+      sbSelect(card.getAttribute("data-id"));
+    });
+    tray.addEventListener("dragstart", function(e){
+      var card = e.target.closest(".sb-card"); if(!card) return;
+      e.dataTransfer.setData("text/plain", card.getAttribute("data-id"));
+    });
+    tray.dataset.bound = "1";
+  }
+  document.querySelectorAll(".sb-zone").forEach(function(z){
+    var region = z.getAttribute("data-region");
+    z.addEventListener("click", function(){ if(sbState.selected) sbPlace(sbState.selected, region); });
+    z.addEventListener("dragover", function(e){ e.preventDefault(); z.classList.add("drop"); });
+    z.addEventListener("dragleave", function(){ z.classList.remove("drop"); });
+    z.addEventListener("drop", function(e){
+      e.preventDefault(); z.classList.remove("drop");
+      var id = e.dataTransfer.getData("text/plain"); if(id) sbPlace(id, region);
+    });
+  });
+  var reset = document.getElementById("sbReset");
+  if(reset && !reset.dataset.bound){ reset.addEventListener("click", sbReset); reset.dataset.bound="1"; }
+}
+function sbSelect(id){
+  sbState.selected = (sbState.selected===id) ? null : id;
+  document.querySelectorAll(".sb-card").forEach(function(c){ c.classList.toggle("sel", c.getAttribute("data-id")===sbState.selected); });
+}
+function sbPlace(id, region){
+  var card = SB_CARDS.find(function(c){ return c.id===id; }); if(!card || sbState.placed[id]) return;
+  if(card.region === region){
+    sbState.placed[id] = region; sbState.correct++;
+    var el = document.querySelector('.sb-card[data-id="'+id+'"]');
+    if(el){ el.classList.add("placed"); el.setAttribute("draggable","false"); el.classList.remove("sel"); }
+    sbAddPlacedLabel(region, card.name);
+    sbUpdateCount(region);
+    try{ var u = loadUnified(); u = compCredit(u, "L2", 1, "sandbox", card.name+"→"+sbRegionName(region)); saveUnified(u); }catch(e){}
+    sbFeedback(true, "✓ 正确：「"+card.name+"」属于「"+sbRegionName(region)+"」。"+card.why);
+    sbState.selected = null;
+    document.querySelectorAll(".sb-card.sel").forEach(function(c){ c.classList.remove("sel"); });
+    if(Object.keys(sbState.placed).length === SB_CARDS.length) document.getElementById("sbDone2").classList.add("show");
+  } else {
+    sbState.attempts++;
+    sbFlash(region);
+    sbFeedback(false, "✕ 不对：「"+card.name+"」属于「"+sbRegionName(card.region)+"」区，不是「"+sbRegionName(region)+"」。 "+card.why);
+  }
+  sbUpdateScore();
+}
+function sbAddPlacedLabel(region, name){
+  var g = document.getElementById("sb-placed-"+region); if(!g) return;
+  var idx = g.childNodes.length;
+  var G = SB_ZONE_GEO[region][0];
+  var y = G.y + 16 + idx*14;
+  var t = document.createElementNS("http://www.w3.org/2000/svg","text");
+  t.setAttribute("x", (G.x + G.w/2)); t.setAttribute("y", y);
+  t.setAttribute("text-anchor","middle"); t.setAttribute("font-size","10.5"); t.setAttribute("font-weight","700");
+  var rg = SB_REGIONS.find(function(x){ return x.key===region; });
+  t.setAttribute("fill", rg.color); t.textContent = name;
+  g.appendChild(t);
+}
+function sbUpdateCount(region){
+  var n = SB_CARDS.filter(function(c){ return c.region===region && sbState.placed[c.id]; }).length;
+  var tot = SB_CARDS.filter(function(c){ return c.region===region; }).length;
+  var el = document.getElementById("sb-count-"+region); if(el) el.textContent = n+"/"+tot;
+}
+function sbUpdateScore(){
+  var done = Object.keys(sbState.placed).length;
+  var rate = sbState.attempts===0 ? 100 : Math.round(sbState.correct/(sbState.correct+sbState.attempts)*100);
+  var d = document.getElementById("sbDone"); if(d) d.textContent = done;
+  var r = document.getElementById("sbRate"); if(r) r.textContent = rate+"%";
+}
+function sbFeedback(ok, msg){
+  var f = document.getElementById("sbFeedback"); if(!f) return;
+  f.className = "sb-feedback " + (ok?"ok":"no");
+  f.textContent = msg;
+}
+function sbFlash(region){
+  var z = document.querySelector('.sb-zone[data-region="'+region+'"]'); if(!z) return;
+  z.classList.add("flash"); setTimeout(function(){ z.classList.remove("flash"); }, 400);
+}
+function sbReset(){
+  sbState = { placed:{}, selected:null, attempts:0, correct:0 };
+  document.querySelectorAll(".sb-card").forEach(function(c){ c.classList.remove("placed","sel"); c.setAttribute("draggable","true"); });
+  SB_REGIONS.forEach(function(rg){
+    var g = document.getElementById("sb-placed-"+rg.key); if(g) g.innerHTML = "";
+    var el = document.getElementById("sb-count-"+rg.key); if(el) el.textContent = "0";
+  });
+  var done = document.getElementById("sbDone2"); if(done) done.classList.remove("show");
+  sbFeedback(false, "已重置。提示：先点「股四头肌」，再点「下肢区」试试。");
+  sbUpdateScore();
+}
+function initSandbox(){
+  var root = document.getElementById("sandboxRoot"); if(!root) return;
+  buildSandboxHTML(root);
+  bindSandbox();
+  sbUpdateScore();
+}

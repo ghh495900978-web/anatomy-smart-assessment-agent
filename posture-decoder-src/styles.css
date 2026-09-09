@@ -319,6 +319,38 @@ button.block{ width:100%; margin-top:8px }
 .view{ animation: fadein .25s ease }
 @keyframes fadein{ from{ opacity:0; transform: translateY(4px) } to{ opacity:1; transform: none } }
 
+/* ============== 肌骨装配沙盘 ============== */
+.sb-head{ display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:space-between; margin-bottom:12px }
+.sb-progress{ font-size:13px; color:var(--c-text-muted) }
+.sb-progress b{ color:var(--c-text); font-size:15px }
+.sb-wrap{ display:flex; gap:22px; flex-wrap:wrap; align-items:flex-start }
+.sb-stage{ flex:0 0 340px; max-width:100% }
+.sb-stage svg{ width:100%; height:auto; display:block; background:var(--c-bg); border:1px solid var(--c-border); border-radius:var(--r-lg) }
+.sb-zone{ cursor:pointer }
+.sb-zone rect.zb{ transition: fill-opacity .15s, stroke-width .15s }
+.sb-zone:hover rect.zb{ fill-opacity:.34 }
+.sb-zone.drop rect.zb{ fill-opacity:.44; stroke-width:2.4 }
+.sb-zone.flash rect.zb{ stroke:#e5564b; stroke-width:2.6 }
+.sb-side{ flex:1 1 320px; min-width:300px }
+.sb-tray{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px }
+.sb-card{ background:var(--c-card); border:1px solid var(--c-border); border-radius:var(--r-md); padding:10px 12px; cursor:pointer; user-select:none; transition:border-color .15s, box-shadow .15s, transform .1s; position:relative }
+.sb-card:hover{ border-color:var(--c-primary) }
+.sb-card.sel{ border-color:var(--c-primary); box-shadow:0 0 0 2px rgba(23,105,209,.20); transform:translateY(-1px) }
+.sb-card.placed{ opacity:.55; cursor:default; border-color:#0f9d8e; background:#eafff7 }
+.sb-card .cname{ font-weight:600; font-size:14px; color:var(--c-text) }
+.sb-card .cmeta{ font-size:11px; color:var(--c-text-muted); margin-top:2px }
+.sb-card .ctag{ display:inline-block; font-size:10px; padding:1px 6px; border-radius:8px; background:var(--c-bg-2); color:var(--c-text-muted); margin-left:6px; vertical-align:middle }
+.sb-card .cchk{ position:absolute; top:8px; right:10px; color:#0f9d8e; font-weight:700; display:none }
+.sb-card.placed .cchk{ display:block }
+.sb-feedback{ margin-top:14px; border-radius:var(--r-md); padding:10px 12px; font-size:13px; min-height:20px; border:1px solid var(--c-border); background:var(--c-bg) }
+.sb-feedback.ok{ border-color:#0f9d8e; background:#eafff7; color:#085041 }
+.sb-feedback.no{ border-color:#e5564b; background:#fdecec; color:#791f1f }
+.sb-done{ margin-top:12px; padding:12px 14px; border-radius:var(--r-md); background:#eafff7; border:1px solid #0f9d8e; color:#085041; font-size:14px; font-weight:600; display:none }
+.sb-done.show{ display:block }
+.sb-legend{ display:flex; flex-wrap:wrap; gap:12px; margin-top:12px; font-size:12px; color:var(--c-text-muted) }
+.sb-legend i{ display:inline-block; width:10px; height:10px; border-radius:3px; margin-right:4px; vertical-align:middle }
+@media (max-width:760px){ .sb-stage{ flex-basis:100% } }
+
 /* ============== 教师闸门 ============== */
 .gate{
   max-width: 460px;

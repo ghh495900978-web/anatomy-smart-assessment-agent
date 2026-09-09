@@ -65,6 +65,7 @@
     <button class="tab" data-v="graph" role="tab">🕸️ 知识图谱</button>
     <button class="tab" data-v="assistant" role="tab">🤖 AI 伴学</button>
     <button class="tab" data-v="teacher" role="tab">🏫 教师端</button>
+    <button class="tab" data-v="sandbox" role="tab">🧩 肌骨沙盘</button>
     <span class="tab-spacer"></span>
     <span class="tab-meta" id="lastUpdate">最近刷新：刚刚</span>
   </nav>
@@ -467,6 +468,20 @@
         <table class="table" id="pilotTable"></table>
         <button class="ghost" id="downloadSummary">导出建设说明书摘要 (.md)</button>
       </div>
+    </div>
+  </section>
+
+  <!-- ============================== 肌骨装配沙盘（形象化排布设计） ============================== -->
+  <section class="view hidden" data-view="sandbox" role="tabpanel">
+    <div class="panel">
+      <div class="panel-head">
+        <div>
+          <h1>🧩 肌骨装配沙盘</h1>
+          <p class="muted">把运动系统构件（肌 / 骨 / 关节）像医院资源一样，摆到人体平面图的五大区域。正确摆放即记入 L2 毗邻关系能力档案。</p>
+        </div>
+        <span class="tag-note">形象化排布 · 空间定位训练</span>
+      </div>
+      <div id="sandboxRoot"></div>
     </div>
   </section>
 </main>
