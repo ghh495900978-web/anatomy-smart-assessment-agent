@@ -55,20 +55,38 @@
     <div class="wf-step"><b>⑥ 复盘自测</b><span>80% 通过校验</span></div>
   </section>
 
-  <!-- Tab 导航（递进式：诊断 → 学练 → 实训 → 档案） -->
+  <!-- Tab 导航（按「学习主线 → 实训探索 → 教学管理」三层分组） -->
   <nav class="tabs" role="tablist" aria-label="主导航">
-    <button class="tab active" data-v="diagnosis" role="tab">🎯 学情诊断</button>
-    <button class="tab" data-v="student" role="tab">🦴 运动系统</button>
-    <button class="tab" data-v="posture" role="tab">🧍 体态实训</button>
-    <button class="tab" data-v="dashboard" role="tab">📈 能力档案</button>
-    <button class="tab" data-v="extra" role="tab">🧭 拓展学练</button>
-    <button class="tab" data-v="graph" role="tab">🕸️ 知识图谱</button>
-    <button class="tab" data-v="assistant" role="tab">🤖 AI 伴学</button>
-    <button class="tab" data-v="teacher" role="tab">🏫 教师端</button>
-    <button class="tab" data-v="sandbox" role="tab">🧩 肌骨沙盘</button>
-    <button class="tab" data-v="team" role="tab">🦸 肌肉协作战队</button>
+    <span class="tab-group" data-group="学习主线">
+      <button class="tab active" data-v="diagnosis" role="tab">🎯 学情诊断</button>
+      <button class="tab" data-v="student" role="tab">🦴 运动系统</button>
+      <button class="tab" data-v="posture" role="tab">🧍 体态实训</button>
+      <button class="tab" data-v="dashboard" role="tab">📈 能力档案</button>
+    </span>
+    <span class="tab-sep" aria-hidden="true"></span>
+    <span class="tab-group" data-group="实训探索">
+      <button class="tab" data-v="sandbox" role="tab">🧩 肌骨沙盘</button>
+      <button class="tab" data-v="team" role="tab">🦸 肌肉协作战队</button>
+      <button class="tab" data-v="extra" role="tab">🧭 拓展学练</button>
+      <button class="tab" data-v="graph" role="tab">🕸️ 知识图谱</button>
+      <button class="tab" data-v="assistant" role="tab">🤖 AI 伴学</button>
+    </span>
+    <span class="tab-sep" aria-hidden="true"></span>
+    <span class="tab-group" data-group="教学管理">
+      <button class="tab" data-v="teacher" role="tab">🏫 教师端</button>
+    </span>
     <span class="tab-spacer"></span>
     <span class="tab-meta" id="lastUpdate">最近刷新：刚刚</span>
+  </nav>
+
+  <!-- 当前位置（面包屑） -->
+  <nav class="crumb" aria-label="当前位置">
+    <span class="crumb-home">肌骨解码师</span>
+    <i aria-hidden="true">/</i>
+    <span id="crumbGroup">学习主线</span>
+    <i aria-hidden="true">/</i>
+    <b id="crumbNow">学情诊断</b>
+    <span class="crumb-desc" id="crumbDesc">六维能力定位，形成本期学习基线</span>
   </nav>
 
   <!-- ============================== 学情诊断（融合闭环起点） ============================== -->
@@ -345,93 +363,93 @@
 
   <!-- ============================== 教师端 ============================== -->
   <section class="view hidden" data-view="teacher" role="tabpanel">
+
+    <!-- 登录闸门 -->
     <div id="teacherGate" class="gate">
-      <h1>教师端登录</h1>
-      <p class="muted">教师工作台：题库编辑、班级数据汇总、大模型配置、推广说明。</p>
+      <div class="gate-brand">
+        <span class="gate-logo">🏫</span>
+        <h1>教师端登录</h1>
+        <p class="muted small">题库编辑 · 班级学情 · 系统与 AI 配置 · 成效导出</p>
+      </div>
       <label class="field">
         <span>教师口令</span>
-        <input type="password" id="teacherPin" placeholder="请输入口令" />
+        <input type="password" id="teacherPin" placeholder="请输入口令" autocomplete="current-password" />
       </label>
-      <button class="primary" id="teacherLogin">解锁教师端</button>
-      <p class="muted small" id="teacherLoginMsg">默认口令：<code>anatomy2026</code>（解锁后可在下方「🔑 修改教师口令」中更改）</p>
+      <button class="primary block" id="teacherLogin">解锁教师端</button>
+      <p class="muted small" id="teacherLoginMsg">默认口令：<code>anatomy2026</code>。解锁后，点击工作台右上角「🔑 修改口令」即可更改。</p>
+      <div class="gate-tip">
+        忘记口令？在浏览器控制台执行
+        <code>localStorage.removeItem('hsm_teacher_pin_v1')</code>
+        即可恢复默认口令。
+      </div>
     </div>
 
+    <!-- 教师工作台 -->
     <div id="teacherWorkspace" class="hidden">
-      <div class="panel">
-        <h1>🔑 修改教师口令</h1>
-        <p class="muted small">新口令保存在本机浏览器（localStorage），修改后立即生效。若忘记口令，可在浏览器控制台执行 <code>localStorage.removeItem('hsm_teacher_pin_v1')</code> 即可恢复默认口令 <code>anatomy2026</code>。</p>
-        <label class="field">
-          <span>原口令</span>
-          <input type="password" id="pinOld" placeholder="请输入当前口令" />
-        </label>
-        <label class="field">
-          <span>新口令</span>
-          <input type="password" id="pinNew" placeholder="至少 4 位" />
-        </label>
-        <label class="field">
-          <span>确认新口令</span>
-          <input type="password" id="pinNew2" placeholder="再输入一次" />
-        </label>
-        <button class="primary" id="savePin">保存新口令</button>
-        <p class="muted small" id="pinMsg"></p>
-      </div>
-      <div class="grid-2">
-        <div class="panel">
-          <h1>题库编辑</h1>
-          <label class="field">
-            <span>系统 / 章节</span>
-            <select id="teacherSystem"></select>
-          </label>
-          <label class="field">
-            <span>测评标题</span>
-            <input id="quizTitle" />
-          </label>
-          <label class="field">
-            <span>快速添加一题</span>
-            <div class="qa-row">
-              <select id="tqType">
-                <option value="single">单选</option>
-                <option value="multiple">多选</option>
-                <option value="fill">填空</option>
-                <option value="image">识图选择</option>
-              </select>
-              <input id="tqScore" type="number" min="1" value="10" placeholder="分值" />
-            </div>
-            <input id="tqKnowledge" placeholder="三级知识点，如：肱肌" />
-            <input id="tqPrompt" placeholder="题干" />
-            <div class="qa-row">
-              <input id="tqOptA" placeholder="选项 A" />
-              <input id="tqOptB" placeholder="选项 B" />
-            </div>
-            <div class="qa-row">
-              <input id="tqOptC" placeholder="选项 C" />
-              <input id="tqOptD" placeholder="选项 D" />
-            </div>
-            <div class="qa-row">
-              <input id="tqCorrect" placeholder="正确答案（如 A 或 A,B,D 或 肝左叶）" />
-              <select id="tqError">
-                <option>A</option><option>B</option><option>C</option><option>D</option><option>待判定</option>
-              </select>
-            </div>
-            <input id="tqBrief" placeholder="题目简述（错题摘要用）" />
-            <button class="primary block" id="addQuestion">加入草稿 ↓</button>
-          </label>
-          <p class="muted small" id="teacherMsg">提示：编辑下方列表后，点击「发布」即可让学生端下次刷新时使用新题库。</p>
-          <button class="primary block" id="publishQuiz">发布到学生端</button>
-        </div>
 
-        <div class="panel">
-          <h2>当前系统题库列表</h2>
-          <div id="questionList"></div>
-          <p class="muted small">JSON 预览：</p>
-          <textarea id="quizEditor" rows="4" readonly></textarea>
+      <!-- 顶部工具条 -->
+      <header class="tw-bar">
+        <div class="tw-bar-l">
+          <span class="tw-logo">🏫</span>
+          <div class="tw-title">
+            <h1>教师工作台</h1>
+            <p class="muted small">肌骨解码师 · 运动系统智能体 ｜ 本机数据，未上传云端</p>
+          </div>
         </div>
-      </div>
+        <div class="tw-bar-r">
+          <span class="tw-badge"><i class="dot ok"></i>已解锁</span>
 
-      <div id="teacherReport" class="hidden">
+          <!-- 头像 / 个人中心下拉菜单 -->
+          <div class="acct" id="acctMenu">
+            <button class="acct-trigger" id="acctTrigger" type="button" aria-haspopup="true" aria-expanded="false">
+              <span class="avatar" aria-hidden="true">教</span>
+              <span class="acct-name">课程教师</span>
+              <span class="acct-caret" aria-hidden="true">▾</span>
+            </button>
+            <div class="acct-menu" id="acctDropdown" role="menu" aria-hidden="true">
+              <div class="acct-head">
+                <span class="avatar lg" aria-hidden="true">教</span>
+                <div class="acct-id">
+                  <b>课程教师</b>
+                  <span class="muted small" id="acctMeta">本机账户 · 口令存于本机浏览器</span>
+                </div>
+              </div>
+              <div class="acct-divider"></div>
+              <button class="acct-item" id="btnChangePin" type="button" role="menuitem">
+                <span class="ai-ico">🔑</span>
+                <span class="ai-txt">修改口令<em>需校验原口令，至少 4 位</em></span>
+              </button>
+              <button class="acct-item" id="btnSecurity" type="button" role="menuitem">
+                <span class="ai-ico">🛡️</span>
+                <span class="ai-txt">账户与安全<em>查看口令状态与存储说明</em></span>
+              </button>
+              <button class="acct-item" id="btnWorkspace" type="button" role="menuitem">
+                <span class="ai-ico">⚙️</span>
+                <span class="ai-txt">系统与 AI 设置<em>大模型、题库与报告设置</em></span>
+              </button>
+              <div class="acct-divider"></div>
+              <button class="acct-item danger" id="btnLockTeacher" type="button" role="menuitem">
+                <span class="ai-ico">🔒</span>
+                <span class="ai-txt">锁定退出<em>返回登录验证</em></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- 二级分区导航 -->
+      <nav class="tw-tabs" id="twTabs" aria-label="教师工作台分区">
+        <button class="tw-tab active" type="button" data-tw="overview">📊 学情总览</button>
+        <button class="tw-tab" type="button" data-tw="bank">📝 题库编辑</button>
+        <button class="tw-tab" type="button" data-tw="config">⚙️ 系统与 AI</button>
+        <button class="tw-tab" type="button" data-tw="pilot">📈 成效与推广</button>
+      </nav>
+
+      <!-- 分区 1：学情总览 -->
+      <div class="tw-pane" data-pane="overview">
         <div class="panel">
           <h1>班级形成性学情汇总</h1>
-          <p class="muted">将多个学生的脱敏测评数据粘贴到下方 JSON 数组（每条形如 <code>{title,system,questions:[...]}</code>），点生成报告。</p>
+          <p class="muted">将多个学生的脱敏测评数据粘贴到下方 JSON 数组（每条形如 <code>{title,system,questions:[...]}</code>），点击生成报告。</p>
           <label class="field">
             <span>脱敏样本（JSON 数组）</span>
             <textarea id="cohort" rows="6" placeholder='[{"title":"...","system":"运动系统","questions":[{...}]}]'></textarea>
@@ -450,43 +468,171 @@
         </div>
       </div>
 
-      <div class="panel">
-        <h1>大模型与多模态配置</h1>
-        <p class="muted">配置后 AI 伴学、智能错题解析、学习路径推荐将启用真实大模型。本地模式仍可使用。</p>
-        <label class="field">
-          <span>提供方</span>
-          <select id="llmProvider">
-            <option value="mock">本地模拟（默认，无需 Key）</option>
-            <option value="zhipu">智谱 GLM-4-Flash（推荐免费层）</option>
-            <option value="dashscope">通义千问 DashScope</option>
-            <option value="kimi">月之暗面 Kimi</option>
-            <option value="openai_compat">OpenAI 兼容（自定义）</option>
-          </select>
-        </label>
-        <label class="field">
-          <span>API Key（仅存本机）</span>
-          <input type="password" id="llmKey" placeholder="sk-..." />
-        </label>
-        <label class="field">
-          <span>Base URL（自定义时填写）</span>
-          <input id="llmBase" placeholder="https://open.bigmodel.cn/api/paas/v4" />
-        </label>
-        <label class="field">
-          <span>模型名</span>
-          <input id="llmModel" placeholder="glm-4-flash" />
-        </label>
-        <div class="actions">
-          <button class="primary" id="saveLlm">保存配置</button>
-          <button class="ghost" id="testLlm">测试连通</button>
-          <span class="muted small" id="llmTestResult"></span>
+      <!-- 分区 2：题库编辑 -->
+      <div class="tw-pane hidden" data-pane="bank">
+        <div class="grid-2">
+          <div class="panel zone-primary">
+            <h1>题库编辑</h1>
+            <p class="muted small">选择题库后，可在下方逐题编辑；完成后「发布到学生端」，学生下次刷新即生效。</p>
+            <label class="field">
+              <span>系统 / 章节</span>
+              <select id="teacherSystem"></select>
+            </label>
+            <label class="field">
+              <span>测评标题</span>
+              <input id="quizTitle" />
+            </label>
+            <label class="field">
+              <span>快速添加一题</span>
+              <div class="qa-row">
+                <select id="tqType">
+                  <option value="single">单选</option>
+                  <option value="multiple">多选</option>
+                  <option value="fill">填空</option>
+                  <option value="image">识图选择</option>
+                </select>
+                <input id="tqScore" type="number" min="1" value="10" placeholder="分值" />
+              </div>
+              <input id="tqKnowledge" placeholder="三级知识点，如：肱肌" />
+              <input id="tqPrompt" placeholder="题干" />
+              <div class="qa-row">
+                <input id="tqOptA" placeholder="选项 A" />
+                <input id="tqOptB" placeholder="选项 B" />
+              </div>
+              <div class="qa-row">
+                <input id="tqOptC" placeholder="选项 C" />
+                <input id="tqOptD" placeholder="选项 D" />
+              </div>
+              <div class="qa-row">
+                <input id="tqCorrect" placeholder="正确答案（如 A 或 A,B,D 或 肝左叶）" />
+                <select id="tqError">
+                  <option>A</option><option>B</option><option>C</option><option>D</option><option>待判定</option>
+                </select>
+              </div>
+              <input id="tqBrief" placeholder="题目简述（错题摘要用）" />
+              <button class="primary block" id="addQuestion">加入草稿 ↓</button>
+            </label>
+            <p class="muted small" id="teacherMsg">提示：编辑右侧列表后，点击「发布」即可让学生端下次刷新时使用新题库。</p>
+            <button class="primary block" id="publishQuiz">发布到学生端</button>
+          </div>
+
+          <div class="panel zone-secondary">
+            <h2>当前系统题库列表</h2>
+            <div id="questionList"></div>
+            <p class="muted small">JSON 预览：</p>
+            <textarea id="quizEditor" rows="4" readonly></textarea>
+          </div>
         </div>
       </div>
 
-      <div class="panel">
-        <h1>试点应用成效（用于「实施与效果」35 分项）</h1>
-        <p class="muted">建议替换为真实试点数据（学校、教务部门审核）。下表为示例展示。</p>
-        <table class="table" id="pilotTable"></table>
-        <button class="ghost" id="downloadSummary">导出建设说明书摘要 (.md)</button>
+      <!-- 分区 3：系统与 AI -->
+      <div class="tw-pane hidden" data-pane="config">
+        <div class="grid-2">
+          <div class="panel">
+            <div class="panel-head">
+              <div>
+                <h1>🔑 教师口令</h1>
+                <p class="muted small">口令保存在本机浏览器，修改后立即生效。</p>
+              </div>
+              <span class="tag-note">本机存储</span>
+            </div>
+            <p class="muted small">点击下方按钮修改，或随时使用工作台右上角的「🔑 修改口令」。</p>
+            <div class="actions">
+              <button class="primary" id="btnChangePin2" type="button">修改口令</button>
+              <button class="ghost" id="btnResetPin" type="button">恢复默认口令</button>
+            </div>
+            <p class="muted small" id="pinHint">当前：使用自定义口令或默认口令 <code>anatomy2026</code>。</p>
+          </div>
+
+          <div class="panel">
+            <h1>大模型与多模态配置</h1>
+            <p class="muted small">配置后 AI 伴学、智能错题解析、学习路径推荐将启用真实大模型。未配置时为本地模式，仍可正常使用。</p>
+            <label class="field">
+              <span>提供方</span>
+              <select id="llmProvider">
+                <option value="mock">本地模拟（默认，无需 Key）</option>
+                <option value="zhipu">智谱 GLM-4-Flash（推荐免费层）</option>
+                <option value="dashscope">通义千问 DashScope</option>
+                <option value="kimi">月之暗面 Kimi</option>
+                <option value="openai_compat">OpenAI 兼容（自定义）</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>API Key（仅存本机）</span>
+              <input type="password" id="llmKey" placeholder="sk-..." />
+            </label>
+            <label class="field">
+              <span>Base URL（自定义时填写）</span>
+              <input id="llmBase" placeholder="https://open.bigmodel.cn/api/paas/v4" />
+            </label>
+            <label class="field">
+              <span>模型名</span>
+              <input id="llmModel" placeholder="glm-4-flash" />
+            </label>
+            <div class="actions">
+              <button class="primary" id="saveLlm">保存配置</button>
+              <button class="ghost" id="testLlm">测试连通</button>
+              <span class="muted small" id="llmTestResult"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 分区 4：成效与推广 -->
+      <div class="tw-pane hidden" data-pane="pilot">
+        <div class="panel">
+          <h1>试点应用成效（用于「实施与效果」35 分项）</h1>
+          <p class="muted">建议替换为真实试点数据（学校、教务部门审核）。下表为示例展示。</p>
+          <table class="table" id="pilotTable"></table>
+          <div class="actions">
+            <button class="ghost" id="downloadSummary">导出建设说明书摘要 (.md)</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 修改口令弹窗 -->
+    <div class="modal" id="pinModal" role="dialog" aria-modal="true" aria-labelledby="pinModalTitle">
+      <div class="modal-mask" id="pinMask"></div>
+      <div class="modal-card">
+        <header class="modal-head">
+          <h2 id="pinModalTitle">🔑 修改教师口令</h2>
+          <button class="modal-x" id="pinClose" type="button" aria-label="关闭">×</button>
+        </header>
+        <div class="modal-body">
+          <label class="field">
+            <span>原口令</span>
+            <div class="pin-input">
+              <input type="password" id="pinOld" placeholder="请输入当前口令" autocomplete="current-password" />
+              <button class="pin-eye" type="button" data-eye="pinOld" aria-label="显示口令">👁</button>
+            </div>
+          </label>
+          <label class="field">
+            <span>新口令</span>
+            <div class="pin-input">
+              <input type="password" id="pinNew" placeholder="至少 4 位，建议同时使用字母与数字" autocomplete="new-password" />
+              <button class="pin-eye" type="button" data-eye="pinNew" aria-label="显示口令">👁</button>
+            </div>
+            <div class="pin-strength" id="pinStrength" data-level="0">
+              <i></i><i></i><i></i>
+              <b>未输入</b>
+            </div>
+          </label>
+          <label class="field">
+            <span>确认新口令</span>
+            <div class="pin-input">
+              <input type="password" id="pinNew2" placeholder="再输入一次" autocomplete="new-password" />
+              <button class="pin-eye" type="button" data-eye="pinNew2" aria-label="显示口令">👁</button>
+            </div>
+          </label>
+          <div class="pin-feedback" id="pinFeed"></div>
+          <p class="muted small" id="pinMsg"></p>
+        </div>
+        <footer class="modal-foot">
+          <button class="ghost" id="pinCancel" type="button">取消</button>
+          <button class="primary" id="savePin" type="button">保存新口令</button>
+        </footer>
       </div>
     </div>
   </section>

@@ -394,6 +394,266 @@ button.block{ width:100%; margin-top:8px }
 .tm-an-note{ font-size:11.5px; color:var(--c-text-muted); margin-top:2px }
 @media (max-width:760px){ .tm-field{ flex-basis:100% } }
 
+/* ============== 教师工作台（重构版） ============== */
+.tw-bar{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:14px; flex-wrap:wrap;
+  background: var(--c-card);
+  border:1px solid var(--c-border);
+  border-radius: var(--r-lg);
+  padding: 14px 18px;
+  box-shadow: var(--shadow-sm);
+}
+.tw-bar-l{ display:flex; align-items:center; gap:12px; min-width:0 }
+.tw-logo{
+  flex:0 0 42px; width:42px; height:42px; border-radius:12px;
+  display:grid; place-items:center; font-size:20px;
+  background: var(--c-brand-soft, rgba(37,99,235,.10));
+  border:1px solid var(--c-border);
+}
+.tw-title h1{ margin:0; font-size:17px; border:0; padding:0 }
+.tw-title p{ margin:2px 0 0 }
+.tw-bar-r{ display:flex; align-items:center; gap:8px; flex-wrap:wrap }
+.tw-badge{
+  display:inline-flex; align-items:center; gap:6px;
+  font-size:12px; font-weight:600; color: var(--c-text-muted);
+  border:1px solid var(--c-border); border-radius:999px;
+  padding: 4px 10px; background: var(--c-bg-soft, rgba(127,127,127,.06));
+}
+.tw-badge .dot{ width:8px; height:8px; border-radius:50%; background:#22c55e }
+.ghost.sm, .primary.sm{ padding: 6px 12px; font-size:12.5px; border-radius:8px }
+
+.tw-tabs{
+  display:flex; gap:6px; flex-wrap:wrap;
+  margin: 16px 0 0;
+  border-bottom:1px solid var(--c-border);
+  padding-bottom: 0;
+}
+.tw-tab{
+  appearance:none; border:1px solid transparent; border-bottom:0;
+  background:transparent; cursor:pointer;
+  padding: 9px 16px; font-size:13.5px; font-weight:600;
+  color: var(--c-text-muted);
+  border-radius: 10px 10px 0 0;
+  transition: all .15s ease;
+}
+.tw-tab:hover{ color: var(--c-text); background: var(--c-bg-soft, rgba(127,127,127,.06)) }
+.tw-tab.active{
+  color: var(--c-brand, #2563eb);
+  background: var(--c-card);
+  border-color: var(--c-border);
+  box-shadow: inset 0 2px 0 0 var(--c-brand, #2563eb);
+  margin-bottom:-1px; padding-bottom:10px;
+}
+.tw-pane{ padding-top: 18px }
+.tw-pane .grid-2:first-child, .tw-pane .grid-3:first-child, .tw-pane > .panel:first-child{ margin-top:0 }
+
+/* 登录卡片优化 */
+.gate-brand{ text-align:center; margin-bottom: 6px }
+.gate-logo{ font-size:30px; display:block; margin-bottom:6px }
+.gate-brand h1{ text-align:center }
+.gate-tip{
+  margin-top:14px; padding:10px 12px;
+  font-size:12px; line-height:1.7; color: var(--c-text-muted);
+  background: var(--c-bg-soft, rgba(127,127,127,.06));
+  border-radius:8px; border:1px dashed var(--c-border);
+}
+
+/* 修改口令弹窗 */
+.modal{ position:fixed; inset:0; z-index:1200; display:none; align-items:center; justify-content:center; padding:20px }
+.modal.show{ display:flex }
+.modal-mask{ position:absolute; inset:0; background:rgba(15,23,42,.55); backdrop-filter: blur(2px) }
+.modal-card{
+  position:relative; z-index:1; width:min(420px, 100%);
+  background: var(--c-card); border:1px solid var(--c-border);
+  border-radius: var(--r-lg); box-shadow: var(--shadow-md);
+  overflow:hidden; animation: popin .18s ease;
+}
+@keyframes popin{ from{ opacity:0; transform: translateY(8px) scale(.98) } to{ opacity:1; transform:none } }
+.modal-head{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:14px 18px; border-bottom:1px solid var(--c-border);
+}
+.modal-head h2{ margin:0; font-size:15px; border:0; padding:0 }
+.modal-x{
+  appearance:none; border:0; background:transparent; cursor:pointer;
+  font-size:20px; line-height:1; color: var(--c-text-muted); padding:0 4px;
+}
+.modal-x:hover{ color: var(--c-text) }
+.modal-body{ padding:16px 18px 6px }
+.modal-foot{
+  display:flex; justify-content:flex-end; gap:10px;
+  padding:12px 18px; border-top:1px solid var(--c-border);
+  background: var(--c-bg-soft, rgba(127,127,127,.04));
+}
+@media (max-width:760px){
+  .tw-bar{ flex-direction:column; align-items:flex-start }
+  .tw-tabs{ width:100%; overflow-x:auto }
+  .tw-tab{ white-space:nowrap }
+}
+
+/* ==========================================================
+   v7 视觉统一层
+   目标：统一的信息层级 / 间距节奏 / 组件规格 / 导航路径 / 响应式
+   ========================================================== */
+:root{
+  /* 间距节奏（4 的倍数） */
+  --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px; --sp-5: 24px; --sp-6: 32px;
+  --gap-md: 18px;
+  /* 字号层级 */
+  --fs-xs: 12px; --fs-sm: 13px; --fs-md: 14px; --fs-lg: 16px; --fs-xl: 20px;
+}
+
+/* ---------- 1. 排版层级：H1 页面级 / H2 区块级 / 说明文字 ---------- */
+.panel h1{ font-size: var(--fs-lg); font-weight: 700; letter-spacing:.2px }
+.panel h2{ font-size: 15px; font-weight: 700 }
+.panel > p.muted, .tw-pane > .panel > p.muted{ margin-top: 2px; font-size: var(--fs-sm) }
+.panel-head{ align-items: flex-start }
+.panel-head > div > p.muted{ margin: 2px 0 0; font-size: var(--fs-sm) }
+small, .small{ font-size: var(--fs-xs) }
+
+/* ---------- 2. 卡片与统一间距 ---------- */
+.panel{ padding: 20px 22px; border-radius: var(--r-lg) }
+.grid, .grid-2, .grid-3{ gap: var(--gap-md) }
+.grid-2, .grid-3{ margin-top: var(--gap-md) }
+
+/* ---------- 3. 主操作区 / 次操作区语义化 ---------- */
+.zone-primary{
+  background: linear-gradient(180deg, rgba(23,105,209,.045), rgba(255,255,255,0));
+  border-color: rgba(23,105,209,.22);
+}
+.zone-primary > h1:first-child,
+.zone-primary > .panel-head:first-child h1{ color: var(--c-primary-dark) }
+.zone-secondary{ background: var(--c-card) }
+.actions > .primary, .actions > .ghost{ min-height: 34px }
+
+/* ---------- 4. 导航：分组 + 面包屑 ---------- */
+.tab-group{ display:flex; align-items:center; gap:4px }
+.tab-sep{
+  width:1px; height:20px; background: var(--c-border);
+  margin: 0 10px; align-self:center; flex:0 0 auto;
+}
+.tabs{ gap: 0 }
+.crumb{
+  display:flex; align-items:center; gap:8px; flex-wrap:wrap;
+  margin: 10px 0 16px; font-size: var(--fs-xs); color: var(--c-text-muted);
+}
+.crumb-home{ color: var(--c-text-muted) }
+.crumb i{ font-style: normal; color: var(--c-text-soft) }
+.crumb b{ color: var(--c-text); font-size: var(--fs-sm) }
+.crumb-desc{
+  margin-left: 6px; padding-left: 10px;
+  border-left: 1px solid var(--c-border); color: var(--c-text-soft);
+}
+
+/* ---------- 5. 头像 / 个人中心下拉菜单 ---------- */
+.acct{ position: relative }
+.acct-trigger{
+  display:flex; align-items:center; gap: var(--sp-2);
+  padding: 4px 10px 4px 4px;
+  border:1px solid var(--c-border); border-radius: var(--r-pill);
+  background: var(--c-card); cursor:pointer; transition: box-shadow .15s ease;
+}
+.acct-trigger:hover{ box-shadow: var(--shadow-md) }
+.avatar{
+  width:28px; height:28px; border-radius:50%;
+  display:grid; place-items:center;
+  background: linear-gradient(135deg, var(--c-primary), var(--c-accent));
+  color:#fff; font-size:12px; font-weight:700; flex:0 0 auto;
+}
+.avatar.lg{ width:40px; height:40px; font-size:15px }
+.acct-name{ font-size: var(--fs-sm); font-weight:600; color: var(--c-text) }
+.acct-caret{ font-size:10px; color: var(--c-text-muted) }
+.acct-menu{
+  position:absolute; right:0; top: calc(100% + 8px);
+  min-width: 268px; padding: 6px;
+  background: var(--c-card); border:1px solid var(--c-border);
+  border-radius: var(--r-md); box-shadow: var(--shadow-lg);
+  opacity:0; visibility:hidden; transform: translateY(-6px);
+  transition: opacity .16s ease, transform .16s ease, visibility .16s;
+  z-index: 900;
+}
+.acct-menu.show{ opacity:1; visibility:visible; transform:none }
+.acct-head{ display:flex; gap:10px; align-items:center; padding: 8px 10px 10px }
+.acct-id{ display:grid; gap:2px; min-width:0 }
+.acct-id b{ font-size: 13.5px }
+.acct-divider{ height:1px; background: var(--c-border-2); margin: 4px 0 }
+.acct-item{
+  display:flex; gap:10px; align-items:flex-start;
+  width:100%; text-align:left; border:0; background:transparent;
+  padding: 9px 10px; border-radius: 8px; cursor:pointer;
+  transition: background .12s ease;
+}
+.acct-item:hover{ background: var(--c-bg-2) }
+.acct-item .ai-ico{ font-size:15px; line-height:1.5 }
+.acct-item .ai-txt{ display:grid; font-size: 13.5px; color: var(--c-text) }
+.acct-item .ai-txt em{ font-style:normal; font-size:11.5px; color: var(--c-text-muted) }
+.acct-item.danger .ai-txt{ color: var(--c-bad) }
+
+/* ---------- 6. 修改口令弹窗：输入、强度、实时校验清单 ---------- */
+.pin-input{ position:relative }
+.pin-input input{ width:100%; padding-right: 42px }
+.pin-eye{
+  position:absolute; right:6px; top:50%; transform: translateY(-50%);
+  border:0; background:transparent; cursor:pointer;
+  font-size:14px; opacity:.55; padding:4px; line-height:1;
+}
+.pin-eye:hover, .pin-eye.on{ opacity:1 }
+.pin-strength{ display:flex; align-items:center; gap:6px; margin-top: 6px }
+.pin-strength i{ flex:1; height:4px; border-radius:2px; background: var(--c-border-2) }
+.pin-strength b{ font-size:11.5px; font-weight:600; color: var(--c-text-muted); white-space:nowrap }
+.pin-strength[data-level="1"] i:nth-child(-n+1){ background: var(--c-bad) }
+.pin-strength[data-level="2"] i:nth-child(-n+2){ background: var(--c-warn) }
+.pin-strength[data-level="3"] i{ background: var(--c-good) }
+.pin-feedback{ display:grid; grid-template-columns: 1fr 1fr; gap:6px; margin: 10px 0 4px }
+.pf-item{
+  font-size:11.5px; padding: 4px 8px; border-radius: 6px;
+  background: var(--c-bg-2); color: var(--c-text-muted);
+}
+.pf-item.pf-ok{ background: rgba(92,184,92,.12); color: #2f7a2f }
+.modal-body{ max-height: 62vh; overflow-y: auto }
+
+.flash-card{ animation: flashCard 1.6s ease }
+@keyframes flashCard{
+  0%,100%{ box-shadow: var(--shadow-sm) }
+  30%{ box-shadow: 0 0 0 3px rgba(23,105,209,.25) }
+}
+
+/* ---------- 7. 响应式适配 ---------- */
+@media (max-width: 1100px){
+  .grid-3{ grid-template-columns: 1fr 1fr }
+}
+@media (max-width: 920px){
+  .grid{ grid-template-columns: 1fr }
+  .grid-2{ grid-template-columns: 1fr }
+  .grid-3{ grid-template-columns: 1fr 1fr }
+  .wrap{ padding: 18px 18px 70px }
+}
+@media (max-width: 760px){
+  .topbar{ flex-direction:column; align-items:flex-start; gap:14px; padding:18px 16px }
+  .topbar-meta{ justify-content:flex-start }
+  .wrap{ padding: 14px 12px 60px }
+  .tabs{ overflow-x:auto; white-space:nowrap; -webkit-overflow-scrolling:touch }
+  .tab{ padding: 9px 12px; font-size: 13px }
+  .tab-sep{ display:none }
+  .tab-meta{ display:none }
+  .crumb{ margin-bottom: 12px }
+  .crumb-desc{ border-left:0; padding-left:0; margin-left:0; flex-basis:100% }
+  .panel{ padding: 16px }
+  .chart{ height: 280px }
+  .pin-feedback{ grid-template-columns: 1fr }
+  .acct-menu{ min-width: 240px }
+}
+@media (max-width: 520px){
+  .brand-mark{ display:none }
+  .topbar h1{ font-size: 19px }
+  .topbar .sub{ font-size: 12px }
+  .grid-3{ grid-template-columns: 1fr }
+  .chart{ height: 240px }
+  .acct-name{ display:none }
+  .acct-menu{ min-width: 220px; right:-4px }
+}
+
 /* ============== 教师闸门 ============== */
 .gate{
   max-width: 460px;

@@ -1395,23 +1395,31 @@ function renderChatLocal(){
    ========================================================== */
 
 function setupTeacher(){
-  // PIN 登录
+  // ---- PIN 登录 ----
   const gate = document.getElementById("teacherGate");
   const ws = document.getElementById("teacherWorkspace");
-  const rep = document.getElementById("teacherReport");
   const pin = document.getElementById("teacherPin");
   const login = document.getElementById("teacherLogin");
   const msg = document.getElementById("teacherLoginMsg");
-  if(sessionStorage.getItem("anatomyTeacherUnlocked")==="1"){
+
+  const showWorkspace = ()=>{
     gate.classList.add("hidden");
     ws.classList.remove("hidden");
-    rep.classList.remove("hidden");
-  }
+  };
+  const showGate = ()=>{
+    sessionStorage.removeItem("anatomyTeacherUnlocked");
+    ws.classList.add("hidden");
+    gate.classList.remove("hidden");
+    if(document.getElementById("teacherPin")) document.getElementById("teacherPin").value = "";
+    const m = document.getElementById("teacherLoginMsg");
+    if(m) m.innerHTML = "默认口令：<code>"+esc(getTeacherPin())+"</code>。解锁后，点击工作台右上角「🔑 修改口令」即可更改。";
+  };
+
+  if(sessionStorage.getItem("anatomyTeacherUnlocked")==="1") showWorkspace();
+
   const unlock = ()=>{
     if(pin.value===getTeacherPin()){
-      gate.classList.add("hidden");
-      ws.classList.remove("hidden");
-      rep.classList.remove("hidden");
+      showWorkspace();
       sessionStorage.setItem("anatomyTeacherUnlocked","1");
       msg.textContent = "教师端已解锁。";
       initTeacher();
@@ -1420,24 +1428,185 @@ function setupTeacher(){
   login.onclick = unlock;
   pin.onkeydown = e=>{ if(e.key==="Enter") unlock(); };
 
-  // 修改教师口令
+  // ---- 工作台二级分区切换 ----
+  const twTabs = document.getElementById("twTabs");
+  if(twTabs){
+    twTabs.addEventListener("click", e=>{
+      const b = e.target.closest(".tw-tab"); if(!b) return;
+      const key = b.dataset.tw;
+      twTabs.querySelectorAll(".tw-tab").forEach(x=>x.classList.toggle("active", x===b));
+      document.querySelectorAll(".tw-pane").forEach(p=>{
+        p.classList.toggle("hidden", p.dataset.pane !== key);
+      });
+    });
+  }
+
+  // ---- 头像 / 个人中心下拉菜单 ----
+  const acct = document.getElementById("acctMenu");
+  const acctTrig = document.getElementById("acctTrigger");
+  const acctDrop = document.getElementById("acctDropdown");
+  const setAcct = (open)=>{
+    if(!acctDrop) return;
+    acctDrop.classList.toggle("show", open);
+    acctDrop.setAttribute("aria-hidden", open ? "false" : "true");
+    if(acctTrig) acctTrig.setAttribute("aria-expanded", open ? "true" : "false");
+  };
+  if(acctTrig && acctDrop){
+    acctTrig.onclick = e=>{
+      e.stopPropagation();
+      setAcct(!acctDrop.classList.contains("show"));
+    };
+    acctDrop.addEventListener("click", e=>{
+      if(e.target.closest(".acct-item")) setAcct(false);
+    });
+    document.addEventListener("click", e=>{
+      if(acct && !acct.contains(e.target)) setAcct(false);
+    });
+    document.addEventListener("keydown", e=>{ if(e.key==="Escape") setAcct(false); });
+  }
+
+  // 账户与安全 → 跳到「系统与 AI」并高亮口令卡片
+  const btnSecurity = document.getElementById("btnSecurity");
+  if(btnSecurity){
+    btnSecurity.onclick = ()=>{
+      const tab = document.querySelector('.tw-tab[data-tw="config"]'); if(tab) tab.click();
+      setTimeout(()=>{
+        const card = document.getElementById("btnChangePin2");
+        const host = card && card.closest(".panel");
+        if(!host) return;
+        host.classList.add("flash-card");
+        setTimeout(()=>host.classList.remove("flash-card"), 1600);
+      }, 80);
+    };
+  }
+  const btnWorkspace = document.getElementById("btnWorkspace");
+  if(btnWorkspace){
+    btnWorkspace.onclick = ()=>{
+      const tab = document.querySelector('.tw-tab[data-tw="config"]'); if(tab) tab.click();
+    };
+  }
+
+  // ---- 修改口令弹窗 ----
+  const modal = document.getElementById("pinModal");
   const pinOld = document.getElementById("pinOld");
   const pinNew = document.getElementById("pinNew");
   const pinNew2 = document.getElementById("pinNew2");
   const savePin = document.getElementById("savePin");
   const pinMsg = document.getElementById("pinMsg");
+  // 口令强度评估：0=空 1=弱 2=中 3=强
+  const pinStrengthEl = document.getElementById("pinStrength");
+  const pinFeed = document.getElementById("pinFeed");
+  const strengthOf = v=>{
+    if(!v) return 0;
+    let s = 0;
+    if(v.length >= 4) s = 1;
+    if(v.length >= 6 && /[A-Za-z]/.test(v) && /[0-9]/.test(v)) s = 2;
+    if(v.length >= 8 && /[A-Za-z]/.test(v) && /[0-9]/.test(v)) s = 3;
+    return s;
+  };
+  const renderStrength = ()=>{
+    if(!pinStrengthEl) return;
+    const v = (pinNew.value||"");
+    const s = strengthOf(v);
+    pinStrengthEl.dataset.level = String(s);
+    const label = pinStrengthEl.querySelector("b");
+    if(label) label.textContent = ["未输入","弱 · 建议加长并混用字母与数字","中 · 已满足基本要求","强 · 安全性良好"][s];
+  };
+  const setPinMsg = (t, ok)=>{ if(!pinMsg) return; pinMsg.textContent = t; pinMsg.style.color = ok ? "#0f7b3f" : "#b3261e"; };
+  const setFeed = items=>{
+    if(!pinFeed) return;
+    pinFeed.innerHTML = items.map(it=>
+      `<span class="pf-item ${it.ok?"pf-ok":"pf-no"}">${it.ok?"✓":"✕"} ${it.t}</span>`
+    ).join("");
+  };
+  const ruleState = ()=>{
+    const o = (pinOld.value||""), nv = (pinNew.value||"").trim(), c = (pinNew2.value||"").trim();
+    return [
+      { ok: o === getTeacherPin(), t:"原口令正确" },
+      { ok: nv.length >= 4, t:"新口令至少 4 位" },
+      { ok: !!nv && nv !== o, t:"新口令与原口令不同" },
+      { ok: !!nv && nv === c, t:"两次输入一致" }
+    ];
+  };
+  const refreshRules = ()=>{ setFeed(ruleState()); renderStrength(); };
+  if(pinNew) pinNew.addEventListener("input", refreshRules);
+  if(pinNew2) pinNew2.addEventListener("input", refreshRules);
+  if(pinOld) pinOld.addEventListener("input", refreshRules);
+
+  // 显示 / 隐藏口令
+  document.querySelectorAll(".pin-eye").forEach(btn=>{
+    btn.onclick = ()=>{
+      const input = document.getElementById(btn.dataset.eye);
+      if(!input) return;
+      const show = input.type === "password";
+      input.type = show ? "text" : "password";
+      btn.classList.toggle("on", show);
+      btn.textContent = show ? "🙈" : "👁";
+    };
+  });
+
+  const openPin = ()=>{
+    if(!modal) return;
+    modal.classList.add("show");
+    setPinMsg("", true);
+    if(pinOld) pinOld.value=""; if(pinNew) pinNew.value=""; if(pinNew2) pinNew2.value="";
+    refreshRules();
+    setTimeout(()=>{ if(pinOld) pinOld.focus(); }, 50);
+  };
+  const closePin = ()=>{ if(modal) modal.classList.remove("show"); };
+  ["btnChangePin","btnChangePin2"].forEach(id=>{
+    const el = document.getElementById(id); if(el) el.onclick = openPin;
+  });
+  ["pinClose","pinCancel"].forEach(id=>{
+    const el = document.getElementById(id); if(el) el.onclick = closePin;
+  });
+  const mask = document.getElementById("pinMask"); if(mask) mask.onclick = closePin;
+  document.addEventListener("keydown", e=>{ if(e.key==="Escape") closePin(); });
+
   if(savePin){
-    savePin.onclick = ()=>{
-      const setMsg = (t, ok)=>{ pinMsg.textContent = t; pinMsg.style.color = ok ? "#0f7b3f" : "#b3261e"; };
-      if((pinOld.value||"") !== getTeacherPin()){ setMsg("原口令不正确，无法修改。", false); return; }
+    const doSave = ()=>{
+      const o = (pinOld.value||"");
       const nv = (pinNew.value||"").trim();
-      if(nv.length < 4){ setMsg("新口令至少 4 位。", false); return; }
-      if(nv !== (pinNew2.value||"").trim()){ setMsg("两次输入的新口令不一致。", false); return; }
+      const c  = (pinNew2.value||"").trim();
+      refreshRules();
+      if(o !== getTeacherPin()){ setPinMsg("✕ 原口令不正确，无法修改。", false); return; }
+      if(nv.length < 4){ setPinMsg("✕ 新口令至少 4 位。", false); return; }
+      if(nv === o){ setPinMsg("✕ 新口令不能与原口令相同。", false); return; }
+      if(nv !== c){ setPinMsg("✕ 两次输入的新口令不一致。", false); return; }
       try{ localStorage.setItem("hsm_teacher_pin_v1", nv); }catch(e){}
-      pinOld.value = ""; pinNew.value = ""; pinNew2.value = "";
-      setMsg("口令已更新，下次解锁请使用新口令（保存在本机浏览器）。", true);
+      try{ sessionStorage.removeItem("anatomyTeacherUnlocked"); }catch(e){}
+      const lv = strengthOf(nv);
+      setPinMsg("✓ 口令已更新（强度：" + ["","弱","中","强"][lv] + "）。正在返回登录页，请使用新口令解锁。", true);
+      setTimeout(()=>{ closePin(); showGate(); }, 1100);
+    };
+    savePin.onclick = doSave;
+    [pinOld, pinNew, pinNew2].forEach(el=>{
+      if(el) el.addEventListener("keydown", e=>{ if(e.key==="Enter") doSave(); });
+    });
+  }
+  // 恢复默认口令
+  const resetPin = document.getElementById("btnResetPin");
+  if(resetPin){
+    resetPin.onclick = ()=>{
+      try{ localStorage.removeItem("hsm_teacher_pin_v1"); }catch(e){}
+      const m = document.getElementById("pinMsg");
+      setPinMsg("已恢复默认口令 anatomy2026，正在返回登录页…", true);
+      try{ sessionStorage.removeItem("anatomyTeacherUnlocked"); }catch(e){}
+      setTimeout(()=>{ closePin(); showGate(); }, 900);
     };
   }
+  // 口令状态提示
+  const pinHint = document.getElementById("pinHint");
+  if(pinHint){
+    const custom = (()=>{ try{ return localStorage.getItem("hsm_teacher_pin_v1"); }catch(e){ return null; } })();
+    pinHint.innerHTML = custom
+      ? "当前：已设置<b>自定义口令</b>（存于本机浏览器）。忘记时可在登录页按提示恢复默认。"
+      : "当前：<b>默认口令 anatomy2026</b>，建议尽快修改。";
+  }
+
+  // ---- 锁定退出 ----
+  const lockBtn = document.getElementById("btnLockTeacher");
+  if(lockBtn) lockBtn.onclick = ()=>{ if(confirm("确定锁定教师端并返回登录页？")) showGate(); };
 
   // 大模型配置
   const cfg = loadState().llm||{};
@@ -1749,11 +1918,38 @@ ${PILOT_DATA.map(p=>`- ${p.cohort}：前测 ${p.pre} → 后测 ${p.post}（提�
    8. 路由 / Tab 切换 / 角色模式
    ========================================================== */
 
+/* 视图目录：所属分组 + 名称 + 一句话定位（供面包屑使用） */
+const VIEW_META = {
+  diagnosis:{ g:"学习主线", n:"学情诊断", d:"六维能力定位，形成本期学习基线" },
+  student:  { g:"学习主线", n:"运动系统", d:"骨学 / 关节学 / 肌学 / 动作分析四层深学" },
+  posture:  { g:"学习主线", n:"体态实训", d:"五维解码 + 脚手架递减式情景训练" },
+  dashboard:{ g:"学习主线", n:"能力档案", d:"L1—L6 统一画像与成长轨迹追踪" },
+  sandbox:  { g:"实训探索", n:"肌骨沙盘", d:"拖拽装配构件，训练 L2 空间定位与毗邻关系" },
+  team:     { g:"实训探索", n:"肌肉协作战队", d:"四类角色编组，训练 L3 机制与 L5 风险沟通" },
+  extra:    { g:"实训探索", n:"拓展学练", d:"跨系统巩固迁移" },
+  graph:    { g:"实训探索", n:"知识图谱", d:"知识点关联与薄弱环节追溯" },
+  assistant:{ g:"实训探索", n:"AI 伴学", d:"大模型解析、答疑与路径推荐" },
+  teacher:  { g:"教学管理", n:"教师端", d:"题库编辑、班级学情汇总与成效导出" }
+};
+
+function updateCrumb(viewKey){
+  const m = VIEW_META[viewKey];
+  if(!m) return;
+  const g = document.getElementById("crumbGroup");
+  const n = document.getElementById("crumbNow");
+  const d = document.getElementById("crumbDesc");
+  if(g) g.textContent = m.g;
+  if(n) n.textContent = m.n;
+  if(d) d.textContent = m.d;
+}
+
 function setupTabs(){
+  updateCrumb("diagnosis");
   document.querySelectorAll(".tab").forEach(t=>{
     t.onclick = ()=>{
       document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));
       t.classList.add("active");
+      updateCrumb(t.dataset.v);
       const v = t.dataset.v;
       const target = (v === "extra") ? "student" : v;
       document.querySelectorAll(".view").forEach(x=>x.classList.add("hidden"));
@@ -1819,6 +2015,7 @@ window.addEventListener("DOMContentLoaded", ()=>{
   initSandbox();
   initTeam();
   renderChatLocal();
+  setupTeacher();
   applyRoleMode();
 
   // resize 图表
