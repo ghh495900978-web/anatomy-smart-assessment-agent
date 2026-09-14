@@ -425,8 +425,12 @@ const DEFAULT_LLM = {
   model: ""
 };
 
-/* 教师 PIN */
-const TEACHER_PIN = "anatomy2026";
+/* 教师 PIN（默认口令；教师可在「教师端 → 修改教师口令」中自行更改，存于本机 localStorage） */
+const DEFAULT_TEACHER_PIN = "anatomy2026";
+function getTeacherPin(){
+  try{ return localStorage.getItem("hsm_teacher_pin_v1") || DEFAULT_TEACHER_PIN; }
+  catch(e){ return DEFAULT_TEACHER_PIN; }
+}
 
 /* ==========================================================
    2. 工具函数
@@ -1404,7 +1408,7 @@ function setupTeacher(){
     rep.classList.remove("hidden");
   }
   const unlock = ()=>{
-    if(pin.value===TEACHER_PIN){
+    if(pin.value===getTeacherPin()){
       gate.classList.add("hidden");
       ws.classList.remove("hidden");
       rep.classList.remove("hidden");
@@ -1415,6 +1419,25 @@ function setupTeacher(){
   };
   login.onclick = unlock;
   pin.onkeydown = e=>{ if(e.key==="Enter") unlock(); };
+
+  // 修改教师口令
+  const pinOld = document.getElementById("pinOld");
+  const pinNew = document.getElementById("pinNew");
+  const pinNew2 = document.getElementById("pinNew2");
+  const savePin = document.getElementById("savePin");
+  const pinMsg = document.getElementById("pinMsg");
+  if(savePin){
+    savePin.onclick = ()=>{
+      const setMsg = (t, ok)=>{ pinMsg.textContent = t; pinMsg.style.color = ok ? "#0f7b3f" : "#b3261e"; };
+      if((pinOld.value||"") !== getTeacherPin()){ setMsg("原口令不正确，无法修改。", false); return; }
+      const nv = (pinNew.value||"").trim();
+      if(nv.length < 4){ setMsg("新口令至少 4 位。", false); return; }
+      if(nv !== (pinNew2.value||"").trim()){ setMsg("两次输入的新口令不一致。", false); return; }
+      try{ localStorage.setItem("hsm_teacher_pin_v1", nv); }catch(e){}
+      pinOld.value = ""; pinNew.value = ""; pinNew2.value = "";
+      setMsg("口令已更新，下次解锁请使用新口令（保存在本机浏览器）。", true);
+    };
+  }
 
   // 大模型配置
   const cfg = loadState().llm||{};

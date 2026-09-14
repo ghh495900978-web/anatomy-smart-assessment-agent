@@ -171,6 +171,7 @@
         <div id="competency-checks" class="competency-checks">
           <button type="button" data-skill="structure">我能说明结构</button>
           <button type="button" data-skill="mechanism">我能推演机制</button>
+          <button type="button" data-skill="thinking">我能识别异常</button>
           <button type="button" data-skill="risk">我能完成风险沟通</button>
           <button type="button" data-skill="intervention">我能提出管理建议</button>
           <button type="button" data-skill="ethics">我能守住职业边界</button>
@@ -352,10 +353,28 @@
         <input type="password" id="teacherPin" placeholder="请输入口令" />
       </label>
       <button class="primary" id="teacherLogin">解锁教师端</button>
-      <p class="muted small" id="teacherLoginMsg">默认口令：<code>anatomy2026</code>（可在配置中修改）</p>
+      <p class="muted small" id="teacherLoginMsg">默认口令：<code>anatomy2026</code>（解锁后可在下方「🔑 修改教师口令」中更改）</p>
     </div>
 
     <div id="teacherWorkspace" class="hidden">
+      <div class="panel">
+        <h1>🔑 修改教师口令</h1>
+        <p class="muted small">新口令保存在本机浏览器（localStorage），修改后立即生效。若忘记口令，可在浏览器控制台执行 <code>localStorage.removeItem('hsm_teacher_pin_v1')</code> 即可恢复默认口令 <code>anatomy2026</code>。</p>
+        <label class="field">
+          <span>原口令</span>
+          <input type="password" id="pinOld" placeholder="请输入当前口令" />
+        </label>
+        <label class="field">
+          <span>新口令</span>
+          <input type="password" id="pinNew" placeholder="至少 4 位" />
+        </label>
+        <label class="field">
+          <span>确认新口令</span>
+          <input type="password" id="pinNew2" placeholder="再输入一次" />
+        </label>
+        <button class="primary" id="savePin">保存新口令</button>
+        <p class="muted small" id="pinMsg"></p>
+      </div>
       <div class="grid-2">
         <div class="panel">
           <h1>题库编辑</h1>
